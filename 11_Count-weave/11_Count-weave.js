@@ -54,12 +54,12 @@ function draw(){
         }
          pop();
     for (i=0;i<hourFive;i++)//hour Five
-        line( 2*g,3*g+i*g, 8*g,3*g+i*g);
+        line(2*g,3*g+i*g, 8*g,3*g+i*g);
         push();
         if (secondDigit%2!==0&&hourDigit===5&&minute()===0) {//hour Five blinking
             stroke(235);
             i=i-1;
-            line(3 * g + i * g, 2 * g, 3 * g + i * g, 8 * g);
+            line(2*g,3*g+i*g, 8*g,3*g+i*g);
         }
         pop();
     pop();
@@ -76,7 +76,7 @@ function draw(){
 
     push();
     noStroke();
-    if (minute()>10) {
+    if (minute()>=10) {
         for (i = 0; i < minuteTen; i++)//minute ten rectangle
             rect(3 * g + i * g - 10, g, 20, 20);
         push();
@@ -86,7 +86,7 @@ function draw(){
             rect(3 * g + i * g - 10, g, 20, 20);
         pop();
     }
-    if (hour()>10) {
+    if (hour()>=10) {
         for (i = 0; i < hourTen; i++)//hour ten rectangle
             rect(g, 3 * g + i * g - 10, 20, 20);
         push();
