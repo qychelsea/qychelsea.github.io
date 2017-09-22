@@ -1,37 +1,49 @@
-var hourTen, hourDigit,minuteTen, minuteDigit,secondTen,secondDigit;
+var hourNum, minuteTen, minuteDigit;
+var imgH = [], imgMT =[],imgM = [];
+var imgCan,imgAPM;
+
+function preload(){
+    imgCan = loadImage('img/canvas.png');
+    //imgAPM = loadImage('img/apm.png');
+
+    for (var i=1;i<=12;i++)
+        imgH [i] = loadImage('img/h' + i + '.png');
+    for (i=1;i<=5;i++)
+        imgMT [i] = loadImage('img/mt'+i +'.png');
+    for (i=1;i<=9;i++)
+        imgM [i] = loadImage('img/m'+i +'.png');
+    }
 
 function setup() {
-    createCanvas(640, 550);
+    createCanvas(700, 700);
+    background(235);
+
 }
 
-function draw(){
+function draw() {
+
     background(235);
-    fill(100);
-    textSize(30);
-    textAlign(CENTER);
-    text("- .... . / - .. -- . / -. --- .-- / .. ... ---...",width/2,100);
-    hourTen = Math.floor(hour()/10);
-    minuteTen = Math.floor(minute()/10);
-    secondTen = Math.floor(second()/10);
-    hourDigit = hour()%10;
-    minuteDigit = minute()%10;
-    secondDigit = second()%10;
+    image(imgCan,0,0, imgCan.width, imgCan.height);
+    hourNum = hour();
+    minuteTen = Math.floor(minute() / 10);
+    minuteDigit = minute() % 10;
 
-    console.log(secondTen,secondDigit);
+    if (hour()>12){
+        hourNum = hourNum -12;
+        //image(imgAPM,0,0,imgAPM.width, imgAPM.height);
 
-    var codeMorse = ["-----", ".----", "..---","...--","....-",".....","-....","--...","---..","----."];
+    }
+    textSize(60);
+    fill(0);
+    if (hour()>=12){
 
-    fill(75);
-    textSize(100);
-    textStyle(BOLD);
-    text(codeMorse[hourTen],300,200);
-    text(codeMorse[hourDigit],300,250);
-    textStyle(NORMAL);
-    text(codeMorse[minuteTen],300,300);
-    text(codeMorse[minuteDigit],300,350);
-    fill(150);
-    text(codeMorse[secondTen],300,400);
-    text(codeMorse[secondDigit],300,450);
+        text("PM",575,450);
+    }else{
+        text("AM",575,450);
+    }
 
+    image(imgH[hourNum], 0,0, imgH.width, imgH.height);
+    image(imgMT[minuteTen], 0,0, imgMT.width, imgMT.height);
+    image(imgM[minuteDigit], 0,0, imgM.width, imgM.height);
 }
 
