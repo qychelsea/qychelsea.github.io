@@ -51,7 +51,7 @@ function draw(){
     }else{
         stroke(43,189,237);
     }
-    strokeWeight(12);
+    strokeWeight(6);
     line(cx, cy, cx + cos(h) * radius, cy + sin(h) * radius);
 
 }

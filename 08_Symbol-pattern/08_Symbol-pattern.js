@@ -17,7 +17,6 @@ function preload(){
 function setup() {
     createCanvas(700, 700);
     background(235);
-
 }
 
 function draw() {
@@ -31,19 +30,19 @@ function draw() {
     if (hour()>12){
         hourNum = hourNum -12;
         //image(imgAPM,0,0,imgAPM.width, imgAPM.height);
-
     }
     textSize(60);
     fill(0);
     if (hour()>=12){
-
         text("PM",575,450);
     }else{
         text("AM",575,450);
     }
-
-    image(imgH[hourNum], 0,0, imgH.width, imgH.height);
-    image(imgMT[minuteTen], 0,0, imgMT.width, imgMT.height);
-    image(imgM[minuteDigit], 0,0, imgM.width, imgM.height);
+    if (hour()>0)
+        image(imgH[hourNum], 0,0, imgH.width, imgH.height);
+    if (minuteTen>0)
+        image(imgMT[minuteTen], 0,0, imgMT.width, imgMT.height);
+    if (minuteDigit>0)
+        image(imgM[minuteDigit], 0,0, imgM.width, imgM.height);
 }
 

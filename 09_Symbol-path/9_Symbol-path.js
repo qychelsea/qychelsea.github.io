@@ -13,7 +13,6 @@ function setup() {
 
 function draw(){
     //dots on clock face
-    var s = map(second(), 0, 60, 0, TWO_PI) - HALF_PI;
     var m = map(minute() + norm(second(), 0, 60), 0, 60, 0, TWO_PI) - HALF_PI;
     var h = map(hour() + norm(minute(), 0, 60), 0, 24, 0, TWO_PI * 2) - HALF_PI;
 
