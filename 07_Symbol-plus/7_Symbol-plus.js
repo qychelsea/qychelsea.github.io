@@ -8,15 +8,14 @@ function setup() {
 
 function draw() {
     background(235);
-    noFill();
     stroke(150);
 
     var row1 = border + height / 3;
     var row2 = border + 2 * height / 3;
-    var row3 = height - border;
+    var row3 = height - border+25;
     var col1 = border;
-    var col2 = border + width / 3;
-    var col3 = border + 2 * width / 3;
+    var col2 = col1 + width / 3-15;
+    var col3 = col2+200;
 
     for (k = 0; k <= width; k += (width - 2 * border) / 6) {
         line(border + k, border, border + k, height - border);
@@ -31,7 +30,7 @@ function draw() {
     minuteDigit = minute() % 10;
     secondDigit = second() % 10;
 
-
+    fill(25);
     textSize(350);
     //hour
     var h = hour();
@@ -39,7 +38,6 @@ function draw() {
         h = h - 12;
     }
     if (h >= 5 && h <= 12) {//hour9
-        fill(255, 0, 0);
         text("+", col1, row1);
     }
     if (h === 2 || h === 3 || h === 4 || h === 11 || h === 12) {//hour3
@@ -70,7 +68,6 @@ function draw() {
     }
 //minuteDigit
     if (minuteDigit >= 5) {//second
-        fill(255, 0, 0);
         text("+", col1, row3);
     }
     if (minuteDigit === 2 || minuteDigit === 3 || minuteDigit === 4) {//second 3

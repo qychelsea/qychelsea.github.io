@@ -29,14 +29,18 @@ function draw(){
     var secondCenterX = minuteCenterX + cos(s) * secondRadius;
     var secondCenterY = minuteCenterY + sin(s) * secondRadius;
 
-    stroke(0);
-    strokeWeight(1);
-    noFill();
+    noStroke();
+    fill(190);
+    rect(0,0,width,height);
+    stroke(50);
+    strokeWeight(2);
+    fill(255);
     ellipse(cx,cy,width/1.2,width/1.2);
 
     // hour hand
+    stroke(50);
     strokeWeight(2);
-    fill(255);
+    fill(125);
     ellipse(hourCenterX, hourCenterY, 350);
 
     //minute hand
@@ -45,7 +49,7 @@ function draw(){
 
     //second hand
     noStroke();
-    fill(29,216,216);
+    fill(144,180,235);
     ellipse(secondCenterX, secondCenterY, 20);
 }
 
