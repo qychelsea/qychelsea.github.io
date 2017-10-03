@@ -1,39 +1,25 @@
-// Sketch for using the darksky API
-// https://darksky.net/dev/docs
-// This sketch requires you to start a local server or run it on a server
-// See more about how to do that here:
-// https://github.com/processing/p5.js/wiki/Local-server
-
 var queryResult;
-
+var yoff = 0.0;
+var button = 1;
 function setup() {
-    createCanvas(320, 568);
-    background(0);
+    createCanvas(640, 1136);
+    background(190);
     query();
 }
 
-// Run the API call
 function query() {
-
-    // URL for querying
     var url= 'https://api.darksky.net/forecast/436fdc35bab87ffdf2f6cf130fc5ddc5/42.361936, -71.097309';
-
-    // Query the URL, set a callback
-    // 'jsonp' is needed for security
+//e1da4ae08ea5f7bb0c60853d974b98b0
     loadJSON(url, gotData, 'jsonp');
 }
 
-// Request is completed
+
 function gotData(data) {
-    // console.log(data);
+    console.log(data);
     queryResult = data;
 
-    // only look at current results:
     var currentWeather = queryResult.currently;
 
-
-
-    // a few variables for text formatting
     var xPos = 20;
     var yPos = 40;
     var yGap = 60;
@@ -59,27 +45,77 @@ function gotData(data) {
     text(currentWeather.summary,20, yPos);
     yPos+=yGap;
 
-    textSize(textSizeSmall);
-    text("Temperature",20, yPos);
-    yPos+=textSizeLarge;
-    textSize(textSizeLarge);
-    text(currentWeather.temperature + "º",20, yPos);
-    yPos+=yGap;
+    drawCurrent();
+}
+function drawCurrent(){
 
-    textSize(textSizeSmall);
-    text("Precipitation",20, yPos);
-    yPos+=textSizeLarge;
-    textSize(textSizeLarge);
-    text(currentWeather.precipIntensity + "%",20, yPos);
-    yPos+=yGap;
+    var c1,c2,cr,cg,cb;//c1 cloud cover; c2 temperature
 
-    textSize(textSizeSmall);
-    text("Humidity",20, yPos);
-    yPos+=textSizeLarge;
-    textSize(textSizeLarge);
-    text(currentWeather.humidity + "%",20, yPos);
-    yPos+=yGap;
+    var currentWeather = queryResult.currently;
+    c1 = 255-Math.round(map(currentWeather.cloudCover,0,1,0,255));
+    c1 = color(c1,c1,c1);
 
+    c2 = currentWeather.temperature;
+    //c2 = map (c2,0,110,0,1);
+    if (c2<66){cr=0;}
+    if (c2>=66&&c2<=80){cr=138;}
+    if (c2>80){cr=255;}
+
+    if (c2<40){cg=0;}
+    if (c2>=40&&c2<=54){cg=138;}
+    if (c2>54){cg=255;}
+
+    if (c2<58){cb=0;}
+    if (c2>=58&&c2<=66){cb=138;}
+    if (c2>66){cb=255;}
+
+    c2 = color(cr,cg,cb);
+
+    console.log(c1);
+    console.log(c2);
+
+    setGradient(c1, c2);
+
+    setNoise();
+
+}
+function setGradient(c1, c2) {
+    noFill();
+    for (var i = 0; i <= height; i++) {
+        var inter = map(i,0,height,0,1);
+        var c = lerpColor(c1, c2, inter);
+        stroke(c);
+        line(0, i, 0 + width, i);
+    }
+}
+function mousePressed(){
+    button = 0;
+}
+function setNoise(){
+    var currentWeather = queryResult.currently;
+    background(51);
+    fill(255);
+    // We are going to draw a polygon out of the wave points
+
+    beginShape();
+    var xoff = 0;
+
+    // Iterate over horizontal pixels
+    for (var x = 0; x <= width; x += 10) {
+        // Calculate a y value according to noise, map to
+
+        var y = map(noise(xoff, yoff), 0, 1, 200,300);
+
+        // Set the vertex
+        vertex(x, y);
+        // Increment x dimension for noise
+        xoff += 0.05;
+    }
+    // increment y dimension for noise
+    yoff += 0.01;
+    vertex(width, height);
+    vertex(0, height);
+    endShape(CLOSE);
 
 
 }

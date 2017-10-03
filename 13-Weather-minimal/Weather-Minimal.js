@@ -3,12 +3,12 @@
 // This sketch requires you to start a local server or run it on a server
 // See more about how to do that here:
 // https://github.com/processing/p5.js/wiki/Local-server
-
 var queryResult;
 var img = [];
-var textSizeLarge = 95;
+var textSizeLarge = 90;
 var textSizeSmall = 30;
-var textColour = 95, lineColour = 190, backgroundColour = 250;
+var textSizeNote = textSizeLarge/3;
+var textColour = 95, lineColour = 190, backgroundColour = 255;
 var gap = 20;
 var rectLength;
 
@@ -20,9 +20,8 @@ function setup() {
 }
 
 function query() {
-    var url = 'https://api.darksky.net/forecast/436fdc35bab87ffdf2f6cf130fc5ddc5/42.361936, -71.097309';
+    var url = 'https://api.darksky.net/forecast/e1da4ae08ea5f7bb0c60853d974b98b0/42.361936, -71.097309';
     loadJSON(url, gotData, 'jsonp');
-    //e1da4ae08ea5f7bb0c60853d974b98b0
 }
 function preload(){
     img['rain'] = loadImage('images/rain.png');
@@ -39,9 +38,6 @@ function preload(){
     img['tornado'] = loadImage('images/tornado.png');
     img['wind'] = loadImage('images/wind.png');
 
- /*   for (var i=0;i<=12;i++){
-        img [i] = loadImage('images/'+ i + '.png');
-    }*/
 }
 
 function gotData(data) {
@@ -62,18 +58,6 @@ function gotData(data) {
     drawCurrently();
 }
 
-function mousePressed() {
-    drawHourly();
-}
-/*
-function mousePressed(){
-    drawDaily();
-}
-
-function mousePressed() {
-    drawCurrently();
-}*/
-
 function clearBottom() {
     fill(backgroundColour);
     noStroke();
@@ -85,6 +69,7 @@ function clearBottom() {
 
     fill(245);
     noStroke();
+
     for (var i = 0; i<=2; i++){
         rect((i+1)*gap+i*rectLength,485,rectLength,70);
     }
@@ -96,14 +81,30 @@ function clearBottom() {
     text("currently",gap+rectLength/2,525);
     text("hourly",gap*2+rectLength*1.5,525);
     text("daily",gap*3+rectLength*2.5,525);
+
 }
+function mousePressed(){
+    if (mouseX>gap&&mouseX<rectLength+gap&&mouseY>485&&mouseY<485+70){
+        drawCurrently();}
+    if (mouseX>gap*2+rectLength&&mouseX<2*(rectLength+gap)&&mouseY>485&&mouseY<485+70){
+        drawHourly();}
+    if (mouseX>gap*3+2*rectLength&&mouseX<3*(rectLength+gap)&&mouseY>485&&mouseY<485+70){
+        drawDaily();}
+//    if (mouseX>gap&&mouseX<)
+}
+
 function drawCurrently(){
     clearBottom();
     var currentWeather = queryResult.currently;
     var xPos = 20;
     var yPos = 670;
-    var yGap = 150;
+    var yGap = 125;
+    var yNotePos = yPos - 35;
 
+    fill(245);
+    for (var i=0;i<=3;i++){
+        rect(gap,585+i*125,width-2*gap, 100);
+    }
     fill(textColour);
     textSize(textSizeSmall);
     textStyle(NORMAL);
@@ -112,21 +113,43 @@ function drawCurrently(){
     textAlign(LEFT);
     textSize(textSizeLarge);
     textStyle(BOLD);
-    text(Math.round(currentWeather.temperature) + "ºF", 30, yPos);
+    text(Math.round(currentWeather.temperature), 30, yPos);
+    textSize(textSizeNote);
+    text("ºF",width/3.5,yNotePos);
+    text("Temperature",width/3.5,yNotePos+35);
     yPos += yGap;
+    yNotePos = yPos -35;
 
-    text(Math.round(currentWeather.precipProbability)*100 + "%", 30, yPos);
+    textSize(textSizeLarge);
+    text(currentWeather.precipProbability*100, 30, yPos);
+    textSize(textSizeNote);
+    text("%",width/3.5,yNotePos);
+    text("Chance of Rain", width/3.5, yNotePos+35);
     yPos += yGap;
+    yNotePos = yPos -35;
 
-    text(Math.round(currentWeather.windSpeed) + "mph", 30, yPos);
+    textSize(textSizeLarge);
+    text(Math.round(currentWeather.windSpeed), 30, yPos);
+    textSize(textSizeNote);
+    text("mph",width/3.5,yNotePos);
+    text("Wind Speed", width/3.5,yNotePos+35);
     yPos += yGap;
+    yNotePos = yPos -35;
+
+    textSize(textSizeLarge);
+    text(currentWeather.humidity*100, 30, yPos);
+    textSize(textSizeNote);
+    text("%",width/3.5,yNotePos);
+    text("Humidity", width/3.5,yNotePos+35);
+    yPos += yGap;
+    yNotePos = yPos -35;
 }
 
 function drawDaily() {
     clearBottom();
     var dailyWeather = queryResult.daily.data;
     console.log(dailyWeather);
-    var yPos = 670;
+    var yPos = 650;
     var yGap = 70;
 
     fill(textColour);
@@ -158,7 +181,7 @@ function drawHourly(){
     clearBottom();
     var hourlyWeather = queryResult.hourly.data;
     console.log(hourlyWeather);
-    var yPos = 670;
+    var yPos = 650;
     var yGap = 70;
     var h = hour();
     var hTrack = hour();
