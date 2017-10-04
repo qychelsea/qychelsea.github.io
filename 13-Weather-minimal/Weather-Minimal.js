@@ -63,16 +63,15 @@ function clearBottom() {
     noStroke();
     rect(0, 470, width, height - 470);
 
-    stroke(lineColour);
+   /* stroke(lineColour);
     line(gap, 475, width - gap, 475);
-    line(gap, 565, width - gap, 565);
+    line(gap, 565, width - gap, 565);*/
 
     fill(245);
     noStroke();
-
-    for (var i = 0; i<=2; i++){
-        rect((i+1)*gap+i*rectLength,485,rectLength,70);
-    }
+/*    for (var i = 0; i<=2; i++){
+        rect((i+1)*gap+i*rectLength,540,rectLength,8);
+    }*/
 
     fill(190);
     textSize(textSizeSmall);
@@ -101,10 +100,9 @@ function drawCurrently(){
     var yGap = 125;
     var yNotePos = yPos - 35;
 
-    fill(245);
-    for (var i=0;i<=3;i++){
-        rect(gap,585+i*125,width-2*gap, 100);
-    }
+    fill (83,120,158);
+    rect(gap,540,rectLength,4);
+
     fill(textColour);
     textSize(textSizeSmall);
     textStyle(NORMAL);
@@ -152,6 +150,9 @@ function drawDaily() {
     var yPos = 650;
     var yGap = 70;
 
+    fill (83,120,158);
+    rect(3*gap+2*rectLength,540,rectLength,4);
+
     fill(textColour);
     textSize(textSizeSmall);
     textStyle(NORMAL);
@@ -186,6 +187,9 @@ function drawHourly(){
     var h = hour();
     var hTrack = hour();
     var apm = "am";
+
+    fill (83,120,158);
+    rect(2*gap+rectLength,540,rectLength,4);
 
     fill(textColour);
     textSize(textSizeSmall);

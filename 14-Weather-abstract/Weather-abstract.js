@@ -73,7 +73,7 @@ function drawCurrent(){
     var c1,c2;//c1 cloud cover; c2 temperature
 
     //var currentWeather = queryResult.currently;
-    c1 = 255-Math.round(map(currentWeather.cloudCover,0,1,0,255));
+    c1 = 255-Math.round(map(currentWeather.cloudCover,0,1,0,235));
     c1 = color(c1,c1,c1);
 
    c2 = currentWeather.temperature;
@@ -88,7 +88,7 @@ function drawHour(){
     var cNew =[];
     var c1 = [],c2 = [],i,cr,cg,cb;//c1 cloud cover; c2 temperature
     for (i=1;i<=48; i++){
-        c1[i] = 255-Math.round(map(hourlyWeather[i].cloudCover,0,1,0,255));
+        c1[i] = 255-Math.round(map(hourlyWeather[i].cloudCover,0,1,0,235));
         c1[i] = color(c1[i],c1[i],c1[i]);
     }
 
@@ -250,7 +250,7 @@ function setNoise(){
                 vertex(x,y+ i*height/7-200); // Set the vertex
                 xoff += .99;  // Increment x dimension for noise
             }
-            yoff += 0.1;  // increment y dimension for noise
+            //yoff += 0.1;  // increment y dimension for noise
             endShape();
         }
     }
