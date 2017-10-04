@@ -53,7 +53,7 @@ function drawHome(){
     yPos+=yGap;
     text("Hourly",xPos, yPos);
     yPos+=yGap;
-    text("Daily",xPos, yPos);
+    text("Daily (in progress)",xPos, yPos);
 }
 function mousePressed(){
     if (screenNum===0){
@@ -85,7 +85,7 @@ function drawCurrent(){
 
 function drawHour(){
     screenNum = 2;
-
+    var cNew =[];
     var c1 = [],c2 = [],i,cr,cg,cb;//c1 cloud cover; c2 temperature
     for (i=1;i<=48; i++){
         c1[i] = 255-Math.round(map(hourlyWeather[i].cloudCover,0,1,0,255));
@@ -94,8 +94,9 @@ function drawHour(){
 
     for (i=1;i<=48; i++){
         c2 [i] = Math.round(hourlyWeather[i].temperature);
+        cNew [i]= c2RGB(c2[i]);
     }
-    var cNew = c2RGB(c2);
+
     setGradient(c1,cNew);
     backLevel();
     setNoise();
@@ -103,14 +104,32 @@ function drawHour(){
 
 function drawDay(){
     screenNum = 3;
+    var cNew =[];
+    var c1 = [],c2 = [],i,cr,cg,cb;//c1 cloud cover; c2 temperature
+    for (i=1;i<=7; i++){
+        c1[i] = 255-Math.round(map(dailyWeather[i].cloudCover,0,1,0,255));
+        c1[i] = color(c1[i],c1[i],c1[i]);
+    }
 
+    for (i=1;i<=7; i++){
+        var high = dailyWeather[i].temperatureHigh;
+        var low = dailyWeather[i].temperatureLow;
+
+        c2[i] = Math.round((high+low)/2);
+        cNew[i]= c2RGB(c2[i]);
+        console.log("cNew[",i,"]=",cNew[i]);
+    }
+
+    setGradient(c1,cNew);
+    backLevel();
+    setNoise();
 }
 
 function setGradient(c1, c2) {
     noFill();
     var inter;
-    var c,i;
-    var xPos=0;
+    var c, i;
+    var xPos = 0;
 
     if (screenNum === 1) {
         for (i = 0; i <= height; i++) {
@@ -121,57 +140,42 @@ function setGradient(c1, c2) {
         }
     }
     if (screenNum === 2) {
-        for (var h=1;h<=48;h++){
-            for (i = 0; i <= height; i++){
+        for (var h = 1; h <= 48; h++) {
+            for (i = 0; i <= height; i++) {
                 inter = map(i, 0, height, 0, 1);
                 c = lerpColor(c1[h], c2[h], inter);
                 stroke(c);
-                line(xPos, i, width*(h)/48, i);
+                line(xPos, i, width * (h) / 48, i);
             }
-            xPos = width*(h)/48;
+            xPos = width * (h) / 48;
         }
-
+    }
+    if (screenNum === 3) {
+        for (var d = 1; d <= 7; d++) {
+            for (i = 0; i <= width; i++) {
+                inter = map(i, 0, width, 0, 1);
+                c = lerpColor(c1[d], c2[d], inter);
+                stroke(c);
+                line(i,xPos, i, height * (d) / 7);
+            }
+            xPos = height * (d) / 7;
+        }
     }
 }
 
 function c2RGB(c2){
     var cr,cg,cb;
     var c2Mapped;
-    if (screenNum ===1){
-        c2Mapped = map(c2,18,90,0,1);
-        if (c2Mapped>=0.75){cr=255;Math.round(cg =-764*c2Mapped+64); cb=0;}
-        if (c2Mapped>=0.5&&c2Mapped<0.75){cr = Math.round(764*c2Mapped-382); cg = 255; cb = 0;}
-        if (c2Mapped>=0.25&&c2Mapped<0.5){cr = 0;cg = 255; cb = Math.round(-764*c2Mapped+446);}
-        if (c2Mapped<0.25){cr = 0;cg = Math.round(764*c2Mapped); cb = 255;}
+    //if (screenNum ===2||screenNum === 1){
+    c2Mapped = map(c2,18,90,0,1);
+    if (c2Mapped>=0.75){cr=255;Math.round(cg =-1020*c2Mapped+1020); cb=0;}
+    if (c2Mapped>=0.5&&c2Mapped<0.75){cr = Math.round(764*c2Mapped-382); cg = 255; cb = 0;}
+    if (c2Mapped>=0.25&&c2Mapped<0.5){cr = 0;cg = 255; cb = Math.round(-764*c2Mapped+446);}
+    if (c2Mapped<0.25){cr = 0;cg = Math.round(764*c2Mapped); cb = 255;}
 
-        c2 = color(cr,cg,cb);
-        return c2;}
-
-    if (screenNum===2){
-        for (var i = 1;i<=48;i++){
-           // console.log("c2=",c2[i]);
-            c2Mapped = map(c2[i],18,90,0,1);
-            if (c2Mapped[i]>=0.75){cr=255;cg =Math.round(-764*c2Mapped[i]+64); cb=0;}
-            if (c2Mapped[i]>=0.5&&c2Mapped[i]<0.75){cr = Math.round(764*c2Mapped[i]-382); cg = 255; cb = 0;}
-            if (c2Mapped[i]>=0.25&&c2Mapped[i]<0.5){cr = 0;cg = 255; cb = Math.round(-764*c2Mapped[i]+446);}
-            if (c2Mapped[i]<0.25){cr = 0;cg = Math.round(764*c2Mapped[i]); cb = 255;}
-            c2[i]= color(cr,cg,cb);
-            console.log(c2[i]);
-        }
-        return c2;
-    }
+    c2 = color(cr,cg,cb);
+    return c2;
 }
-/*if (c2[i]<66){cr=0;}
-if (c2[i]>=66&&c2[i]<=80){cr=138;}
-if (c2[i]>80){cr=255;}
-
-if (c2[i]<40){cg=0;}
-if (c2[i]>=40&&c2[i]<=54){cg=138;}
-if (c2[i]>54){cg=255;}
-
-if (c2[i]<58){cb=0;}
-if (c2[i]>=58&&c2[i]<=66){cb=138;}
-if (c2[i]>66){cb=255;}*/
 
 function setNoise(){
     var precipProb,humidity;
@@ -184,7 +188,7 @@ function setNoise(){
         humidity = currentWeather.humidity;
         pPos = map(precipProb,0,1,0,height);
         hPos = map(humidity,0,1,height,200);
-        strokeWeight(6);
+        strokeWeight(8);
         stroke(255);
         beginShape();// We are going to draw a polygon out of the wave points
 
@@ -208,8 +212,6 @@ function setNoise(){
         var strokeNum = 255;
         var trans = 255;
 
-
-
         for (i=1;i<=48;i+=3){
             beginShape();// We are going to draw a polygon out of the wave points
             strokeWeight(3);
@@ -224,12 +226,34 @@ function setNoise(){
             }
             yoff += 0.1;  // increment y dimension for noise
             endShape();
-
-
         }
+    }
+    if (screenNum===3){
+        dailyWeather = queryResult.daily.data;
+        var precipProbs3 = [], humidities3 = [];
+        for (i=1;i<=7;i++){
+            precipProbs3[i] = dailyWeather[i].precipProbability;
+            humidities3[i] = dailyWeather[i].humidity;
+        }
+        strokeNum = 255;
+        trans = 255;
 
-        console.log(precipProbs,humidities);}
-
+        for (i=1;i<=7;i++){
+            beginShape();// We are going to draw a polygon out of the wave points
+            strokeWeight(3);
+            stroke(strokeNum,strokeNum,strokeNum,trans);
+            trans = trans * 0.6;
+            pPos = map(precipProbs3[i],0,1,0,height);
+            hPos = map(humidities3[i],0,1,height,0);
+            for (x = 0; x <= width; x += 10) {  // Iterate over horizontal pixels
+                y = map(noise(xoff, hPos), 0, 1, 80,height/6);// Calculate a y value according to noise, map to
+                vertex(x,y+ i*height/7-200); // Set the vertex
+                xoff += .99;  // Increment x dimension for noise
+            }
+            yoff += 0.1;  // increment y dimension for noise
+            endShape();
+        }
+    }
 }
 
 function backLevel() {
