@@ -129,8 +129,15 @@ function drawCurrently(){
     textSize(textSizeLarge);
     text(Math.round(currentWeather.windSpeed), 30, yPos);
     textSize(textSizeNote);
+    var num = currentWeather.windBearing;
+    var val=int((num/22.5)+.5);
+    var arr=["N","NNE","NE","ENE","E","ESE", "SE", "SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"];
+
     text("mph",width/3.5,yNotePos);
+    text(arr[(val % 16)], width/2.5, yNotePos);
     text("Wind Speed", width/3.5,yNotePos+35);
+
+
     yPos += yGap;
     yNotePos = yPos -35;
 
@@ -146,9 +153,19 @@ function drawCurrently(){
 function drawDaily() {
     clearBottom();
     var dailyWeather = queryResult.daily.data;
-    console.log(dailyWeather);
     var yPos = 650;
     var yGap = 70;
+    var d = new Date();
+    var weekday = new Array();
+    weekday[0] = "Sunday";
+    weekday[1] = "Monday";
+    weekday[2] = "Tuesday";
+    weekday[3] = "Wednesday";
+    weekday[4] = "Thursday";
+    weekday[5] = "Friday";
+    weekday[6] = "Saturday";
+
+    var n = weekday[d.getUTCDay()];
 
     fill (83,120,158);
     rect(3*gap+2*rectLength,540,rectLength,4);
@@ -159,14 +176,21 @@ function drawDaily() {
 
     text("daily",gap*3+rectLength*2.5,525);
 
+
+
     for (var i = 1; i <= 7; i++) {
         textAlign(LEFT);
         textSize(textSizeSmall);
         textStyle(BOLD);
         fill(textColour);
 
-        text("day  " + i, 30, yPos);
-        image(img[dailyWeather[i].icon], width / 2, yPos - 10, 50, 37);
+        if (n<=6){
+            text(weekday[n], 30, yPos);
+        }else{
+            n=0;
+            text (weekday[n],30,yPos);
+        }
+        n++;
 
         textAlign(RIGHT);
         text(Math.round(dailyWeather[i].temperatureHigh), width - 100, yPos);
@@ -181,7 +205,6 @@ function drawDaily() {
 function drawHourly(){
     clearBottom();
     var hourlyWeather = queryResult.hourly.data;
-    console.log(hourlyWeather);
     var yPos = 650;
     var yGap = 70;
     var h = hour();

@@ -1,7 +1,7 @@
 var queryResult;
 var yoff = 0.0;
 
-var textSizeLarge = 40;
+var textSizeLarge = 35;
 var textSizeSmall = 14;
 var screenNum =0;
 
@@ -38,28 +38,39 @@ function drawHome(){
     screenNum = 0;
     check = 0;
     var yPos = 350;
-    var yGap = 200;
+    var yGap = 150;
     background(backgroundColour);
 
-    fill(255);
-    textStyle(NORMAL);
+    fill(230);
+    textStyle(ITALIC);
     textAlign(CENTER);
+    stroke(230);
+    strokeWeight(2);
+    line(175,360,460,360);
     noStroke();
 
     var xPos = width/2;
 
+    textSize(textSizeLarge*.8);
+    text("please make a request",xPos,yPos);
+    yPos = yPos + 100;
+
+    fill(125);
     textSize(textSizeLarge);
+    textStyle(BOLD);
     text("Currently",xPos, yPos);
     yPos+=yGap;
     text("Hourly",xPos, yPos);
     yPos+=yGap;
     text("Daily (in progress)",xPos, yPos);
+
+
 }
 function mousePressed(){
     if (screenNum===0){
-        if (mouseY>300&&mouseY<390){drawCurrent();}
-        if (mouseY>500&&mouseY<590){drawHour();}
-        if (mouseY>700&&mouseY<790){drawDay();}
+        if (mouseY>425&&mouseY<515){drawCurrent();}
+        if (mouseY>575&&mouseY<665){drawHour();}
+        if (mouseY>725&&mouseY<815){drawDay();}
     }else{
         if (mouseX>30&&mouseX<80&&mouseY>30&&mouseY<80){
             drawHome();
@@ -80,24 +91,51 @@ function drawCurrent(){
     var cNew = c2RGB(c2);
     setGradient(c1, cNew);
     setNoise();
+    var windBearing = currentWeather.windBearing;
+    var bear = map(windBearing, 0, 360, 0, TWO_PI) - HALF_PI;
+
+    line(width/2,height/2, width/2 + cos(bear) * 650, height/2 + sin(bear) * 650);
+    line(width/2,height/2, width/2 + cos(bear-0.01)*650, height/2 + sin(bear-0.01)*650);
+
     backLevel();
 }
 
-function drawHour(){
+function drawHour() {
     screenNum = 2;
-    var cNew =[];
-    var c1 = [],c2 = [],i,cr,cg,cb;//c1 cloud cover; c2 temperature
-    for (i=1;i<=48; i++){
-        c1[i] = 255-Math.round(map(hourlyWeather[i].cloudCover,0,1,0,235));
-        c1[i] = color(c1[i],c1[i],c1[i]);
+    var cNew = [];
+    var windBearing = [];
+    var bear = [];
+    var windSpeed = [];
+    var speed = [];
+    var c1 = [], c2 = [], i, cr, cg, cb;//c1 cloud cover; c2 temperature
+    for (i = 1; i <= 48; i++) {
+        c1[i] = 255 - Math.round(map(hourlyWeather[i].cloudCover, 0, 1, 0, 235));
+        c1[i] = color(c1[i], c1[i], c1[i]);
     }
 
-    for (i=1;i<=48; i++){
+    for (i = 1; i <= 48; i++) {
         c2 [i] = Math.round(hourlyWeather[i].temperature);
-        cNew [i]= c2RGB(c2[i]);
+        cNew [i] = c2RGB(c2[i]);
+
     }
 
-    setGradient(c1,cNew);
+    setGradient(c1, cNew);
+    var strokeNum = 255, trans = 255;
+
+    for (i = 1; i <= 48; i=i+4) {
+        strokeWeight(6);
+        stroke(strokeNum,strokeNum,strokeNum,trans);
+        windBearing [i] = hourlyWeather[i].windBearing;
+        bear [i] = map(windBearing[i], 0, 360, 0, TWO_PI) - HALF_PI;
+        windSpeed [i] = hourlyWeather[i].windSpeed;
+        speed [i] = windSpeed[i] * 40;
+        console.log("windS=",speed[i]);
+        line(width / 2, height / 2, width / 2 + cos(bear[i]) * speed [i], height / 2 + sin(bear[i]) * speed [i]);
+        line(width / 2, height / 2, width / 2 + cos(bear[i]-0.01) * speed [i], height / 2 + sin(bear[i]-0.01) * speed [i]);
+
+        trans = trans *.9;
+
+    }
     backLevel();
     setNoise();
 }
