@@ -2,13 +2,11 @@ var queryResult;
 var yoff = 0.0;
 
 var textSizeLarge = 35;
-var textSizeSmall = 14;
+var textSizeSmall = 25;
 var screenNum =0;
 
 var currentWeather, hourlyWeather, dailyWeather;
 var backgroundColour = 190;
-
-var check=0;
 
 function setup() {
     createCanvas(640, 1136);
@@ -36,7 +34,6 @@ function gotData(data) {
 
 function drawHome(){
     screenNum = 0;
-    check = 0;
     var yPos = 350;
     var yGap = 150;
     background(backgroundColour);
@@ -62,7 +59,7 @@ function drawHome(){
     yPos+=yGap;
     text("Hourly",xPos, yPos);
     yPos+=yGap;
-    text("Daily (in progress)",xPos, yPos);
+   // text("Daily",xPos, yPos);
 
 
 }
@@ -70,19 +67,173 @@ function mousePressed(){
     if (screenNum===0){
         if (mouseY>425&&mouseY<515){drawCurrent();}
         if (mouseY>575&&mouseY<665){drawHour();}
-        if (mouseY>725&&mouseY<815){drawDay();}
-    }else{
-        if (mouseX>30&&mouseX<80&&mouseY>30&&mouseY<80){
-            drawHome();
-            check=1;
-        }
+        //if (mouseY>725&&mouseY<815){drawDay();}
     }
+    if (screenNum===1){
+        if (mouseX>30&&mouseX<80&&mouseY>30&&mouseY<80){
+            drawHome();}
+        if (mouseX>30&&mouseX<80&&mouseY>100&&mouseY<140){//legend
+            drawLegend1();}
+        }
+    if (screenNum===2){
+        if (mouseX>30&&mouseX<80&&mouseY>30&&mouseY<80){
+            drawHome();}
+        if (mouseX>30&&mouseX<80&&mouseY>100&&mouseY<140){//legend
+            drawLegend2();}
+        }
+/*    if (screenNum===3){
+        if (mouseX>30&&mouseX<80&&mouseY>100&&mouseY<140){//legend
+            drawLegend3();}
+        }*/
+    if (screenNum===4){
+        if (mouseX>575&&mouseX<615&&mouseY>30&&mouseY<100){//close legend2
+            drawCurrent();}
+        }
+    if (screenNum===5){
+        if (mouseX>575&&mouseX<615&&mouseY>30&&mouseY<100){//close legend3
+            drawHour();}
+        }
 }
 
+function drawLegend1() {
+    screenNum = 4;
+    var inter, c;
+    var c1 = color(255);
+    var c2 = color(0);
+
+    background(190, 190, 190, 190);
+    line(575, 30, 615, 70);
+    line(615, 30, 575, 70);
+
+    textSize(textSizeSmall);
+    noStroke();
+    fill(235);
+    textAlign(CENTER);
+    text("cloud cover", width / 2, 150);
+    text("temperature", width / 2, height - 200);
+    text("length: wind speed", width / 2, height / 2);
+    text("direction; wind bearing", width / 2, height / 2 + 50);
+
+    for (i = width / 3; i <= width / 3 * 2; i++) {
+        inter = map(i, width/3, width/3*2, 0, 1);
+        c = lerpColor(c1, c2, inter);
+        stroke(c);
+        line(i, 175, i, 225);
+    }
+    noStroke();
+    text("0%", width / 3, 275);
+    text("100%", width / 3 * 2, 275);
+
+
+    var c5 = color(255, 127, 0);
+    var c4 = color(127, 255, 0);
+    var c3 = color(0, 255, 127);
+    c2 = color(0, 127, 255);
+    c1 = color(0, 0, 255);
+
+    for (i = width / 3; i <= width / 3 + width / 12; i++) {
+        inter = map(i, width / 3, width / 3 + width / 12, 0, 1);
+        c = lerpColor(c1, c2, inter);
+        stroke(c);
+        line(i, height - 150, i, height - 100);
+    }
+    for (i = width / 3 + width / 12; i <= width / 3 + width / 6; i++) {
+        inter = map(i, width / 3 + width / 12, width / 3 + width / 6, 0, 1);
+        c = lerpColor(c2, c3, inter);
+        stroke(c);
+        line(i, height - 150, i, height - 100);
+    }
+    for (i = width / 3 + width / 6; i <= width / 3 + width / 4; i++) {
+        inter = map(i, width / 3 + width / 6, width / 3 + width / 4, 0, 1);
+        c = lerpColor(c3, c4, inter);
+        stroke(c);
+        line(i, height - 150, i, height - 100);
+    }
+    for (i = width / 3 + width / 4; i <= width / 3 * 2; i++) {
+        inter = map(i, width / 3 + width / 4, width / 3 * 2, 0, 1);
+        c = lerpColor(c4, c5, inter);
+        stroke(c);
+        line(i, height - 150, i, height - 100);
+    }
+    noStroke();
+    text("20F", width / 3, height - 50);
+    text("55F", width/2, height -50);
+    text("90F", width / 3 * 2, height - 50);
+
+
+}
+
+function drawLegend2(){
+    screenNum = 5;
+    var inter, c;
+    var c1 = color(255);
+    var c2 = color(0);
+
+    background(190, 190, 190, 190);
+    line(575, 30, 615, 70);
+    line(615, 30, 575, 70);
+    textSize(textSizeSmall);
+    noStroke();
+    fill(235);
+    textAlign(CENTER);
+    text("cloud cover", width / 2, 150);
+    text("temperature", width / 2, height - 200);
+    text("length: wind speed", width / 2, height / 2);
+    text("direction; wind bearing", width / 2, height / 2 + 50);
+
+    for (i = width / 3; i <= width / 3 * 2; i++) {
+        inter = map(i, width/3, width/3*2, 0, 1);
+        c = lerpColor(c1, c2, inter);
+        stroke(c);
+        line(i, 175, i, 225);
+    }
+
+    noStroke();
+    text("0%", width / 3, 275);
+    text("100%", width / 3 * 2, 275);
+
+
+    var c5 = color(255, 127, 0);
+    var c4 = color(127, 255, 0);
+    var c3 = color(0, 255, 127);
+    c2 = color(0, 127, 255);
+    c1 = color(0, 0, 255);
+
+    for (i = width / 3; i <= width / 3 + width / 12; i++) {
+        inter = map(i, width / 3, width / 3 + width / 12, 0, 1);
+        c = lerpColor(c1, c2, inter);
+        stroke(c);
+        line(i, height - 150, i, height - 100);
+    }
+    for (i = width / 3 + width / 12; i <= width / 3 + width / 6; i++) {
+        inter = map(i, width / 3 + width / 12, width / 3 + width / 6, 0, 1);
+        c = lerpColor(c2, c3, inter);
+        stroke(c);
+        line(i, height - 150, i, height - 100);
+    }
+    for (i = width / 3 + width / 6; i <= width / 3 + width / 4; i++) {
+        inter = map(i, width / 3 + width / 6, width / 3 + width / 4, 0, 1);
+        c = lerpColor(c3, c4, inter);
+        stroke(c);
+        line(i, height - 150, i, height - 100);
+    }
+    for (i = width / 3 + width / 4; i <= width / 3 * 2; i++) {
+        inter = map(i, width / 3 + width / 4, width / 3 * 2, 0, 1);
+        c = lerpColor(c4, c5, inter);
+        stroke(c);
+        line(i, height - 150, i, height - 100);
+    }
+    noStroke();
+    text("20F", width / 3, height - 50);
+    text("55F", width/2, height -50);
+    text("90F", width / 3 * 2, height - 50);
+
+}
 function drawCurrent(){
     screenNum = 1;
     var c1,c2;//c1 cloud cover; c2 temperature
-
+    var windSpeed = currentWeather.windSpeed;
+    var speed = windSpeed * 50;
     //var currentWeather = queryResult.currently;
     c1 = 255-Math.round(map(currentWeather.cloudCover,0,1,0,235));
     c1 = color(c1,c1,c1);
@@ -90,13 +241,24 @@ function drawCurrent(){
    c2 = currentWeather.temperature;
     var cNew = c2RGB(c2);
     setGradient(c1, cNew);
-    setNoise();
+   // setNoise();
     var windBearing = currentWeather.windBearing;
     var bear = map(windBearing, 0, 360, 0, TWO_PI) - HALF_PI;
 
-    line(width/2,height/2, width/2 + cos(bear) * 650, height/2 + sin(bear) * 650);
-    line(width/2,height/2, width/2 + cos(bear-0.01)*650, height/2 + sin(bear-0.01)*650);
+    strokeWeight(6);
+    strokeJoin(MITER);
+    beginShape();
+    vertex(width/2 + cos(bear+0.1) * speed, height/2 + sin(bear+0.1) * speed);
+    vertex(width/2, height/2);
+    vertex(width/2 + cos(bear-0.1)*speed, height/2 + sin(bear-0.1)*speed);
+    endShape();
 
+    push();
+        fill(255,255,255,125);
+        noStroke();
+        textSize(textSizeLarge+20);
+        text("?", 40, 130);
+    pop();
     backLevel();
 }
 
@@ -124,20 +286,31 @@ function drawHour() {
 
     for (i = 1; i <= 48; i=i+4) {
         strokeWeight(6);
+        strokeJoin(MITER);
         stroke(strokeNum,strokeNum,strokeNum,trans);
         windBearing [i] = hourlyWeather[i].windBearing;
         bear [i] = map(windBearing[i], 0, 360, 0, TWO_PI) - HALF_PI;
         windSpeed [i] = hourlyWeather[i].windSpeed;
-        speed [i] = windSpeed[i] * 40;
-        console.log("windS=",speed[i]);
-        line(width / 2, height / 2, width / 2 + cos(bear[i]) * speed [i], height / 2 + sin(bear[i]) * speed [i]);
-        line(width / 2, height / 2, width / 2 + cos(bear[i]-0.01) * speed [i], height / 2 + sin(bear[i]-0.01) * speed [i]);
+        speed [i] = windSpeed[i] * 50;
 
-        trans = trans *.9;
-
+        beginShape();
+        fill(255,255,255,trans);
+        vertex(width / 2 + cos(bear[i]+0.04) * speed [i], height / 2 + sin(bear[i]+0.04) * speed [i]);
+        vertex(width/2, height/2);
+        vertex(width / 2 + cos(bear[i]-0.04) * speed [i], height / 2 + sin(bear[i]-0.04) * speed [i]);
+        trans = trans *.87;
+        endShape();
     }
     backLevel();
-    setNoise();
+
+    push();
+    fill(255,255,255,125);
+    noStroke();
+    textSize(textSizeLarge+20);
+    text("?", 40, 130);
+    pop();
+
+    //setNoise();
 }
 
 function drawDay(){
@@ -205,7 +378,7 @@ function c2RGB(c2){
     var cr,cg,cb;
     var c2Mapped;
     //if (screenNum ===2||screenNum === 1){
-    c2Mapped = map(c2,18,90,0,1);
+    c2Mapped = map(c2,20,90,0,1);
     if (c2Mapped>=0.75){cr=255;Math.round(cg =-1020*c2Mapped+1020); cb=0;}
     if (c2Mapped>=0.5&&c2Mapped<0.75){cr = Math.round(764*c2Mapped-382); cg = 255; cb = 0;}
     if (c2Mapped>=0.25&&c2Mapped<0.5){cr = 0;cg = 255; cb = Math.round(-764*c2Mapped+446);}
@@ -296,7 +469,7 @@ function setNoise(){
 
 function backLevel() {
     stroke(255);
-    strokeWeight(8);
+    strokeWeight(6);
     line(50, 30, 30, 50);
     line(30, 50, 50, 70);
 }

@@ -165,8 +165,8 @@ function drawDaily() {
     weekday[5] = "Friday";
     weekday[6] = "Saturday";
 
-    var n = weekday[d.getUTCDay()];
-
+    var n = d.getUTCDay();
+    console.log("n=",n);
     fill (83,120,158);
     rect(3*gap+2*rectLength,540,rectLength,4);
 
