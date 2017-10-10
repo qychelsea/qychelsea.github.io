@@ -198,6 +198,8 @@ function drawDaily() {
         textStyle(NORMAL);
         text(Math.round(dailyWeather[i].temperatureLow), width - 30, yPos);
 
+        image(img[dailyWeather[i].icon], width/2, yPos-10, 50,37);
+
         yPos += yGap;
     }
 }

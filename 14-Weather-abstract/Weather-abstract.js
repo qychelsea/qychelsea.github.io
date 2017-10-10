@@ -72,13 +72,13 @@ function mousePressed(){
     if (screenNum===1){
         if (mouseX>30&&mouseX<80&&mouseY>30&&mouseY<80){
             drawHome();}
-        if (mouseX>30&&mouseX<80&&mouseY>100&&mouseY<140){//legend
+        if (mouseX>30&&mouseX<80&&mouseY>90&&mouseY<140){//legend
             drawLegend1();}
         }
     if (screenNum===2){
         if (mouseX>30&&mouseX<80&&mouseY>30&&mouseY<80){
             drawHome();}
-        if (mouseX>30&&mouseX<80&&mouseY>100&&mouseY<140){//legend
+        if (mouseX>30&&mouseX<80&&mouseY>90&&mouseY<140){//legend
             drawLegend2();}
         }
 /*    if (screenNum===3){
@@ -112,7 +112,7 @@ function drawLegend1() {
     text("cloud cover", width / 2, 150);
     text("temperature", width / 2, height - 200);
     text("length: wind speed", width / 2, height / 2);
-    text("direction; wind bearing", width / 2, height / 2 + 50);
+    text("direction: wind bearing", width / 2, height / 2 + 50);
 
     for (i = width / 3; i <= width / 3 * 2; i++) {
         inter = map(i, width/3, width/3*2, 0, 1);
@@ -179,7 +179,7 @@ function drawLegend2(){
     text("cloud cover", width / 2, 150);
     text("temperature", width / 2, height - 200);
     text("length: wind speed", width / 2, height / 2);
-    text("direction; wind bearing", width / 2, height / 2 + 50);
+    text("direction: wind bearing", width / 2, height / 2 + 50);
 
     for (i = width / 3; i <= width / 3 * 2; i++) {
         inter = map(i, width/3, width/3*2, 0, 1);
