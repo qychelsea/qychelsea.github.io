@@ -1,11 +1,14 @@
-var table;
+var table = [];
 var
 //MapBox Token
 //pk.eyJ1IjoicXljaGVsc2VhIiwiYSI6ImNpcHFhZ3d3ODAwNXlod25wbDA2eWZta3IifQ.hEGkyGTCvHlqBm14G4pzxA
 
 
 function preload(){
-    table = loadTable('data/zbp.csv', 'csv', 'header');
+    for (var i = 1994; i<=2015; i++){
+        table [i] = loadTable('data/zbp'+i+'.csv', 'csv', 'header');
+    }
+
 }
 
 // In this program everything happens in setup

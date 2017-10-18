@@ -1,381 +1,381 @@
-[["NAICS_TTL","ESTAB","EMPSZES","NAICS2007","zipcode"],
-["Arts, entertainment, and recreation","10","001","71","37201"],
-["Arts, entertainment, and recreation","3","212","71","37201"],
-["Arts, entertainment, and recreation","1","220","71","37201"],
-["Arts, entertainment, and recreation","3","230","71","37201"],
-["Arts, entertainment, and recreation","2","241","71","37201"],
-["Arts, entertainment, and recreation","0","242","71","37201"],
-["Arts, entertainment, and recreation","0","251","71","37201"],
-["Arts, entertainment, and recreation","1","252","71","37201"],
-["Arts, entertainment, and recreation","0","254","71","37201"],
-["Arts, entertainment, and recreation","0","260","71","37201"],
-["Accommodation and food services","47","001","72","37201"],
-["Accommodation and food services","9","212","72","37201"],
-["Accommodation and food services","8","220","72","37201"],
-["Accommodation and food services","9","230","72","37201"],
-["Accommodation and food services","12","241","72","37201"],
-["Accommodation and food services","4","242","72","37201"],
-["Accommodation and food services","5","251","72","37201"],
-["Accommodation and food services","0","252","72","37201"],
-["Accommodation and food services","0","254","72","37201"],
-["Accommodation and food services","0","260","72","37201"],
-["Arts, entertainment, and recreation","258","001","71","37203"],
-["Arts, entertainment, and recreation","142","212","71","37203"],
-["Arts, entertainment, and recreation","62","220","71","37203"],
-["Arts, entertainment, and recreation","33","230","71","37203"],
-["Arts, entertainment, and recreation","12","241","71","37203"],
-["Arts, entertainment, and recreation","5","242","71","37203"],
-["Arts, entertainment, and recreation","4","251","71","37203"],
-["Arts, entertainment, and recreation","0","252","71","37203"],
-["Arts, entertainment, and recreation","0","254","71","37203"],
-["Arts, entertainment, and recreation","0","260","71","37203"],
-["Accommodation and food services","212","001","72","37203"],
-["Accommodation and food services","46","212","72","37203"],
-["Accommodation and food services","34","220","72","37203"],
-["Accommodation and food services","41","230","72","37203"],
-["Accommodation and food services","54","241","72","37203"],
-["Accommodation and food services","25","242","72","37203"],
-["Accommodation and food services","9","251","72","37203"],
-["Accommodation and food services","3","252","72","37203"],
-["Accommodation and food services","0","254","72","37203"],
-["Accommodation and food services","0","260","72","37203"],
-["Arts, entertainment, and recreation","33","001","71","37204"],
-["Arts, entertainment, and recreation","25","212","71","37204"],
-["Arts, entertainment, and recreation","2","220","71","37204"],
-["Arts, entertainment, and recreation","4","230","71","37204"],
-["Arts, entertainment, and recreation","2","241","71","37204"],
-["Arts, entertainment, and recreation","0","242","71","37204"],
-["Arts, entertainment, and recreation","0","251","71","37204"],
-["Arts, entertainment, and recreation","0","252","71","37204"],
-["Arts, entertainment, and recreation","0","254","71","37204"],
-["Arts, entertainment, and recreation","0","260","71","37204"],
-["Accommodation and food services","67","001","72","37204"],
-["Accommodation and food services","26","212","72","37204"],
-["Accommodation and food services","9","220","72","37204"],
-["Accommodation and food services","14","230","72","37204"],
-["Accommodation and food services","11","241","72","37204"],
-["Accommodation and food services","6","242","72","37204"],
-["Accommodation and food services","1","251","72","37204"],
-["Accommodation and food services","0","252","72","37204"],
-["Accommodation and food services","0","254","72","37204"],
-["Accommodation and food services","0","260","72","37204"],
-["Arts, entertainment, and recreation","22","001","71","37205"],
-["Arts, entertainment, and recreation","14","212","71","37205"],
-["Arts, entertainment, and recreation","2","220","71","37205"],
-["Arts, entertainment, and recreation","1","230","71","37205"],
-["Arts, entertainment, and recreation","1","241","71","37205"],
-["Arts, entertainment, and recreation","2","242","71","37205"],
-["Arts, entertainment, and recreation","2","251","71","37205"],
-["Arts, entertainment, and recreation","0","252","71","37205"],
-["Arts, entertainment, and recreation","0","254","71","37205"],
-["Arts, entertainment, and recreation","0","260","71","37205"],
-["Accommodation and food services","53","001","72","37205"],
-["Accommodation and food services","12","212","72","37205"],
-["Accommodation and food services","9","220","72","37205"],
-["Accommodation and food services","13","230","72","37205"],
-["Accommodation and food services","13","241","72","37205"],
-["Accommodation and food services","5","242","72","37205"],
-["Accommodation and food services","1","251","72","37205"],
-["Accommodation and food services","0","252","72","37205"],
-["Accommodation and food services","0","254","72","37205"],
-["Accommodation and food services","0","260","72","37205"],
-["Arts, entertainment, and recreation","8","001","71","37206"],
-["Arts, entertainment, and recreation","7","212","71","37206"],
-["Arts, entertainment, and recreation","1","220","71","37206"],
-["Arts, entertainment, and recreation","0","230","71","37206"],
-["Arts, entertainment, and recreation","0","241","71","37206"],
-["Arts, entertainment, and recreation","0","242","71","37206"],
-["Arts, entertainment, and recreation","0","251","71","37206"],
-["Arts, entertainment, and recreation","0","252","71","37206"],
-["Arts, entertainment, and recreation","0","254","71","37206"],
-["Arts, entertainment, and recreation","0","260","71","37206"],
-["Accommodation and food services","35","001","72","37206"],
-["Accommodation and food services","6","212","72","37206"],
-["Accommodation and food services","10","220","72","37206"],
-["Accommodation and food services","8","230","72","37206"],
-["Accommodation and food services","11","241","72","37206"],
-["Accommodation and food services","0","242","72","37206"],
-["Accommodation and food services","0","251","72","37206"],
-["Accommodation and food services","0","252","72","37206"],
-["Accommodation and food services","0","254","72","37206"],
-["Accommodation and food services","0","260","72","37206"],
-["Arts, entertainment, and recreation","5","001","71","37207"],
-["Arts, entertainment, and recreation","3","212","71","37207"],
-["Arts, entertainment, and recreation","1","220","71","37207"],
-["Arts, entertainment, and recreation","1","230","71","37207"],
-["Arts, entertainment, and recreation","0","241","71","37207"],
-["Arts, entertainment, and recreation","0","242","71","37207"],
-["Arts, entertainment, and recreation","0","251","71","37207"],
-["Arts, entertainment, and recreation","0","252","71","37207"],
-["Arts, entertainment, and recreation","0","254","71","37207"],
-["Arts, entertainment, and recreation","0","260","71","37207"],
-["Accommodation and food services","58","001","72","37207"],
-["Accommodation and food services","13","212","72","37207"],
-["Accommodation and food services","14","220","72","37207"],
-["Accommodation and food services","19","230","72","37207"],
-["Accommodation and food services","11","241","72","37207"],
-["Accommodation and food services","1","242","72","37207"],
-["Accommodation and food services","0","251","72","37207"],
-["Accommodation and food services","0","252","72","37207"],
-["Accommodation and food services","0","254","72","37207"],
-["Accommodation and food services","0","260","72","37207"],
-["Arts, entertainment, and recreation","3","001","71","37208"],
-["Arts, entertainment, and recreation","3","212","71","37208"],
-["Arts, entertainment, and recreation","0","220","71","37208"],
-["Arts, entertainment, and recreation","0","230","71","37208"],
-["Arts, entertainment, and recreation","0","241","71","37208"],
-["Arts, entertainment, and recreation","0","242","71","37208"],
-["Arts, entertainment, and recreation","0","251","71","37208"],
-["Arts, entertainment, and recreation","0","252","71","37208"],
-["Arts, entertainment, and recreation","0","254","71","37208"],
-["Arts, entertainment, and recreation","0","260","71","37208"],
-["Accommodation and food services","32","001","72","37208"],
-["Accommodation and food services","14","212","72","37208"],
-["Accommodation and food services","5","220","72","37208"],
-["Accommodation and food services","7","230","72","37208"],
-["Accommodation and food services","5","241","72","37208"],
-["Accommodation and food services","1","242","72","37208"],
-["Accommodation and food services","0","251","72","37208"],
-["Accommodation and food services","0","252","72","37208"],
-["Accommodation and food services","0","254","72","37208"],
-["Accommodation and food services","0","260","72","37208"],
-["Arts, entertainment, and recreation","6","001","71","37209"],
-["Arts, entertainment, and recreation","3","212","71","37209"],
-["Arts, entertainment, and recreation","0","220","71","37209"],
-["Arts, entertainment, and recreation","1","230","71","37209"],
-["Arts, entertainment, and recreation","1","241","71","37209"],
-["Arts, entertainment, and recreation","1","242","71","37209"],
-["Arts, entertainment, and recreation","0","251","71","37209"],
-["Arts, entertainment, and recreation","0","252","71","37209"],
-["Arts, entertainment, and recreation","0","254","71","37209"],
-["Arts, entertainment, and recreation","0","260","71","37209"],
-["Accommodation and food services","85","001","72","37209"],
-["Accommodation and food services","19","212","72","37209"],
-["Accommodation and food services","15","220","72","37209"],
-["Accommodation and food services","27","230","72","37209"],
-["Accommodation and food services","17","241","72","37209"],
-["Accommodation and food services","5","242","72","37209"],
-["Accommodation and food services","2","251","72","37209"],
-["Accommodation and food services","0","252","72","37209"],
-["Accommodation and food services","0","254","72","37209"],
-["Accommodation and food services","0","260","72","37209"],
-["Arts, entertainment, and recreation","11","001","71","37210"],
-["Arts, entertainment, and recreation","5","212","71","37210"],
-["Arts, entertainment, and recreation","4","220","71","37210"],
-["Arts, entertainment, and recreation","1","230","71","37210"],
-["Arts, entertainment, and recreation","0","241","71","37210"],
-["Arts, entertainment, and recreation","1","242","71","37210"],
-["Arts, entertainment, and recreation","0","251","71","37210"],
-["Arts, entertainment, and recreation","0","252","71","37210"],
-["Arts, entertainment, and recreation","0","254","71","37210"],
-["Arts, entertainment, and recreation","0","260","71","37210"],
-["Accommodation and food services","37","001","72","37210"],
-["Accommodation and food services","12","212","72","37210"],
-["Accommodation and food services","8","220","72","37210"],
-["Accommodation and food services","9","230","72","37210"],
-["Accommodation and food services","6","241","72","37210"],
-["Accommodation and food services","1","242","72","37210"],
-["Accommodation and food services","1","251","72","37210"],
-["Accommodation and food services","0","252","72","37210"],
-["Accommodation and food services","0","254","72","37210"],
-["Accommodation and food services","0","260","72","37210"],
-["Arts, entertainment, and recreation","20","001","71","37211"],
-["Arts, entertainment, and recreation","10","212","71","37211"],
-["Arts, entertainment, and recreation","2","220","71","37211"],
-["Arts, entertainment, and recreation","4","230","71","37211"],
-["Arts, entertainment, and recreation","2","241","71","37211"],
-["Arts, entertainment, and recreation","1","242","71","37211"],
-["Arts, entertainment, and recreation","1","251","71","37211"],
-["Arts, entertainment, and recreation","0","252","71","37211"],
-["Arts, entertainment, and recreation","0","254","71","37211"],
-["Arts, entertainment, and recreation","0","260","71","37211"],
-["Accommodation and food services","161","001","72","37211"],
-["Accommodation and food services","59","212","72","37211"],
-["Accommodation and food services","22","220","72","37211"],
-["Accommodation and food services","49","230","72","37211"],
-["Accommodation and food services","23","241","72","37211"],
-["Accommodation and food services","8","242","72","37211"],
-["Accommodation and food services","0","251","72","37211"],
-["Accommodation and food services","0","252","72","37211"],
-["Accommodation and food services","0","254","72","37211"],
-["Accommodation and food services","0","260","72","37211"],
-["Arts, entertainment, and recreation","117","001","71","37212"],
-["Arts, entertainment, and recreation","80","212","71","37212"],
-["Arts, entertainment, and recreation","15","220","71","37212"],
-["Arts, entertainment, and recreation","14","230","71","37212"],
-["Arts, entertainment, and recreation","7","241","71","37212"],
-["Arts, entertainment, and recreation","1","242","71","37212"],
-["Arts, entertainment, and recreation","0","251","71","37212"],
-["Arts, entertainment, and recreation","0","252","71","37212"],
-["Arts, entertainment, and recreation","0","254","71","37212"],
-["Arts, entertainment, and recreation","0","260","71","37212"],
-["Accommodation and food services","52","001","72","37212"],
-["Accommodation and food services","17","212","72","37212"],
-["Accommodation and food services","10","220","72","37212"],
-["Accommodation and food services","7","230","72","37212"],
-["Accommodation and food services","9","241","72","37212"],
-["Accommodation and food services","9","242","72","37212"],
-["Accommodation and food services","0","251","72","37212"],
-["Accommodation and food services","0","252","72","37212"],
-["Accommodation and food services","0","254","72","37212"],
-["Accommodation and food services","0","260","72","37212"],
-["Arts, entertainment, and recreation","15","001","71","37214"],
-["Arts, entertainment, and recreation","6","212","71","37214"],
-["Arts, entertainment, and recreation","3","220","71","37214"],
-["Arts, entertainment, and recreation","1","230","71","37214"],
-["Arts, entertainment, and recreation","3","241","71","37214"],
-["Arts, entertainment, and recreation","0","242","71","37214"],
-["Arts, entertainment, and recreation","2","251","71","37214"],
-["Arts, entertainment, and recreation","0","252","71","37214"],
-["Arts, entertainment, and recreation","0","254","71","37214"],
-["Arts, entertainment, and recreation","0","260","71","37214"],
-["Accommodation and food services","148","001","72","37214"],
-["Accommodation and food services","29","212","72","37214"],
-["Accommodation and food services","17","220","72","37214"],
-["Accommodation and food services","32","230","72","37214"],
-["Accommodation and food services","46","241","72","37214"],
-["Accommodation and food services","14","242","72","37214"],
-["Accommodation and food services","9","251","72","37214"],
-["Accommodation and food services","0","252","72","37214"],
-["Accommodation and food services","0","254","72","37214"],
-["Accommodation and food services","1","260","72","37214"],
-["Arts, entertainment, and recreation","40","001","71","37215"],
-["Arts, entertainment, and recreation","30","212","71","37215"],
-["Arts, entertainment, and recreation","4","220","71","37215"],
-["Arts, entertainment, and recreation","2","230","71","37215"],
-["Arts, entertainment, and recreation","2","241","71","37215"],
-["Arts, entertainment, and recreation","0","242","71","37215"],
-["Arts, entertainment, and recreation","2","251","71","37215"],
-["Arts, entertainment, and recreation","0","252","71","37215"],
-["Arts, entertainment, and recreation","0","254","71","37215"],
-["Arts, entertainment, and recreation","0","260","71","37215"],
-["Accommodation and food services","56","001","72","37215"],
-["Accommodation and food services","10","212","72","37215"],
-["Accommodation and food services","9","220","72","37215"],
-["Accommodation and food services","14","230","72","37215"],
-["Accommodation and food services","17","241","72","37215"],
-["Accommodation and food services","5","242","72","37215"],
-["Accommodation and food services","1","251","72","37215"],
-["Accommodation and food services","0","252","72","37215"],
-["Accommodation and food services","0","254","72","37215"],
-["Accommodation and food services","0","260","72","37215"],
-["Arts, entertainment, and recreation","4","001","71","37216"],
-["Arts, entertainment, and recreation","3","212","71","37216"],
-["Arts, entertainment, and recreation","0","220","71","37216"],
-["Arts, entertainment, and recreation","0","230","71","37216"],
-["Arts, entertainment, and recreation","0","241","71","37216"],
-["Arts, entertainment, and recreation","1","242","71","37216"],
-["Arts, entertainment, and recreation","0","251","71","37216"],
-["Arts, entertainment, and recreation","0","252","71","37216"],
-["Arts, entertainment, and recreation","0","254","71","37216"],
-["Arts, entertainment, and recreation","0","260","71","37216"],
-["Accommodation and food services","29","001","72","37216"],
-["Accommodation and food services","9","212","72","37216"],
-["Accommodation and food services","3","220","72","37216"],
-["Accommodation and food services","7","230","72","37216"],
-["Accommodation and food services","9","241","72","37216"],
-["Accommodation and food services","1","242","72","37216"],
-["Accommodation and food services","0","251","72","37216"],
-["Accommodation and food services","0","252","72","37216"],
-["Accommodation and food services","0","254","72","37216"],
-["Accommodation and food services","0","260","72","37216"],
-["Arts, entertainment, and recreation","5","001","71","37217"],
-["Arts, entertainment, and recreation","2","212","71","37217"],
-["Arts, entertainment, and recreation","3","220","71","37217"],
-["Arts, entertainment, and recreation","0","230","71","37217"],
-["Arts, entertainment, and recreation","0","241","71","37217"],
-["Arts, entertainment, and recreation","0","242","71","37217"],
-["Arts, entertainment, and recreation","0","251","71","37217"],
-["Arts, entertainment, and recreation","0","252","71","37217"],
-["Arts, entertainment, and recreation","0","254","71","37217"],
-["Arts, entertainment, and recreation","0","260","71","37217"],
-["Accommodation and food services","69","001","72","37217"],
-["Accommodation and food services","21","212","72","37217"],
-["Accommodation and food services","12","220","72","37217"],
-["Accommodation and food services","20","230","72","37217"],
-["Accommodation and food services","14","241","72","37217"],
-["Accommodation and food services","2","242","72","37217"],
-["Accommodation and food services","0","251","72","37217"],
-["Accommodation and food services","0","252","72","37217"],
-["Accommodation and food services","0","254","72","37217"],
-["Accommodation and food services","0","260","72","37217"],
-["Arts, entertainment, and recreation","2","001","71","37218"],
-["Arts, entertainment, and recreation","0","212","71","37218"],
-["Arts, entertainment, and recreation","1","220","71","37218"],
-["Arts, entertainment, and recreation","0","230","71","37218"],
-["Arts, entertainment, and recreation","0","241","71","37218"],
-["Arts, entertainment, and recreation","1","242","71","37218"],
-["Arts, entertainment, and recreation","0","251","71","37218"],
-["Arts, entertainment, and recreation","0","252","71","37218"],
-["Arts, entertainment, and recreation","0","254","71","37218"],
-["Arts, entertainment, and recreation","0","260","71","37218"],
-["Accommodation and food services","9","001","72","37218"],
-["Accommodation and food services","3","212","72","37218"],
-["Accommodation and food services","2","220","72","37218"],
-["Accommodation and food services","4","230","72","37218"],
-["Accommodation and food services","0","241","72","37218"],
-["Accommodation and food services","0","242","72","37218"],
-["Accommodation and food services","0","251","72","37218"],
-["Accommodation and food services","0","252","72","37218"],
-["Accommodation and food services","0","254","72","37218"],
-["Accommodation and food services","0","260","72","37218"],
-["Arts, entertainment, and recreation","6","001","71","37219"],
-["Arts, entertainment, and recreation","3","212","71","37219"],
-["Arts, entertainment, and recreation","1","220","71","37219"],
-["Arts, entertainment, and recreation","0","230","71","37219"],
-["Arts, entertainment, and recreation","0","241","71","37219"],
-["Arts, entertainment, and recreation","1","242","71","37219"],
-["Arts, entertainment, and recreation","1","251","71","37219"],
-["Arts, entertainment, and recreation","0","252","71","37219"],
-["Arts, entertainment, and recreation","0","254","71","37219"],
-["Arts, entertainment, and recreation","0","260","71","37219"],
-["Accommodation and food services","36","001","72","37219"],
-["Accommodation and food services","22","212","72","37219"],
-["Accommodation and food services","5","220","72","37219"],
-["Accommodation and food services","2","230","72","37219"],
-["Accommodation and food services","3","241","72","37219"],
-["Accommodation and food services","1","242","72","37219"],
-["Accommodation and food services","3","251","72","37219"],
-["Accommodation and food services","0","252","72","37219"],
-["Accommodation and food services","0","254","72","37219"],
-["Accommodation and food services","0","260","72","37219"],
-["Arts, entertainment, and recreation","6","001","71","37220"],
-["Arts, entertainment, and recreation","4","212","71","37220"],
-["Arts, entertainment, and recreation","2","220","71","37220"],
-["Arts, entertainment, and recreation","0","230","71","37220"],
-["Arts, entertainment, and recreation","0","241","71","37220"],
-["Arts, entertainment, and recreation","0","242","71","37220"],
-["Arts, entertainment, and recreation","0","251","71","37220"],
-["Arts, entertainment, and recreation","0","252","71","37220"],
-["Arts, entertainment, and recreation","0","254","71","37220"],
-["Arts, entertainment, and recreation","0","260","71","37220"],
-["Accommodation and food services","8","001","72","37220"],
-["Accommodation and food services","4","212","72","37220"],
-["Accommodation and food services","2","220","72","37220"],
-["Accommodation and food services","1","230","72","37220"],
-["Accommodation and food services","1","241","72","37220"],
-["Accommodation and food services","0","242","72","37220"],
-["Accommodation and food services","0","251","72","37220"],
-["Accommodation and food services","0","252","72","37220"],
-["Accommodation and food services","0","254","72","37220"],
-["Accommodation and food services","0","260","72","37220"],
-["Arts, entertainment, and recreation","22","001","71","37221"],
-["Arts, entertainment, and recreation","13","212","71","37221"],
-["Arts, entertainment, and recreation","5","220","71","37221"],
-["Arts, entertainment, and recreation","2","230","71","37221"],
-["Arts, entertainment, and recreation","1","241","71","37221"],
-["Arts, entertainment, and recreation","0","242","71","37221"],
-["Arts, entertainment, and recreation","1","251","71","37221"],
-["Arts, entertainment, and recreation","0","252","71","37221"],
-["Arts, entertainment, and recreation","0","254","71","37221"],
-["Arts, entertainment, and recreation","0","260","71","37221"],
-["Accommodation and food services","76","001","72","37221"],
-["Accommodation and food services","20","212","72","37221"],
-["Accommodation and food services","8","220","72","37221"],
-["Accommodation and food services","24","230","72","37221"],
-["Accommodation and food services","21","241","72","37221"],
-["Accommodation and food services","2","242","72","37221"],
-["Accommodation and food services","0","251","72","37221"],
-["Accommodation and food services","1","252","72","37221"],
-["Accommodation and food services","0","254","72","37221"],
-["Accommodation and food services","0","260","72","37221"]]
+ESTAB,EMPSZES,NAICS2007,zipcode
+10,1,71,37201]
+3,212,71,37201]
+1,220,71,37201]
+3,230,71,37201]
+2,241,71,37201]
+0,242,71,37201]
+0,251,71,37201]
+1,252,71,37201]
+0,254,71,37201]
+0,260,71,37201]
+258,1,71,37203]
+142,212,71,37203]
+62,220,71,37203]
+33,230,71,37203]
+12,241,71,37203]
+5,242,71,37203]
+4,251,71,37203]
+0,252,71,37203]
+0,254,71,37203]
+0,260,71,37203]
+33,1,71,37204]
+25,212,71,37204]
+2,220,71,37204]
+4,230,71,37204]
+2,241,71,37204]
+0,242,71,37204]
+0,251,71,37204]
+0,252,71,37204]
+0,254,71,37204]
+0,260,71,37204]
+22,1,71,37205]
+14,212,71,37205]
+2,220,71,37205]
+1,230,71,37205]
+1,241,71,37205]
+2,242,71,37205]
+2,251,71,37205]
+0,252,71,37205]
+0,254,71,37205]
+0,260,71,37205]
+8,1,71,37206]
+7,212,71,37206]
+1,220,71,37206]
+0,230,71,37206]
+0,241,71,37206]
+0,242,71,37206]
+0,251,71,37206]
+0,252,71,37206]
+0,254,71,37206]
+0,260,71,37206]
+5,1,71,37207]
+3,212,71,37207]
+1,220,71,37207]
+1,230,71,37207]
+0,241,71,37207]
+0,242,71,37207]
+0,251,71,37207]
+0,252,71,37207]
+0,254,71,37207]
+0,260,71,37207]
+3,1,71,37208]
+3,212,71,37208]
+0,220,71,37208]
+0,230,71,37208]
+0,241,71,37208]
+0,242,71,37208]
+0,251,71,37208]
+0,252,71,37208]
+0,254,71,37208]
+0,260,71,37208]
+6,1,71,37209]
+3,212,71,37209]
+0,220,71,37209]
+1,230,71,37209]
+1,241,71,37209]
+1,242,71,37209]
+0,251,71,37209]
+0,252,71,37209]
+0,254,71,37209]
+0,260,71,37209]
+11,1,71,37210]
+5,212,71,37210]
+4,220,71,37210]
+1,230,71,37210]
+0,241,71,37210]
+1,242,71,37210]
+0,251,71,37210]
+0,252,71,37210]
+0,254,71,37210]
+0,260,71,37210]
+20,1,71,37211]
+10,212,71,37211]
+2,220,71,37211]
+4,230,71,37211]
+2,241,71,37211]
+1,242,71,37211]
+1,251,71,37211]
+0,252,71,37211]
+0,254,71,37211]
+0,260,71,37211]
+117,1,71,37212]
+80,212,71,37212]
+15,220,71,37212]
+14,230,71,37212]
+7,241,71,37212]
+1,242,71,37212]
+0,251,71,37212]
+0,252,71,37212]
+0,254,71,37212]
+0,260,71,37212]
+15,1,71,37214]
+6,212,71,37214]
+3,220,71,37214]
+1,230,71,37214]
+3,241,71,37214]
+0,242,71,37214]
+2,251,71,37214]
+0,252,71,37214]
+0,254,71,37214]
+0,260,71,37214]
+40,1,71,37215]
+30,212,71,37215]
+4,220,71,37215]
+2,230,71,37215]
+2,241,71,37215]
+0,242,71,37215]
+2,251,71,37215]
+0,252,71,37215]
+0,254,71,37215]
+0,260,71,37215]
+4,1,71,37216]
+3,212,71,37216]
+0,220,71,37216]
+0,230,71,37216]
+0,241,71,37216]
+1,242,71,37216]
+0,251,71,37216]
+0,252,71,37216]
+0,254,71,37216]
+0,260,71,37216]
+5,1,71,37217]
+2,212,71,37217]
+3,220,71,37217]
+0,230,71,37217]
+0,241,71,37217]
+0,242,71,37217]
+0,251,71,37217]
+0,252,71,37217]
+0,254,71,37217]
+0,260,71,37217]
+2,1,71,37218]
+0,212,71,37218]
+1,220,71,37218]
+0,230,71,37218]
+0,241,71,37218]
+1,242,71,37218]
+0,251,71,37218]
+0,252,71,37218]
+0,254,71,37218]
+0,260,71,37218]
+6,1,71,37219]
+3,212,71,37219]
+1,220,71,37219]
+0,230,71,37219]
+0,241,71,37219]
+1,242,71,37219]
+1,251,71,37219]
+0,252,71,37219]
+0,254,71,37219]
+0,260,71,37219]
+6,1,71,37220]
+4,212,71,37220]
+2,220,71,37220]
+0,230,71,37220]
+0,241,71,37220]
+0,242,71,37220]
+0,251,71,37220]
+0,252,71,37220]
+0,254,71,37220]
+0,260,71,37220]
+22,1,71,37221]
+13,212,71,37221]
+5,220,71,37221]
+2,230,71,37221]
+1,241,71,37221]
+0,242,71,37221]
+1,251,71,37221]
+0,252,71,37221]
+0,254,71,37221]
+0,260,71,37221]
+47,1,72,37201]
+9,212,72,37201]
+8,220,72,37201]
+9,230,72,37201]
+12,241,72,37201]
+4,242,72,37201]
+5,251,72,37201]
+0,252,72,37201]
+0,254,72,37201]
+0,260,72,37201]
+212,1,72,37203]
+46,212,72,37203]
+34,220,72,37203]
+41,230,72,37203]
+54,241,72,37203]
+25,242,72,37203]
+9,251,72,37203]
+3,252,72,37203]
+0,254,72,37203]
+0,260,72,37203]
+67,1,72,37204]
+26,212,72,37204]
+9,220,72,37204]
+14,230,72,37204]
+11,241,72,37204]
+6,242,72,37204]
+1,251,72,37204]
+0,252,72,37204]
+0,254,72,37204]
+0,260,72,37204]
+53,1,72,37205]
+12,212,72,37205]
+9,220,72,37205]
+13,230,72,37205]
+13,241,72,37205]
+5,242,72,37205]
+1,251,72,37205]
+0,252,72,37205]
+0,254,72,37205]
+0,260,72,37205]
+35,1,72,37206]
+6,212,72,37206]
+10,220,72,37206]
+8,230,72,37206]
+11,241,72,37206]
+0,242,72,37206]
+0,251,72,37206]
+0,252,72,37206]
+0,254,72,37206]
+0,260,72,37206]
+58,1,72,37207]
+13,212,72,37207]
+14,220,72,37207]
+19,230,72,37207]
+11,241,72,37207]
+1,242,72,37207]
+0,251,72,37207]
+0,252,72,37207]
+0,254,72,37207]
+0,260,72,37207]
+32,1,72,37208]
+14,212,72,37208]
+5,220,72,37208]
+7,230,72,37208]
+5,241,72,37208]
+1,242,72,37208]
+0,251,72,37208]
+0,252,72,37208]
+0,254,72,37208]
+0,260,72,37208]
+85,1,72,37209]
+19,212,72,37209]
+15,220,72,37209]
+27,230,72,37209]
+17,241,72,37209]
+5,242,72,37209]
+2,251,72,37209]
+0,252,72,37209]
+0,254,72,37209]
+0,260,72,37209]
+37,1,72,37210]
+12,212,72,37210]
+8,220,72,37210]
+9,230,72,37210]
+6,241,72,37210]
+1,242,72,37210]
+1,251,72,37210]
+0,252,72,37210]
+0,254,72,37210]
+0,260,72,37210]
+161,1,72,37211]
+59,212,72,37211]
+22,220,72,37211]
+49,230,72,37211]
+23,241,72,37211]
+8,242,72,37211]
+0,251,72,37211]
+0,252,72,37211]
+0,254,72,37211]
+0,260,72,37211]
+52,1,72,37212]
+17,212,72,37212]
+10,220,72,37212]
+7,230,72,37212]
+9,241,72,37212]
+9,242,72,37212]
+0,251,72,37212]
+0,252,72,37212]
+0,254,72,37212]
+0,260,72,37212]
+148,1,72,37214]
+29,212,72,37214]
+17,220,72,37214]
+32,230,72,37214]
+46,241,72,37214]
+14,242,72,37214]
+9,251,72,37214]
+0,252,72,37214]
+0,254,72,37214]
+1,260,72,37214]
+56,1,72,37215]
+10,212,72,37215]
+9,220,72,37215]
+14,230,72,37215]
+17,241,72,37215]
+5,242,72,37215]
+1,251,72,37215]
+0,252,72,37215]
+0,254,72,37215]
+0,260,72,37215]
+29,1,72,37216]
+9,212,72,37216]
+3,220,72,37216]
+7,230,72,37216]
+9,241,72,37216]
+1,242,72,37216]
+0,251,72,37216]
+0,252,72,37216]
+0,254,72,37216]
+0,260,72,37216]
+69,1,72,37217]
+21,212,72,37217]
+12,220,72,37217]
+20,230,72,37217]
+14,241,72,37217]
+2,242,72,37217]
+0,251,72,37217]
+0,252,72,37217]
+0,254,72,37217]
+0,260,72,37217]
+9,1,72,37218]
+3,212,72,37218]
+2,220,72,37218]
+4,230,72,37218]
+0,241,72,37218]
+0,242,72,37218]
+0,251,72,37218]
+0,252,72,37218]
+0,254,72,37218]
+0,260,72,37218]
+36,1,72,37219]
+22,212,72,37219]
+5,220,72,37219]
+2,230,72,37219]
+3,241,72,37219]
+1,242,72,37219]
+3,251,72,37219]
+0,252,72,37219]
+0,254,72,37219]
+0,260,72,37219]
+8,1,72,37220]
+4,212,72,37220]
+2,220,72,37220]
+1,230,72,37220]
+1,241,72,37220]
+0,242,72,37220]
+0,251,72,37220]
+0,252,72,37220]
+0,254,72,37220]
+0,260,72,37220]
+76,1,72,37221]
+20,212,72,37221]
+8,220,72,37221]
+24,230,72,37221]
+21,241,72,37221]
+2,242,72,37221]
+0,251,72,37221]
+1,252,72,37221]
+0,254,72,37221]
+0,260,72,37221]
