@@ -1,5 +1,7 @@
 var table = [];
-var
+var esTab = [],empSzes = [],zipCode = [];
+var colour212,colour220,colour230,colour241,colour242,colour251,colour252,colour254,colour260;
+
 //MapBox Token
 //pk.eyJ1IjoicXljaGVsc2VhIiwiYSI6ImNpcHFhZ3d3ODAwNXlod25wbDA2eWZta3IifQ.hEGkyGTCvHlqBm14G4pzxA
 
@@ -8,58 +10,52 @@ function preload(){
     for (var i = 1994; i<=2015; i++){
         table [i] = loadTable('data/zbp'+i+'.csv', 'csv', 'header');
     }
-
 }
 
-// In this program everything happens in setup
 function setup() {
-    createCanvas(windowWidth, windowHeight);
-    loadData();
-    displayData();
-    drawLabels();
+    createCanvas(1200, 1500);
+    background(235);
+    colour212=color(190),colour220=color(170),colour230=color(150),colour241=color(130),colour242=color(110),colour251=color(90),colour252=color(70),colour254=color(50),colour260=color(30);
+
+    sortData();
+
 }
 
-function loadData(){
-    for(var i = 2012;i<=2015;i++){
+function sortData(){
+    //sort 1994-1997
+    for(var i = 1994;i<=1997;i++){
+        esTab[i]=table[i].getColumn("ESTAB");
+        empSzes[i]=table[i].getColumn("EMPSZES");
+        zipCode[i]=table[i].getColumn("zipcode");
+        console.log("empSzes["+i+"]=",empSzes[i]);
+    }
+    drawData();
+}
 
+function drawData(){
+    var xPos=50,yPos=100,xGap=50,yGap=2;
+    var longestStr=0;
+   // var z=zipCode[1994][0];
+    for(var i = 1994;i<=1997;i++){
+        for(var n = 0;n<=esTab[i].length;n++){
+            console.log("n=",n);
+            if (empSzes[i][n]!==1&&esTab[i][n]!==0){
+                for (var j=0;j<esTab[i][n];j++){
+                    //stroke(colour(empSzes[i][n]));
+                    stroke(190);
+                    line(xPos,yPos,xPos+50,yPos);
+                    yPos=yPos+2;
+                    console.log("yPos=",yPos);
+                }
+            } else if (empSzes[i][n]===1){
+                xPos=xPos+100;
+                yPos=100;
+                if (esTab[i][n]>longestStr){
+                    longestStr=esTab[i][n];
+                    console.log("longest string=",longestStr);
+                }
+            }
+        }
+        yPos=longestStr+50;
     }
 }
-
----------------------
-
-var mymap = L.map('mapid').setView([51.505, -0.09], 13);
-
-L.tileLayer('https://api.mapbox.com/styles/v1/qychelsea/cj8uawbmy99052rmiuzyyjg7b/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicXljaGVsc2VhIiwiYSI6ImNpcHFhZ3d3ODAwNXlod25wbDA2eWZta3IifQ.hEGkyGTCvHlqBm14G4pzxA', {
-    maxZoom: 18,
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-    '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-    'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    id: 'mapbox.streets'
-}).addTo(mymap);
-
-L.marker([51.5, -0.09]).addTo(mymap)
-    .bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
-
-L.circle([51.508, -0.11], 500, {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-}).addTo(mymap).bindPopup("I am a circle.");
-
-L.polygon([
-    [51.509, -0.08],
-    [51.503, -0.06],
-    [51.51, -0.047]
-]).addTo(mymap).bindPopup("I am a polygon.");
-
-
-var popup = L.popup();
-
-function onMapClick(e) {
-    popup
-        .setLatLng(e.latlng)
-        .setContent("You clicked the map at " + e.latlng.toString())
-        .openOn(mymap);
-}
-
-mymap.on('click', onMapClick);
