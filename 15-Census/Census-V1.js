@@ -23,6 +23,7 @@ function setup() {
 
 function sortData(){
     //sort 1994-1997 (SIC)
+    //sort 1998-2002(NAICS1997),2003-2007(NAICS2002),2008-2011(NAICS2007),2012-2015(NAICS2012)
     for(var i = 1994;i<=2015;i++){
         esTab[i]=table[i].getColumn("ESTAB");
         empSzes[i]=table[i].getColumn("EMPSZES");
@@ -31,46 +32,16 @@ function sortData(){
         console.log("empSzes["+i+"]=",empSzes[i]);//problem from 1998 on.
     }
 
-
-    //sort 1998-2002(NAICS1997),2003-2007(NAICS2002),2008-2011(NAICS2007),2012-2015(NAICS2012)
-    var listLength,j;
-    for (i=1998;i<=2015;i++){//to account for relevant NAICS# under 2 categories
-        listLength = table[i].getRowCount();
-        console.log("list length",i,"=", listLength);
-        for(j=0;j<listLength/2;j++){
-            esTab[i][j]=esTab[i][listLength/2+j]+esTab[i][j];
-            empSzes[i][j]=empSzes[i][listLength/2+j]+empSzes[i][j];
-            //console.log("year=",i,",new esTab["+j+"]=",esTab[j],",new empSzes["+j+"]=",empSzes[j],)
-        }
-    }
-
-
- /*   for (i=1998;i<=2015;i++){
-        var listLength = table[i].getRowCount();
-        console.log("list length = ", listLength);
-        for(var j=0;j<listLength/2;j++){
-            esTab[i][j]=table[i].getNum(3,j);
-            empSzes[i][j]=table[i].getNum(3,j);
-            //zipCode[i][j]=table[i][j].getNum("zipcode",j);
-        }
-        var k=0;
-        for (j=listLength/2;j<=listLength;j++){
-            esTab[i][k]=table[i].getNum(3,j)+esTab[i][k];
-            empSzes[i][k]=table[i].getNum(3,j)+ empSzes[i][k];
-            //zipCode[i][k]=table[i][j].getColumn("zipcode",j)+zipCode[i][k];
-        }
-        //console.log("empSzes["+i+"]=",empSzes[i]);
-    }*/
     drawData();
 }
 
 function drawData(){
     var xPos=50,yPos=100,xGap=50,yGap=1;
-    var lineLength=20;
+    var lineLength=10;
     var longestStr;
     var c=190;
     stroke(c);
-    for(var i = 1994;i<=1997;i++){
+    for(var i = 1998;i<=2015;i++){
         stroke(c);
         longestStr=0;
         for(var n = 0;n<=esTab[i].length;n++){
@@ -85,7 +56,7 @@ function drawData(){
             }
             if (empSzes[i][n]!=1){
                 //console.log("i=",i,"n=",n,"esTab[i][n]=",esTab[i][n],"empSzes[i][n]=",empSzes[i][n],",yPos=",yPos,"xPos=",xPos,"colour=",c);
-                for (var j=0;j<esTab[i][n]/20;j++){
+                for (var j=0;j<esTab[i][n];j++){
                    //stroke(colour(empSzes[i][n]));
                     line(xPos,yPos,xPos+lineLength,yPos);
                     yPos=yPos+2;
