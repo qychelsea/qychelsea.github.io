@@ -2,20 +2,6 @@ var table = [];
 var esTab = [],empSzes = [],zipCode = [];
 var colour212,colour220,colour230,colour241,colour242,colour251,colour252,colour254,colour260;
 
-var map = L.map('map').setView([36.188574, -86.775464],11);
-
-L.tileLayer('https://api.mapbox.com/styles/v1/qychelsea/cj8uawbmy99052rmiuzyyjg7b/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicXljaGVsc2VhIiwiYSI6ImNpcHFhZ3d3ODAwNXlod25wbDA2eWZta3IifQ.hEGkyGTCvHlqBm14G4pzxA', {
-    maxZoom: 18,
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-    '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-    'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    id: 'mapbox.moonlight'
-}).addTo(map);
-
-//MapBox Token
-//pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw
-
-
 function preload(){
     for (var i = 1994; i<=2015; i++){
         table [i] = loadTable('data/zbp'+i+'.csv', 'csv', 'header');
@@ -23,7 +9,8 @@ function preload(){
 }
 
 function setup() {
-    createCanvas(windowWidth, windowHeight);
+    var canvas = createCanvas(1250, 900);
+    canvas.position(605,0);
     background(235);
     colour212=color(190),colour220=color(170),colour230=color(150),colour241=color(130),colour242=color(110),colour251=color(90),colour252=color(70),colour254=color(50),colour260=color(30);
 
@@ -67,10 +54,10 @@ function drawData(){
             if (empSzes[i][n]!=1){
                 //console.log("i=",i,"n=",n,"esTab[i][n]=",esTab[i][n],"empSzes[i][n]=",empSzes[i][n],",yPos=",yPos,"xPos=",xPos,"colour=",c);
                 for (var j=0;j<esTab[i][n];j++){
-                   //stroke(colour(empSzes[i][n]));
+                    //stroke(colour(empSzes[i][n]));
                     line(xPos,yPos,xPos+lineLength,yPos);
                     yPos=yPos+2;
-                    }
+                }
             }
 
         }
@@ -80,6 +67,16 @@ function drawData(){
 }
 
 //-------------------LEAFLET CONTROL-----------------------------------------
+var map = L.map('map').setView([36.1678467,-86.7975992],11);
+
+L.tileLayer('https://api.mapbox.com/styles/v1/qychelsea/cj8uawbmy99052rmiuzyyjg7b/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicXljaGVsc2VhIiwiYSI6ImNpcHFhZ3d3ODAwNXlod25wbDA2eWZta3IifQ.hEGkyGTCvHlqBm14G4pzxA', {
+    maxZoom: 18,
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+    '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+    'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    id: 'mapbox.moonlight'
+}).addTo(map);
+
 // control that shows state info on hover
 var info = L.control();
 
@@ -154,8 +151,9 @@ function zoomToFeature(e) {
 function onEachFeature(feature, layer) {
     layer.on({
         mouseover: highlightFeature,
-        mouseout: resetHighlight,
-        click: zoomToFeature
+        mouseout: resetHighlight
+       // click: drawData
+        //click: zoomToFeature
     });
 }
 
