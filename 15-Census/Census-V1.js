@@ -1,6 +1,9 @@
 var table = [];
-var esTab = [],empSzes = [],zipCode = [];
+var esTab = [],empSzes = [],zipCode=[];
 var colour212,colour220,colour230,colour241,colour242,colour251,colour252,colour254,colour260;
+var buttonPlay,buttonStop;
+var canvasX=605,canvasY = 0,marginSlider=200;
+var zipCurrent;
 
 function preload(){
     for (var i = 1994; i<=2015; i++){
@@ -10,9 +13,27 @@ function preload(){
 
 function setup() {
     var canvas = createCanvas(1250, 900);
-    canvas.position(605,0);
+
+    canvas.position(canvasX,canvasY);
     background(235);
     colour212=color(190),colour220=color(170),colour230=color(150),colour241=color(130),colour242=color(110),colour251=color(90),colour252=color(70),colour254=color(50),colour260=color(30);
+
+    var slider;
+    //slider
+    slider = createSlider(1998,2015, 1998, );
+    slider.position(canvasX+marginSlider, height-100);
+    slider.style('width', '850px');
+
+/*    //buttons
+    createCanvas(100, 100);
+    background(0);
+    buttonPlay = createButton('Animate');
+    button.position(19, 19);
+    button.mousePressed(animate);
+
+    buttonPlay = createButton('Pause');
+    button.position(19, 19);
+    button.mousePressed(changeBG);*/
 
     sortData();
 
@@ -24,7 +45,7 @@ function sortData(){
     for(var i = 1994;i<=2015;i++){
         esTab[i]=table[i].getColumn("ESTAB");
         empSzes[i]=table[i].getColumn("EMPSZES");
-        //zipCode[i]=table[i].getColumn("zipcode");
+        zipCode[i]=table[i].getColumn("zipcode");
         console.log("esTab["+i+"]=",esTab[i]);//problem from 1998 on. data not matching
         console.log("empSzes["+i+"]=",empSzes[i]);//problem from 1998 on.
     }
@@ -38,6 +59,8 @@ function drawData(){
     var longestStr;
     var c=190;
     stroke(c);
+
+/*  from before; draw all
     for(var i = 1998;i<=2015;i++){
         stroke(c);
         longestStr=0;
@@ -45,11 +68,11 @@ function drawData(){
             if (empSzes[i][n]==1) {
                 xPos = xPos + lineLength + 5;
                 yPos = 100;
-                /*if (longestStr<esTab[i][n]) {
+                /!*if (longestStr<esTab[i][n]) {
                     console.log("i=",i,"n=",n,"esTab[i][n]=",esTab[i][n],"empSzes[i][n]=",empSzes[i][n],"old longest string=",longestStr);
                     longestStr = esTab[i][n];
                     console.log("new longest string=", longestStr);
-                }*/  //longest string tracking not working
+                }*!/  //longest string tracking not working
             }
             if (empSzes[i][n]!=1){
                 //console.log("i=",i,"n=",n,"esTab[i][n]=",esTab[i][n],"empSzes[i][n]=",empSzes[i][n],",yPos=",yPos,"xPos=",xPos,"colour=",c);
@@ -64,7 +87,32 @@ function drawData(){
         c=c-30;
     }
     yPos=longestStr+50;
+*/
+    console.log("layer=",zipCurrent);
+    n=-6;
+    for(i=1998;i<=2015; i++){
+        // add the labels
+        fill(75);
+        push();
+        translate(marginSlider+n,height-55);
+        //rotate(PI/5.0);
+        text(i,0,0);
+        n=(width - 2*marginSlider)/17+n;
+        pop();
+    }
+
+    /*zipCurrent=37201;
+    for(i=1998;i<=2015; i++){
+        if(zipCode[i])==zipCurrent){
+
+        }
+    }*/
+
 }
+
+/*function animate(){
+
+}*/
 
 //-------------------LEAFLET CONTROL-----------------------------------------
 var map = L.map('map').setView([36.1678467,-86.7975992],11);
@@ -152,8 +200,7 @@ function onEachFeature(feature, layer) {
     layer.on({
         mouseover: highlightFeature,
         mouseout: resetHighlight
-       // click: drawData
-        //click: zoomToFeature
+        //click: drawData(layer.features.properties.zip)
     });
 }
 
@@ -165,9 +212,9 @@ geojson = L.geoJson(nashvilleZipCodes, {
 map.attributionControl.addAttribution('ZIP Code data &copy; <a href="https://data.nashville.gov/General-Government/Zip-Codes-GIS-/u7r5-bpku">Data.Nashville.gov</a>');
 
 
-var legend = L.control({position: 'bottomright'});
+/*var legend = L.control({position: 'bottomright'});
 
-/*legend.onAdd = function (map) {
+legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend'),
         grades = [0, 10, 20, 50, 100, 200, 500, 1000],
@@ -185,6 +232,6 @@ var legend = L.control({position: 'bottomright'});
 
     div.innerHTML = labels.join('<br>');
     return div;
-};*/
+};
 
-//legend.addTo(map);
+legend.addTo(map);*/
