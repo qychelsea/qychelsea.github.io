@@ -4,6 +4,7 @@ var colour212,colour220,colour230,colour241,colour242,colour251,colour252,colour
 var buttonPlay,buttonStop;
 var canvasX=605,canvasY = 0,marginSlider=200;
 var zipCurrent;
+var eventCount=0;
 
 function preload(){
     for (var i = 1994; i<=2015; i++){
@@ -13,27 +14,9 @@ function preload(){
 
 function setup() {
     var canvas = createCanvas(1250, 900);
-
     canvas.position(canvasX,canvasY);
-    background(235);
+
     colour212=color(190),colour220=color(170),colour230=color(150),colour241=color(130),colour242=color(110),colour251=color(90),colour252=color(70),colour254=color(50),colour260=color(30);
-
-    var slider;
-    //slider
-    slider = createSlider(1998,2015, 1998, );
-    slider.position(canvasX+marginSlider, height-100);
-    slider.style('width', '850px');
-
-/*    //buttons
-    createCanvas(100, 100);
-    background(0);
-    buttonPlay = createButton('Animate');
-    button.position(19, 19);
-    button.mousePressed(animate);
-
-    buttonPlay = createButton('Pause');
-    button.position(19, 19);
-    button.mousePressed(changeBG);*/
 
     sortData();
 
@@ -42,25 +25,27 @@ function setup() {
 function sortData(){
     //sort 1994-1997 (SIC)
     //sort 1998-2002(NAICS1997),2003-2007(NAICS2002),2008-2011(NAICS2007),2012-2015(NAICS2012)
-    for(var i = 1994;i<=2015;i++){
+    for(var i = 1998;i<=2015;i++){
         esTab[i]=table[i].getColumn("ESTAB");
         empSzes[i]=table[i].getColumn("EMPSZES");
         zipCode[i]=table[i].getColumn("zipcode");
         console.log("esTab["+i+"]=",esTab[i]);//problem from 1998 on. data not matching
         console.log("empSzes["+i+"]=",empSzes[i]);//problem from 1998 on.
     }
-
-    drawData();
 }
 
-function drawData(){
-    var xPos=50,yPos=100,xGap=50,yGap=1;
+function drawData(e){
+    if (eventCount==0){drawSlider();eventCount=1;}
+    clear();
+    background(235);
+    var xPos=marginSlider,yPos=height -150,xGap=50,yGap=1;
     var lineLength=10;
     var longestStr;
     var c=190;
-    stroke(c);
 
-/*  from before; draw all
+    stroke(c);
+    strokeCap(SQUARE);
+/*  //from before; draw all; original set xPos=50,yPos=100,xGap=50,yGap=1;
     for(var i = 1998;i<=2015;i++){
         stroke(c);
         longestStr=0;
@@ -86,13 +71,37 @@ function drawData(){
         }
         c=c-30;
     }
-    yPos=longestStr+50;
-*/
-    console.log("layer=",zipCurrent);
+    yPos=longestStr+50;*/
+
+    zipCurrent=e.target.feature.properties.zip;
+    console.log("zipCurrent=",zipCurrent);
+
+    for (var i = 1998;i<=2015;i++){
+        stroke(c);
+        longestStr=0;
+        for(var n = 0;n<=esTab[i].length;n++){
+            if (zipCode[i][n]===zipCurrent+']'){
+                for(var j = n+9;j>n;j--){//draw from the thickest; goes through 260-212
+                    var strokeWeightCurrent = 1;
+                    strokeWeight(strokeWeightCurrent);
+                    for (var k=0;k<esTab[i][j];k++){
+                        line(xPos,yPos,xPos+lineLength,yPos);
+                        yPos=yPos-strokeWeightCurrent-1;
+                    }
+                    strokeWeightCurrent-=0.45;
+                    yPos=height -150;
+                }
+            break;
+            }
+        }
+        xPos= xPos + lineLength + 15;
+    }
+
     n=-6;
     for(i=1998;i<=2015; i++){
         // add the labels
         fill(75);
+        strokeWeight(1);
         push();
         translate(marginSlider+n,height-55);
         //rotate(PI/5.0);
@@ -101,18 +110,14 @@ function drawData(){
         pop();
     }
 
-    /*zipCurrent=37201;
-    for(i=1998;i<=2015; i++){
-        if(zipCode[i])==zipCurrent){
-
-        }
-    }*/
-
 }
 
-/*function animate(){
-
-}*/
+function drawSlider(){
+    var slider;
+    slider = createSlider(1998,2015,1998);
+    slider.position(canvasX+marginSlider, height-100);
+    slider.style('width', '850px');
+}
 
 //-------------------LEAFLET CONTROL-----------------------------------------
 var map = L.map('map').setView([36.1678467,-86.7975992],11);
@@ -137,7 +142,7 @@ info.onAdd = function (map) {
 info.update = function (props) {
     this._div.innerHTML = '<h4>Nashville by ZIP Code</h4>' +  (props ?
         '<b>' + props.zip + '</b><br />'
-        : 'Hover over to view area');
+        : 'Click to view area');
 };
 
 info.addTo(map);
@@ -163,7 +168,6 @@ function style(feature) {
         dashArray: 2,
         fillOpacity: 0.35,
         fillColor: '#ff99cc'
-        //fillColor: getColor(feature.properties.density)
         //ff99cc (pink),527a7a9(purple grey),52527a(green grey)
     };
 }
@@ -199,8 +203,8 @@ function zoomToFeature(e) {
 function onEachFeature(feature, layer) {
     layer.on({
         mouseover: highlightFeature,
-        mouseout: resetHighlight
-        //click: drawData(layer.features.properties.zip)
+        mouseout: resetHighlight,
+        click:drawData
     });
 }
 
@@ -212,26 +216,10 @@ geojson = L.geoJson(nashvilleZipCodes, {
 map.attributionControl.addAttribution('ZIP Code data &copy; <a href="https://data.nashville.gov/General-Government/Zip-Codes-GIS-/u7r5-bpku">Data.Nashville.gov</a>');
 
 
-/*var legend = L.control({position: 'bottomright'});
+function testEvent(e){
+    console.log("e=",e);
+    console.log("e.target=",e.target);
+    console.log("e.target.feature.properties",e.target.feature.properties);
+    console.log("zip=",e.target.feature.properties.zip);
+}
 
-legend.onAdd = function (map) {
-
-    var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 10, 20, 50, 100, 200, 500, 1000],
-        labels = [],
-        from, to;
-
-    for (var i = 0; i < grades.length; i++) {
-        from = grades[i];
-        to = grades[i + 1];
-
-        labels.push(
-            '<i style="background:' + getColor(from + 1) + '"></i> ' +
-            from + (to ? '&ndash;' + to : '+'));
-    }
-
-    div.innerHTML = labels.join('<br>');
-    return div;
-};
-
-legend.addTo(map);*/
