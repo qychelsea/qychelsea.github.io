@@ -1,10 +1,8 @@
 var table = [];
 var esTab = [],empSzes = [],zipCode=[];
 var colour212,colour220,colour230,colour241,colour242,colour251,colour252,colour254,colour260;
-var buttonPlay,buttonStop;
 var canvasX=605,canvasY = 0,marginSlider=200;
 var zipCurrent;
-var eventCount=0;
 
 function preload(){
     for (var i = 1994; i<=2015; i++){
@@ -35,15 +33,14 @@ function sortData(){
 }
 
 function drawData(e){
-    if (eventCount==0){drawSlider();eventCount=1;}
+    //if (eventCount==0){drawSlider();eventCount=1;}
     clear();
-    background(235);
+    background('#e8e3e8');
     var xPos=marginSlider,yPos=height -150,xGap=50,yGap=1;
     var lineLength=10;
     var longestStr;
-    var c=190;
+    var c;
 
-    stroke(c);
     strokeCap(SQUARE);
 /*  //from before; draw all; original set xPos=50,yPos=100,xGap=50,yGap=1;
     for(var i = 1998;i<=2015;i++){
@@ -77,29 +74,34 @@ function drawData(e){
     console.log("zipCurrent=",zipCurrent);
 
     for (var i = 1998;i<=2015;i++){
-        stroke(c);
+        c=0;
+
+        var strokeWeightCurrent = 1;
         longestStr=0;
         for(var n = 0;n<=esTab[i].length;n++){
             if (zipCode[i][n]===zipCurrent+']'){
                 for(var j = n+9;j>n;j--){//draw from the thickest; goes through 260-212
-                    var strokeWeightCurrent = 1;
                     strokeWeight(strokeWeightCurrent);
+
+                    stroke(color(c,c,c,75));
                     for (var k=0;k<esTab[i][j];k++){
                         line(xPos,yPos,xPos+lineLength,yPos);
                         yPos=yPos-strokeWeightCurrent-1;
-                    }
-                    strokeWeightCurrent-=0.45;
-                    yPos=height -150;
+                    }//strokeWeightCurrent=strokeWeightCurrent-0.45;
+                    c=c+30;
                 }
             break;
             }
+            yPos=height -150;
         }
         xPos= xPos + lineLength + 15;
     }
 
+    drawCurrent();
+/*    // SLIDER LABELS
     n=-6;
     for(i=1998;i<=2015; i++){
-        // add the labels
+
         fill(75);
         strokeWeight(1);
         push();
@@ -108,16 +110,34 @@ function drawData(e){
         text(i,0,0);
         n=(width - 2*marginSlider)/17+n;
         pop();
-    }
+    }*/
 
 }
 
-function drawSlider(){
+
+function drawCurrent(){
+    var mouseYear = Math.floor(map(mouseX,0,width,1998,2015));
+    console.log("mouseYear=",mouseYear);
+    var c=0;
+    var strokeWeightCurrent = 1;
+    for(var n = 0;n<=esTab[mouseYear].length;n++){
+        if (zipCode[mouseYear][n]===zipCurrent+']'){
+        for(var j = n+9;j>n;j--){//draw from the thickest; goes through 260-212
+            strokeWeight(strokeWeightCurrent);
+            stroke(c);
+            for (var k=0;k<esTab[mouseYear][j];k++){
+                line(xPos,yPos,xPos+lineLength,yPos);
+                yPos=yPos-strokeWeightCurrent-1;
+            }
+        }}}
+
+}
+/*function drawSlider(){
     var slider;
     slider = createSlider(1998,2015,1998);
     slider.position(canvasX+marginSlider, height-100);
     slider.style('width', '850px');
-}
+}*/
 
 //-------------------LEAFLET CONTROL-----------------------------------------
 var map = L.map('map').setView([36.1678467,-86.7975992],11);
@@ -167,8 +187,8 @@ function style(feature) {
         color: '#666666',
         dashArray: 2,
         fillOpacity: 0.35,
-        fillColor: '#ff99cc'
-        //ff99cc (pink),527a7a9(purple grey),52527a(green grey)
+        fillColor: '#a385ad'
+        //ff99cc (pink),527a7a9(purple grey),52527a(green grey),a385ad,ff99cc
     };
 }
 
