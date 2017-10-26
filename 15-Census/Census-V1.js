@@ -1,7 +1,7 @@
 var table = [];
 var esTab = [],empSzes = [],zipCode=[];
 var colour212,colour220,colour230,colour241,colour242,colour251,colour252,colour254,colour260;
-var canvasX=605,canvasY = 0,marginSlider=200;
+var canvasX=605,canvasY = 0,marginSlider=100;
 var zipCurrent;
 var mx;
 var xGap=15;
@@ -14,8 +14,9 @@ function preload(){
 }
 
 function setup() {
-    var canvas = createCanvas(1250, 900);
+    var canvas = createCanvas(2*marginSlider+18*lineLength+17*xGap, 900);
     canvas.position(canvasX,canvasY);
+    console.log("width=",width);
     sortData();
 
 }
@@ -32,11 +33,40 @@ function sortData(){
     }
 }
 
+function draw(){
+    var c=0;
+    var xPos=marginSlider,yPos=height -150;
+    var mouseYear;
+    var strokeWeightCurrent = 1;
+
+    if(mouseX>marginSlider&&mouseX<width-marginSlider){
+        mouseYear = Math.floor(map(mouseX,marginSlider, width-marginSlider-lineLength,1998,2015));
+        console.log("mouseYear=",mouseYear,"winMouseX=",mouseX);
+        for(var n = 0;n<=esTab[mouseYear].length;n++){
+            if (zipCode[mouseYear][n]===zipCurrent+']'){
+                for(var j = n+9;j>n;j--){//draw from the thickest; goes through 260-212
+                    strokeWeight(strokeWeightCurrent);
+                    stroke(color(c,90,130));
+                    for (var k=0;k<esTab[mouseYear][j];k++){
+                        xPos=marginSlider+(mouseYear-1998)*(lineLength+xGap);
+                        line(xPos,yPos,xPos+lineLength,yPos);
+                        yPos=yPos-strokeWeightCurrent-1;
+                    }
+                    c=c+30;
+                }
+                break;
+            }
+        }
+    }
+
+}
+
+
 function drawData(e){
     //if (eventCount==0){drawSlider();eventCount=1;}
     clear();
     background('#e8e3e8');
-    var xPos=marginSlider,yPos=height -150,yGap=1;
+    var xPos=marginSlider,yPos=height -150;
 
     var longestStr;
     var c,a=75;//c for colour, a for alpha
@@ -98,6 +128,7 @@ function drawData(e){
     }
 
 
+
 /*    // SLIDER LABELS
     n=-6;
     for(i=1998;i<=2015; i++){
@@ -113,35 +144,9 @@ function drawData(e){
 
 }
 
-function draw(){
-    if(mouseX>marginSlider&&mouseX<width-17*lineLength+16*xGap){
-        drawCurrent(mouseX);
-    }
-}
 
 function drawCurrent(mx){
-    var c=0;
-    var lineLength=10;
-    var xPos=marginSlider,yPos=height -150;
-    var mouseYear = Math.floor(map(mx,marginSlider, 635,1998,2015));
-    console.log("mouseYear=",mouseYear,"winMouseX=",mouseX);
 
-    var strokeWeightCurrent = 1;
-
-    for(var n = 0;n<=esTab[mouseYear].length;n++){
-        if (zipCode[mouseYear][n]===zipCurrent+']'){
-            for(var j = n+9;j>n;j--){//draw from the thickest; goes through 260-212
-                strokeWeight(strokeWeightCurrent);
-                stroke(color(c,90,130));
-                for (var k=0;k<esTab[mouseYear][j];k++){
-                    line(xPos,yPos,xPos+lineLength,yPos);
-                    yPos=yPos-strokeWeightCurrent-1;
-                }
-                c=c+30;
-            }
-            break;
-        }
-    }
 }
 /*function drawSlider(){
     var slider;
