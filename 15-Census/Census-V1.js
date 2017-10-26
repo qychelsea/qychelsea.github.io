@@ -3,9 +3,12 @@ var esTab = [],empSzes = [],zipCode=[];
 var colour212,colour220,colour230,colour241,colour242,colour251,colour252,colour254,colour260;
 var canvasX=605,canvasY = 0,marginSlider=200;
 var zipCurrent;
+var mx;
+var xGap=15;
+var lineLength=10;
 
 function preload(){
-    for (var i = 1994; i<=2015; i++){
+    for (var i = 1998; i<=2015; i++){
         table [i] = loadTable('data/zbp'+i+'.csv', 'csv', 'header');
     }
 }
@@ -13,9 +16,6 @@ function preload(){
 function setup() {
     var canvas = createCanvas(1250, 900);
     canvas.position(canvasX,canvasY);
-
-    colour212=color(190),colour220=color(170),colour230=color(150),colour241=color(130),colour242=color(110),colour251=color(90),colour252=color(70),colour254=color(50),colour260=color(30);
-
     sortData();
 
 }
@@ -36,10 +36,10 @@ function drawData(e){
     //if (eventCount==0){drawSlider();eventCount=1;}
     clear();
     background('#e8e3e8');
-    var xPos=marginSlider,yPos=height -150,xGap=50,yGap=1;
-    var lineLength=10;
+    var xPos=marginSlider,yPos=height -150,yGap=1;
+
     var longestStr;
-    var c;
+    var c,a=75;//c for colour, a for alpha
 
     strokeCap(SQUARE);
 /*  //from before; draw all; original set xPos=50,yPos=100,xGap=50,yGap=1;
@@ -75,33 +75,32 @@ function drawData(e){
 
     for (var i = 1998;i<=2015;i++){
         c=0;
-
         var strokeWeightCurrent = 1;
         longestStr=0;
         for(var n = 0;n<=esTab[i].length;n++){
             if (zipCode[i][n]===zipCurrent+']'){
+                yPos=height -150;
                 for(var j = n+9;j>n;j--){//draw from the thickest; goes through 260-212
                     strokeWeight(strokeWeightCurrent);
-
-                    stroke(color(c,c,c,75));
+                    stroke(color(c,90,130,a));
+                    console.log("xPos=",xPos," yPos=",yPos);
                     for (var k=0;k<esTab[i][j];k++){
                         line(xPos,yPos,xPos+lineLength,yPos);
                         yPos=yPos-strokeWeightCurrent-1;
-                    }//strokeWeightCurrent=strokeWeightCurrent-0.45;
+                    }
                     c=c+30;
                 }
+                console.log("---");
             break;
             }
-            yPos=height -150;
         }
-        xPos= xPos + lineLength + 15;
+        xPos= xPos + lineLength + xGap;
     }
 
-    drawCurrent();
+
 /*    // SLIDER LABELS
     n=-6;
     for(i=1998;i<=2015; i++){
-
         fill(75);
         strokeWeight(1);
         push();
@@ -114,23 +113,35 @@ function drawData(e){
 
 }
 
+function draw(){
+    if(mouseX>marginSlider&&mouseX<width-17*lineLength+16*xGap){
+        drawCurrent(mouseX);
+    }
+}
 
-function drawCurrent(){
-    var mouseYear = Math.floor(map(mouseX,0,width,1998,2015));
-    console.log("mouseYear=",mouseYear);
+function drawCurrent(mx){
     var c=0;
+    var lineLength=10;
+    var xPos=marginSlider,yPos=height -150;
+    var mouseYear = Math.floor(map(mx,marginSlider, 635,1998,2015));
+    console.log("mouseYear=",mouseYear,"winMouseX=",mouseX);
+
     var strokeWeightCurrent = 1;
+
     for(var n = 0;n<=esTab[mouseYear].length;n++){
         if (zipCode[mouseYear][n]===zipCurrent+']'){
-        for(var j = n+9;j>n;j--){//draw from the thickest; goes through 260-212
-            strokeWeight(strokeWeightCurrent);
-            stroke(c);
-            for (var k=0;k<esTab[mouseYear][j];k++){
-                line(xPos,yPos,xPos+lineLength,yPos);
-                yPos=yPos-strokeWeightCurrent-1;
+            for(var j = n+9;j>n;j--){//draw from the thickest; goes through 260-212
+                strokeWeight(strokeWeightCurrent);
+                stroke(color(c,90,130));
+                for (var k=0;k<esTab[mouseYear][j];k++){
+                    line(xPos,yPos,xPos+lineLength,yPos);
+                    yPos=yPos-strokeWeightCurrent-1;
+                }
+                c=c+30;
             }
-        }}}
-
+            break;
+        }
+    }
 }
 /*function drawSlider(){
     var slider;
