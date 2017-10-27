@@ -35,9 +35,9 @@ function draw(){
     clear();
     background('#e8e3e8');
     var c=0,a=75; //c for colour, a for alpha
-    var xPos=marginSlider,yPos=height -150;
+    var xPos=marginSlider,yPos=height -50;
     var mouseYear;
-    var strokeWeightCurrent = 2;
+    var strokeWeightCurrent = 1;
 
     //draw alpha
     for (var i = 1998;i<=2015;i++){
@@ -45,7 +45,7 @@ function draw(){
         longestStr=0;
         for(var n = 0;n<=esTab[i].length;n++){
             if (zipCode[i][n]===zipCurrent+']'){
-                yPos=height -150;
+                yPos=height -50;
                 for(var j = n+9;j>n;j--){//draw from the thickest; goes through 260-212
                     strokeWeight(strokeWeightCurrent);
                     stroke(color(c,90,130,a));
@@ -64,7 +64,7 @@ function draw(){
     }
 
     //draw solid
-    yPos=height -150;
+    yPos=height -50;
     c=0;
     if(mouseX>marginSlider&&mouseX<width-marginSlider){
         mouseYear = Math.floor(map(mouseX,marginSlider, width-marginSlider-lineLength,1998,2015));
