@@ -1,6 +1,6 @@
 var table = [];
 var esTab = [],empSzes = [],zipCode=[];
-var canvasX=605,canvasY = 0,marginSlider=100;
+var canvasX=605, canvasY = 0, marginSlider=100, marginBase=175;
 var zipCurrent;
 var mx;
 var xGap=15;
@@ -35,40 +35,75 @@ function draw(){
     clear();
     background('#e8e3e8');
     var c=0,a=75; //c for colour, a for alpha
-    var xPos=marginSlider,yPos=height -150;
+    var xPos=marginSlider,yPos=height - marginBase;
     var mouseYear;
-    var strokeWeightCurrent = 2;
+    var strokeWeightCurrent = 1;
+    var trendX=[],trendY=[];
+
+    if(zipCurrent>0){
+        push();// display zip
+        fill(100);
+        noStroke();
+        textSize(20);
+        textStyle(NORMAL);
+        textAlign(CENTER);
+        text(zipCurrent,width/2,height-2*marginBase/3);
+        pop();
+
+        c=240;
+        for(var i = 0;i<=8;i++){
+            noStroke();
+            fill(color(c,90,130,240));
+            rect(xPos+i*50,height - marginBase/3,8,8);
+
+            c=c-30;
+        }
+        fill(155);
+        push();
+        textStyle(BOLD);
+        text("business size (employees)",xPos-2,height-65);
+        pop();
+
+        text("1-4          5-9         10-19       20-49     50-99     100-249   250-499  500-999  1000+",xPos-2,height - 35);
+
+    }
 
     //draw alpha
-    for (var i = 1998;i<=2015;i++){
+    for ( i = 1998;i<=2015;i++){
+        trendX = [];
+        trendY = [];
         c=0;
         longestStr=0;
         for(var n = 0;n<=esTab[i].length;n++){
             if (zipCode[i][n]===zipCurrent+']'){
-                yPos=height -150;
+                yPos=height -marginBase;
                 for(var j = n+9;j>n;j--){//draw from the thickest; goes through 260-212
                     strokeWeight(strokeWeightCurrent);
                     stroke(color(c,90,130,a));
-                    console.log("xPos=",xPos," yPos=",yPos);
                     for (var k=0;k<esTab[i][j];k++){
                         line(xPos,yPos,xPos+lineLength,yPos);
-                        yPos=yPos-strokeWeightCurrent-1;
+                        yPos=yPos-strokeWeightCurrent;
                     }
                     c=c+30;
+                    if(esTab[i][j]!==0){yPos=yPos-1;}
+
                 }
-                console.log("---");
+/*                trendX.push(xPos+lineLength/2);
+                trendY.push(yPos-5);*/
                 break;
             }
         }
+
         xPos= xPos + lineLength + xGap;
+
     }
 
     //draw solid
-    yPos=height -150;
+    yPos=height -marginBase;
     c=0;
+
     if(mouseX>marginSlider&&mouseX<width-marginSlider){
         mouseYear = Math.floor(map(mouseX,marginSlider, width-marginSlider-lineLength,1998,2015));
-        console.log("mouseYear=",mouseYear,"winMouseX=",mouseX);
         for(n = 0;n<=esTab[mouseYear].length;n++){
             if (zipCode[mouseYear][n]===zipCurrent+']'){
                 for(j = n+9;j>n;j--){//draw from the thickest; goes through 260-212
@@ -77,22 +112,53 @@ function draw(){
                     for (k=0;k<esTab[mouseYear][j];k++){
                         xPos=marginSlider+(mouseYear-1998)*(lineLength+xGap);
                         line(xPos,yPos,xPos+lineLength,yPos);
-                        yPos=yPos-strokeWeightCurrent-1;
+                        if (Math.ceil(esTab[mouseYear][j]/2)===k){//display legend
+                            var legendX=xPos+lineLength+2,legendY=yPos;
+                            //draw leaders
+                            push();
+                            line(legendX,legendY,legendX+9,legendY);
+                            legendX=legendX+9;
 
-                        push();//display value
-                        
-                        pop();
+                            line(legendX,legendY,legendX,legendY-6);
+                            legendY=legendY-6;
 
-                        push();//display year
-                        fill(75);
-                        noStroke();
-                        translate(xPos,height-115);
-                        rotate(-PI/5.0);
-                        text(mouseYear,0,0 );
+                            line(legendX,legendY,legendX+10,legendY);
+                            legendX=legendX+10;
+                            //draw legend box
+                            fill(color(c,90,130));
+                            noStroke();
+                            rect(legendX+2,legendY-5,8,8);
+                            //draw legend text
+                            text(esTab[mouseYear][j],legendX+14, legendY+4);
+
+                            pop();
+                        }
+/*
+                        push();
+                        noFill();stroke(255);
+                        beginShape();
+                        for(var v=0;v<=mouseYear;v++){
+                            curveVertex(trendX[mouseYear-1998],trendY[mouseYear-1998]);
+                        }
+                        console.log("trendX=",trendX);
+                        console.log("trendY=",trendY);
+                        endShape();
                         pop();
+*/
+
+                        yPos=yPos-strokeWeightCurrent;
                     }
                     c=c+30;
+                    if(esTab[mouseYear][j]!==0){yPos=yPos-1;}
                 }
+                push();//display year
+                noStroke();
+                fill(135);
+                translate(xPos,height-marginBase+30);
+                rotate(-PI/5.0);
+                text(mouseYear,0,0);
+                pop();
+
                 break;
             }
         }
