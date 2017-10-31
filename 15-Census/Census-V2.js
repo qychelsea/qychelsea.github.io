@@ -1,8 +1,8 @@
 var table = []; neighbourhood = [];
 var esTab = [],empSzes = [],zipCode=[],neighZip = [], neighName=[];
-var canvasX=605, canvasY = 0, marginSlider=100, marginBase=175;
+var canvasX=605, canvasY = 0, marginSlider=100, marginBase=150;
 var zipCurrent;
-var mx;
+//var counter=0;
 var xGap=15;
 var lineLength=10;
 var myFont;
@@ -37,14 +37,12 @@ function sortData(){
         neighZip = neighbourhood.getColumn("zip");
         neighName=neighbourhood.getColumn("name");
         }
-        console.log("neighName=",neighName);
-        console.log("neighZip=",neighZip);
 }
 
 function draw(){
     textFont(myFont);
     clear();
-    background(235);
+    background(230);
     var r=0,a=75; //r for colour red and blue, a for alpha
     var xPos=marginSlider,yPos=height - marginBase;
     var mouseYear;
@@ -59,12 +57,13 @@ function draw(){
         textStyle(BOLD);
         textAlign(CENTER);
         text("Number of Tourism Businesses", width/2,50);//header
+        text("1998 - 2015", width/2, 78);
 
         textSize(20);
         textStyle(NORMAL);
         for (var i = 0;i<=21;i++){//neighbourhood
             if(neighZip[i]===zipCurrent){
-                text(neighName[i],width/2, 78);
+                text(neighName[i],width/2, 107);
             }
         }
         pop();
@@ -75,26 +74,24 @@ function draw(){
         textSize(20);
         textStyle(BOLD);
         textAlign(CENTER);
-        text(zipCurrent,width/2,104);
+        text(zipCurrent,width/2,127);
         pop();
 
         r=240;//draw legend
         for( i = 0;i<=8;i++){
             noStroke();
             fill(color(r,r,94,240));// fill(color(c,90,130,240));
-            rect(xPos+i*50,height - marginBase/3,8,8);
-
+            rect(xPos+i*50,height - 55,8,8);
             r=r-25;
         }
-        fill(155);
+        fill(105);
         push();
         textStyle(BOLD);
         textSize(15);
-        text("Business Size (Employees)",xPos-2,height-65);
+        text("business size (employees)",xPos-2,height-65);
         pop();
         textSize(12);
-        text("1-4          5-9         10-19       20-49     50-99     100-249   250-499  500-999  1000+",xPos-2,height - 35);
-
+        text("1-4        5-9       10-19      20-49     50-99     100-249   250-499    500-999     1000+",xPos-2,height - 35);
     }
 
     //draw alpha
@@ -115,16 +112,11 @@ function draw(){
                     }
                     r=r+25;
                     if(esTab[i][j]!==0){yPos=yPos-1;}
-
                 }
-/*                trendX.push(xPos+lineLength/2);
-                trendY.push(yPos-5);*/
                 break;
             }
         }
-
         xPos= xPos + lineLength + xGap;
-
     }
 
     //draw solid
@@ -135,20 +127,29 @@ function draw(){
         mouseYear = Math.floor(map(mouseX,marginSlider, width-marginSlider-lineLength,1998,2015));
         for(n = 0;n<=esTab[mouseYear].length;n++){
             if (zipCode[mouseYear][n]===zipCurrent+']'){
-                for(j = n+9;j>n;j--){//draw from the thickest; goes through 260-212
+                //var yPosMod=0;//Y Position Modifier
+                for(j = n+9;j>n;j--){//goes through 260-212
                     strokeWeight(strokeWeightCurrent);
                     stroke(color(r,r,94));
                     textSize(15);
+                    var yPosP=yPos;//previous yPos for for legend
+
                     for (k=0;k<esTab[mouseYear][j];k++){
                         xPos=marginSlider+(mouseYear-1998)*(lineLength+xGap);
                         line(xPos,yPos,xPos+lineLength,yPos);
                         if (Math.ceil(esTab[mouseYear][j]/2)===k){//display legend
                             var legendX=xPos+lineLength+2,legendY=yPos;
+
                             //draw leaders
                             push();
                             line(legendX,legendY,legendX+9,legendY);
                             legendX=legendX+9;
 
+                            /*if (yPosP-legendY < 3&&counter!==0){//trying to space out tight legends
+                                yPosMod=6+yPosMod;
+                                console.log("yPosMod=",yPosMod);
+                            }
+*/
                             line(legendX,legendY,legendX,legendY-6);
                             legendY=legendY-6;
 
@@ -162,6 +163,9 @@ function draw(){
                             text(esTab[mouseYear][j],legendX+14, legendY+4);
 
                             pop();
+
+                            yPosP=legendY;
+                            //counter=1;
                         }
 /*
                         push();
@@ -175,26 +179,55 @@ function draw(){
                         endShape();
                         pop();
 */
-
                         yPos=yPos-strokeWeightCurrent;
                     }
                     r=r+25;
                     if(esTab[mouseYear][j]!==0){yPos=yPos-1;}
+
                 }
-                push();//display year
+
+                //draw pop-up chart
+                push();
+                noStroke();
+                fill(240,240,240,190);
+
+                rectMode(CORNERS);
+                var popX,popY=300;
+                if (mouseYear<2009){
+                    popX=xPos+70;
+                    rect(popX,popY,popX+120,popY+425);
+                }
+                else {
+                    popX=xPos-130;
+                    rect(popX,popY,popX+120,popY+425);
+                }
+                if(mouseYear>1998){
+                    fill(75);
+
+                    textStyle(BOLD);
+                    text(mouseYear,popX+10,popY+20);
+                    fill(100);
+                    textStyle(NORMAL);
+                    text("most changed since last year",popX+10,popY+50);
+                    text("most change since 1998",popX+10,popY+100);
+
+                }
+
+                pop();
+
+/*                push();//display year
                 noStroke();
                 fill(135);
                 translate(xPos,height-marginBase+30);
                 rotate(-PI/5.0);
                 textSize(15);
                 text(mouseYear,0,0);
-                pop();
+                pop();*/
 
                 break;
             }
         }
     }
-
 }
 
 function drawData(e){
@@ -238,7 +271,6 @@ function style(feature) {
         dashArray: 2,
         fillOpacity: 0.35,
         fillColor: '#ffe500'
-        //ff99cc (pink),527a7a9(purple grey),52527a(green grey),a385ad,ff99cc
     };
 }
 
@@ -249,10 +281,7 @@ function highlightFeature(e) {
         weight: 2,
         color: '#555',
         dashArray: '',
-       // fillColor: '0B007B',
         fillOpacity: 0.65
-
-
     });
 
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
@@ -283,7 +312,6 @@ geojson = L.geoJson(nashvilleZipCodes, {
 }).addTo(map);
 
 map.attributionControl.addAttribution('ZIP Code data &copy; <a href="https://data.nashville.gov/General-Government/Zip-Codes-GIS-/u7r5-bpku">Data.Nashville.gov</a>');
-
 
 function testEvent(e){
     console.log("e=",e);
