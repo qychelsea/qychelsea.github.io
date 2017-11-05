@@ -2,11 +2,11 @@ var table = []; neighbourhood = [];
 var esTab = [],empSzes = [],zipCode=[],neighZip = [], neighName=[];
 var canvasX=605, canvasY = 0, marginSlider=100, marginBase=150;
 var zipCurrent;
-//var counter=0;
+var counter=0;
 var xGap=15;
 var lineLength=10;
 var deltaGain, deltaGainCat, deltaLoss=0,deltaLossCat, deltaTtl,deltaTtlP; //most changed since last year (category), since 1998, Overall (percentage)
-var myFont;
+var myFont,bgImg;
 
 function preload(){
     for (var i = 1998; i<=2015; i++){
@@ -14,6 +14,7 @@ function preload(){
     }
     neighbourhood = loadTable('data/Neighbourhood.csv','csv','header');
     myFont = loadFont('assets/Steelworks Vintage Demo.otf');
+    bgImg = loadImage('assets/vintageBackground.jpg');
 }
 
 function setup() {
@@ -39,7 +40,9 @@ function sortData(){
 function draw(){
     textFont(myFont);
     clear();
-    background(230);
+    background(249, 242, 236);//235
+    tint(255,110);
+    image(bgImg, 0,0, bgImg.width, bgImg.height);
     var r=0,a=75; //r for colour red and blue, a for alpha
     var xPos=marginSlider,yPos=height - marginBase;
     var mouseYear;
@@ -74,12 +77,12 @@ function draw(){
         text(zipCurrent,width/2,127);
         pop();
 
-        r=240;//draw legend
+        r=0;//draw horizontal legend
         for( i = 0;i<=8;i++){
             noStroke();
             fill(color(r,r,94,240));// fill(color(c,90,130,240));
-            rect(xPos+i*53,height - 55,8,8);
-            r=r-25;
+            rect(width-marginSlider-i*54-4,height - 55,8,8);
+            r=r+25;
         }
         fill(105);
         push();
@@ -100,15 +103,21 @@ function draw(){
         for(var n = 0;n<=esTab[i].length;n++){
             if (zipCode[i][n]===zipCurrent+']'){
                 yPos=height -marginBase;
-                for(var j = n+9;j>n;j--){//draw from the thickest; goes through 260-212
-                    strokeWeight(strokeWeightCurrent);
-                    stroke(color(r,r,94,a));
-                    for (var k=0;k<esTab[i][j];k++){
-                        line(xPos,yPos,xPos+lineLength,yPos);
-                        yPos=yPos-strokeWeightCurrent;
+                for(var j = n+9;j>n;j--){//draw from the darkest; goes through 260-212
+                    if (esTab[i][j]!==0){
+                        strokeWeight(strokeWeightCurrent);
+                        stroke(color(r,r,94,a));
+                        for (var k=0;k<esTab[i][j];k++){
+                            line(xPos,yPos,xPos+lineLength,yPos);
+                            yPos=yPos-strokeWeightCurrent;
+                        }
+                        r=r+25;
+                        if(esTab[i][j]!==0){yPos=yPos-1;}
                     }
-                    r=r+25;
-                    if(esTab[i][j]!==0){yPos=yPos-1;}
+                    else {
+                        r=r+25;
+                        yPos=yPos+1;
+                    }
                 }
                 break;
             }
@@ -124,65 +133,69 @@ function draw(){
         mouseYear = Math.floor(map(mouseX,marginSlider, width-marginSlider-lineLength,1998,2015));
         for(n = 0;n<=esTab[mouseYear].length;n++){
             if (zipCode[mouseYear][n]===zipCurrent+']'){
-                deltaGain=0;
-                deltaLoss=0;
-                //var yPosMod=0;//Y Position Modifier
+                deltaGain=-1;
+                deltaLoss=-1;
+                deltaGainCat='none';
+                deltaLossCat='none';
+                var yPosP=height;//previous yPos for for legend
+
                 for(j = n+9;j>n;j--){//goes through 260-212
                     strokeWeight(strokeWeightCurrent);
                     stroke(color(r,r,94));
                     textSize(15);
-                    var yPosP=yPos;//previous yPos for for legend
 
                     //calculate change
                     if(mouseYear>1998){
-                        deltaGain=esTab[mouseYear][j]-esTab[mouseYear-1][j];
-                        if (deltaGain===0){deltaLoss=0;deltaGainCat='none';deltaLossCat='none';}
-                        if(deltaGain>0){
-                            if(empSzes[mouseYear][j]==212){deltaGainCat='1-4';}
-                            if(empSzes[mouseYear][j]==220){deltaGainCat='5-9';}
-                            if(empSzes[mouseYear][j]==230){deltaGainCat='10-19';}
-                            if(empSzes[mouseYear][j]==241){deltaGainCat='20-49';}
-                            if(empSzes[mouseYear][j]==242){deltaGainCat='50-99';}
-                            if(empSzes[mouseYear][j]==252){deltaGainCat='100-249';}
-                            if(empSzes[mouseYear][j]==254){deltaGainCat='250-499';}
-                            if(empSzes[mouseYear][j]==260){deltaGainCat='500-999';}
-                        }
-                        if (deltaGain<0){
-                            deltaLoss=Math.abs(deltaGain);
-                            if(empSzes[mouseYear][j]==212){deltaLossCat='1-4';}
-                            if(empSzes[mouseYear][j]==220){deltaLossCat='5-9';}
-                            if(empSzes[mouseYear][j]==230){deltaLossCat='10-19';}
-                            if(empSzes[mouseYear][j]==241){deltaLossCat='20-49';}
-                            if(empSzes[mouseYear][j]==242){deltaLossCat='50-99';}
-                            if(empSzes[mouseYear][j]==252){deltaLossCat='100-249';}
-                            if(empSzes[mouseYear][j]==254){deltaLossCat='250-499';}
-                            if(empSzes[mouseYear][j]==260){deltaLossCat='500-999';}
-
+                        if (esTab[mouseYear][j]-esTab[mouseYear-1][j]>0&&esTab[mouseYear][j]-esTab[mouseYear-1][j]>deltaGain){
+                            deltaGain=esTab[mouseYear][j]-esTab[mouseYear-1][j];
+                            if(empSzes[mouseYear][j]=='212'){deltaGainCat='1-4';}
+                            if(empSzes[mouseYear][j]=='220'){deltaGainCat='5-9';}
+                            if(empSzes[mouseYear][j]=='230'){deltaGainCat='10-19';}
+                            if(empSzes[mouseYear][j]=='241'){deltaGainCat='20-49';}
+                            if(empSzes[mouseYear][j]=='242'){deltaGainCat='50-99';}
+                            if(empSzes[mouseYear][j]=='251'){deltaGainCat='100-249';}
+                            if(empSzes[mouseYear][j]=='252'){deltaGainCat='250-499';}
+                            if(empSzes[mouseYear][j]=='254'){deltaGainCat='500-999';}
+                            if(empSzes[mouseYear][j]=='260'){deltaGainCat='1000+';}
+                           }
+                        else if (esTab[mouseYear][j]-esTab[mouseYear-1][j]<0&&esTab[mouseYear-1][j]-esTab[mouseYear][j]>deltaLoss){
+                            deltaLoss=esTab[mouseYear-1][j]-esTab[mouseYear][j];
+                            if(empSzes[mouseYear][j]=='212'){deltaLossCat='1-4';}
+                            if(empSzes[mouseYear][j]=='220'){deltaLossCat='5-9';}
+                            if(empSzes[mouseYear][j]=='230'){deltaLossCat='10-19';}
+                            if(empSzes[mouseYear][j]=='241'){deltaLossCat='20-49';}
+                            if(empSzes[mouseYear][j]=='242'){deltaLossCat='50-99';}
+                            if(empSzes[mouseYear][j]=='251'){deltaLossCat='100-249';}
+                            if(empSzes[mouseYear][j]=='252'){deltaLossCat='250-499';}
+                            if(empSzes[mouseYear][j]=='254'){deltaLossCat='500-999';}
+                            if(empSzes[mouseYear][j]=='260'){deltaLossCat='1000+';}
+                            }
+                        else if (esTab[mouseYear][j]-esTab[mouseYear-1][j]===0){
+                            deltaLoss=0;
+                            deltaGain=0;
                         }
                     }
-
-
 
                     for (k=0;k<esTab[mouseYear][j];k++){
                         xPos=marginSlider+(mouseYear-1998)*(lineLength+xGap);
                         line(xPos,yPos,xPos+lineLength,yPos);
 
-
-                        if (Math.floor(esTab[mouseYear][j]/2)===k){//display legend
+                        if (Math.floor(esTab[mouseYear][j]/2)===k&&esTab[mouseYear][j]!==0){//display vertical legend
                             var legendX=xPos+lineLength+2,legendY=yPos;
+                            var yPosMod=0;
 
                             //draw leaders
                             push();
                             line(legendX,legendY,legendX+9,legendY);
                             legendX=legendX+9;
 
-                            /*if (yPosP-legendY < 3&&counter!==0){//trying to space out tight legends
-                                yPosMod=6+yPosMod;
-                                console.log("yPosMod=",yPosMod);
+                            if (yPosP-legendY < 8){//space out tight legends
+                                yPosMod=8-(yPosP-legendY);
                             }
-*/
-                            line(legendX,legendY,legendX,legendY-6);
-                            legendY=legendY-6;
+
+                            line(legendX,legendY,legendX,legendY-3-yPosMod);
+                            yPosP=legendY-3-yPosMod;
+                            legendY=legendY-3-yPosMod;
 
                             line(legendX,legendY,legendX+10,legendY);
                             legendX=legendX+10;
@@ -192,12 +205,9 @@ function draw(){
                             rect(legendX+2,legendY-5,8,8);
                             //draw legend text
                             text(esTab[mouseYear][j],legendX+14, legendY+4);
-
+                            counter=1;
                             pop();
-
-                            yPosP=legendY;
-                            //counter=1;
-                        }
+                         }
                          yPos=yPos-strokeWeightCurrent;
                     }
                     r=r+25;
@@ -207,17 +217,24 @@ function draw(){
                 //draw pop-up chart
                 push();
                 noStroke();
-                fill(240,240,240,190);
+                fill(255, 248, 242,235);
 
                 rectMode(CORNERS);
-                var popX,popY=300;
+                var popX,popY,popYBase;
+                if (yPos>450){
+                    popY=450;
+                    popYBase=height-marginBase;
+                } else {
+                    popY = yPos;
+                    popYBase = popY+300;
+                }
                 if (mouseYear<2009){
                     popX=xPos+70;
-                    rect(popX,popY,popX+120,popY+450);
+                    rect(popX,popY,popX+130,popYBase);
                 }
                 else {
                     popX=xPos-130;
-                    rect(popX,popY,popX+120,popY+450);
+                    rect(popX,popY,popX+130,popYBase);
                 }
                 if(mouseYear>=1998){
                     fill(75);
@@ -245,11 +262,11 @@ function draw(){
                             break;
                         }
                     }
-
                     if (mouseYear>1998){
-                        if (deltaTtl>=0){text("year gain",popX+10,popY+105);fill(102, 153, 0);}
-                        if (deltaTtl<0){text("year loss",popX+10,popY+105);fill(153,51,51);}
-                        text(deltaTtl+" ("+deltaTtlP+"%)",popX+10,popY+120);
+                        if (deltaTtl>0){text("total annual gain",popX+10,popY+105);fill(102, 153, 0);}
+                        if (deltaTtl<0){text("total annual loss",popX+10,popY+105);fill(153,51,51);}
+                        if (deltaTtl===0){text("total annual change",popX+10,popY+105);fill(102, 153, 0);}
+                        text(Math.abs(deltaTtl)+" firm(s) ("+deltaTtlP+"%)",popX+10,popY+120);
 
                         fill(102, 153, 0);
                         if(deltaGain>0){
@@ -267,7 +284,6 @@ function draw(){
                             text("losses "+deltaLoss + " firm(s)",popX+10,popY+250);
                         }
 
-
                         if (deltaLoss===0){
                             text("-",popX+10,popY+235);
                         }
@@ -275,35 +291,9 @@ function draw(){
                         fill(100);
                         text("most gain",popX+10,popY+155);
                         text("most loss",popX+10,popY+220);
-
-                        //
                     }
-
-
-
-
-                    /*for (i=0;i<=esTab[mouseYear].length;i++){//yearly total for all zipcodes
-                       // var busTotal=0;
-                       // console.log("establength=",esTab[mouseYear].length);
-                      // console.log("empSzes[mouseYear][i]=",empSzes[mouseYear][i]);
-                        if(empSzes[mouseYear][i]==1){
-                            console.log("busTotal=",busTotal);
-                            busTotal = parseInt(busTotal)+ parseInt(esTab[mouseYear][i]);
-                        }
-                    }*/
                 }
-
                 pop();
-
-/*              push();//display year under bar
-                noStroke();
-                fill(135);
-                translate(xPos,height-marginBase+30);
-                rotate(-PI/5.0);
-                textSize(15);
-                text(mouseYear,0,0);
-                pop();*/
-
                 break;
             }
         }
@@ -349,7 +339,7 @@ function style(feature) {
         opacity: 1,
         color: '#666666',
         dashArray: 2,
-        fillOpacity: 0.35,
+        fillOpacity: 0.15,
         fillColor: '#ffe500'
     };
 }
@@ -361,7 +351,7 @@ function highlightFeature(e) {
         weight: 2,
         color: '#555',
         dashArray: '',
-        fillOpacity: 0.65
+        fillOpacity: 0.5
     });
 
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
@@ -399,4 +389,3 @@ function testEvent(e){
     console.log("e.target.feature.properties",e.target.feature.properties);
     console.log("zip=",e.target.feature.properties.zip);
 }
-
