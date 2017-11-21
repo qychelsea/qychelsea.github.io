@@ -1,5 +1,5 @@
 var music;
-var track, beat, musicDuration;
+var track, beat, musicDuration, startTime;
 var note = [],channelEvent=[], timeStamp = [],channelValue=[];
 var i, margin=100;
 
@@ -12,6 +12,8 @@ function setup() {
     var canvas = createCanvas(800,800);
     canvas.position(0,0);
     sortData();
+
+
 }
 
 function sortData(){
@@ -26,6 +28,16 @@ function sortData(){
     musicDuration=timeStamp[music.getRowCount()-2];
 
     console.log("music duration=",musicDuration);
+    //
+    // for (i=0;i<=music.getRowCount();i++){
+    //     if(channelEvent[i]=='Note_on_c'){
+    //         startTime=timeStamp[i];
+    //         console.log("startTime=,",startTime);
+    //
+    //         break;}
+    // }
+
+
 }
 
 function draw(){
@@ -34,6 +46,7 @@ function draw(){
     noFill();
     background(249, 242, 236);
     var trackGap=(width-margin)/(track),trackRadius = [];
+    var noteCurrent, velocityCurrent;
 
     for (i=1;i<=track;i++){//draw tracks
         trackRadius[i]=(width-margin)-(i-1)*trackGap;
@@ -42,8 +55,9 @@ function draw(){
 
     var timeCurrent =[];
     for (i=0;i<=music.getRowCount();i++) {
-        timeCurrent=map(timeStamp, 0, musicDuration, 0, TWO_PI) - HALF_PI;
-        console.log("timeCurrent=", timeCurrent);
+        timeCurrent[i]=map(timeStamp, 0, musicDuration, 0, TWO_PI) - HALF_PI;
+        console.log("timeCurrent=", timeCurrent[i]);
     }
+
 
 }
