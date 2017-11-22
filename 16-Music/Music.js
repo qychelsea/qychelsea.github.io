@@ -1,10 +1,13 @@
 var music;
-var track, beat, musicDuration, startTime;
-var note = [],channelEvent=[], timeStamp = [],channelValue=[];
-var i, margin=100;
+var track, beat, endTime;
+var trackStamp=[],note = [],channelEvent=[], timeStamp = [],velocity=[],musicDuration;
+var i,j,t=0, margin=500; //c for keeping tract row of first note;t track counter
+var trackStartLine=[];
+var offFromCFactor=4;
 
 function preload(){
     music = loadTable('data/Liebestraum.csv', 'csv');
+    //music = loadTable('data/BWV_1080_The_Art_of_Fugue_Contrapunctus_12.csv', 'csv');
     //myFont = loadFont('assets/Steelworks Vintage Demo.otf');
 }
 
@@ -12,52 +15,119 @@ function setup() {
     var canvas = createCanvas(800,800);
     canvas.position(0,0);
     sortData();
-
-
+    drawMusic();
 }
 
 function sortData(){
     track=music.get(0,4);
     beat=music.get(0,5);
+    trackStamp=music.getColumn(0);
     timeStamp=music.getColumn(1);
     channelEvent=music.getColumn(2);
     note=music.getColumn(4);
-    channelValue=music.getColumn(5);
+    velocity=music.getColumn(5);
+    endTime=timeStamp[music.getRowCount()-2];
 
-    //console.log("timeStamp=",music.getRowCount());
-    musicDuration=timeStamp[music.getRowCount()-2];
-
-    console.log("music duration=",musicDuration);
-    //
-    // for (i=0;i<=music.getRowCount();i++){
-    //     if(channelEvent[i]=='Note_on_c'){
-    //         startTime=timeStamp[i];
-    //         console.log("startTime=,",startTime);
-    //
-    //         break;}
-    // }
-
-
+    console.log("music end time=",endTime);
+    console.log("track=",track);
+    for (j = 0; j <= music.getRowCount(); j++) {  //get start line for each track
+        if (channelEvent[j] == ' Start_track') {
+            t++;
+            for (i = 0; i <= music.getRowCount(); i++) {
+                if (channelEvent[j + i] == ' Note_on_c') {
+                    trackStartLine[t] = j + i;
+                    //console.log("trackStartLine=", trackStartLine[t]);
+                    i = music.getRowCount() + 2;
+                }
+            }
+        }
+    }
 }
 
-function draw(){
+
+
+function drawMusic(){
     //textFont(myFont);
     clear();
-    noFill();
+    fill(155,155,155,35);
+    strokeCap(SQUARE);
+
+    //strokeWeight(1);
     background(249, 242, 236);
     var trackGap=(width-margin)/(track),trackRadius = [];
-    var noteCurrent, velocityCurrent;
+    var noteCurrent, velocityCurrent,noteCurrentDuration, noteCurrentCenterX,noteCurrentCenterY;
+    var offFromC,tc,s;//tc: track count
+    var sustainDuration;
 
-    for (i=1;i<=track;i++){//draw tracks
-        trackRadius[i]=(width-margin)-(i-1)*trackGap;
-        ellipse(width/2,height/2,trackRadius[i]);
+    for (t=1;t<=track;t++){
+        trackRadius[t]=(width-margin)-(t-1)*trackGap;
+
     }
 
-    var timeCurrent =[];
-    for (i=0;i<=music.getRowCount();i++) {
-        timeCurrent[i]=map(timeStamp, 0, musicDuration, 0, TWO_PI) - HALF_PI;
-        console.log("timeCurrent=", timeCurrent[i]);
+    for (j = 0; j <= music.getRowCount(); j++){
+        console.log("hi=");
+        if (channelEvent[j] == ' Note_on_c'&&velocity[j]!=0) {//find start of note
+            noteCurrent=note[j];
+            velocityCurrent=velocity[j];
+            for (i = 0; i <= music.getRowCount(); i++){//find end of note
+                if (velocity[i+j]==0&&noteCurrent===note[i+j]){
+                    noteCurrentDuration = timeStamp[i + j] - timeStamp[j];
+
+                    s = map(timeStamp[j], 0,endTime, 0, TWO_PI) - HALF_PI;
+                    tc=trackStamp[j];//tc: track count
+                    offFromC=noteCurrent-60;
+
+                    noteCurrentCenterX=width/2 + cos(s) * (trackRadius[tc]+offFromC*offFromCFactor);
+                    noteCurrentCenterY=height/2 + sin(s) * (trackRadius[tc]+offFromC*offFromCFactor);
+
+                    /*  push();//draw note as circle
+                      noStroke();
+                      ellipse(noteCurrentCenterX, noteCurrentCenterY, noteCurrentDuration/20);
+                      pop();*/
+
+                    stroke(75);//draw note as line
+                    line(noteCurrentCenterX, noteCurrentCenterY,noteCurrentCenterX+noteCurrentDuration/40,noteCurrentCenterY);
+
+                    i = music.getRowCount() + 2;
+                }
+            }
+        }
+        if (note[j]==64&&velocity[j]!=0) {//find start of sustain/////channelEvent[j] == ' Control_c'&&
+            velocityCurrent = velocity[j];
+
+            for (i = 0; i <= music.getRowCount(); i++) {//find end of sustain
+                if (velocity[i + j] == 0) {
+                    sustainDuration = timeStamp[i + j] - timeStamp[j];
+
+                    s = map(timeStamp[j], 0,endTime, 0, TWO_PI) - HALF_PI;
+                    var sEnd = map(timeStamp[j+i], 0,endTime, 0, TWO_PI) - HALF_PI;
+                    tc=trackStamp[j];
+
+                    var sustainStartX=width/2 + cos(s) * (trackRadius[tc]);
+                    var sustainStartY=height/2 + sin(s) * (trackRadius[tc]);
+                    var sustainEndX=width/2 + cos(sEnd) * (trackRadius[tc]);
+                    var sustainEndY=height/2 + sin(sEnd) * (trackRadius[tc]);
+
+                    push();//draw sustain as circle
+                    noStroke();
+                    fill(155,155,155,45);
+                    ellipse(sustainStartX, sustainStartY, sustainDuration/20);
+                    pop();
+
+                    push();//draw sustain as line
+                    noFill();
+                    stroke(255,0,0);
+                    line(sustainStartX,sustainStartY,sustainEndX,sustainEndY);
+                    pop();
+                    //arc(width/2, height/2, sustainDuration/20,sustainDuration/20,)
+
+                    i = music.getRowCount() + 2;
+                }
+            }
+        }
     }
-
-
+/*    for (i=1;i<track;i++) {
+        while()
+    }*/
 }
+
