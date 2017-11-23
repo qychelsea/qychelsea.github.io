@@ -65,7 +65,6 @@ function drawMusic(){
     }
 
     for (j = 0; j <= music.getRowCount(); j++){
-        console.log("hi=");
         if (channelEvent[j] == ' Note_on_c'&&velocity[j]!=0) {//find start of note
             noteCurrent=note[j];
             velocityCurrent=velocity[j];
@@ -126,8 +125,36 @@ function drawMusic(){
             }
         }
     }
-/*    for (i=1;i<track;i++) {
-        while()
-    }*/
+    for (var j=1;j<track;j++) {//if notes from different tracks are pressed at the same time
+       for (i=1;i<track;i++) {
+           if (i + j <= track) {
+               for (var k = trackStartLine[j]; k <= trackStartLine[j + i] - trackStartLine[j + i - 1]; k++) {
+                   for (var m = trackStartLine[j + i]; m <= trackStartLine[j + i + 1] - trackStartLine[j + i]; m++) {
+                       if (timeStamp[k] === timeStamp[m]) {
+                           s = map(timeStamp[k], 0, endTime, 0, TWO_PI) - HALF_PI;
+                           sEnd = map(timeStamp[k + m], 0, endTime, 0, TWO_PI) - HALF_PI;
+
+                           tc = timeStamp[k];
+                           var pressStartX = width/2 + cos(s) * (trackRadius[tc]);
+                           var pressStartY = height/2 + sin(s) * (trackRadius[tc]);
+
+                           tc = timeStamp[k+m];
+                           var pressEndX = width/2 + cos(s) * (trackRadius[tc]);
+                           var pressEndY = height/2 + sin(s) * (trackRadius[tc]);
+
+                           stroke(0,0,255);
+                           strokeWeight(3);
+                           console.log("hi=");
+
+                           line(pressStartX,pressStartY,pressEndX,pressEndY);
+                       }
+
+                   }
+
+               }
+
+           }
+       }
+    }
 }
 
