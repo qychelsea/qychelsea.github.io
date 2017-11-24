@@ -1,21 +1,23 @@
 var music;
 var track, beat, endTime;
 var trackStamp=[],note = [],channelEvent=[], timeStamp = [],velocity=[],musicDuration;
-var i,j,t=0, margin=500; //c for keeping tract row of first note;t track counter
+var i,j,t=0, margin=550; //c for keeping tract row of first note;t track counter
 var trackStartLine=[];
-var offFromCFactor=4;
+var offFromCFactor=4, noteDurationFactor=40;
 
 function preload(){
-    music = loadTable('data/Liebestraum.csv', 'csv');
-    //music = loadTable('data/BWV_1080_The_Art_of_Fugue_Contrapunctus_12.csv', 'csv');
+    //music = loadTable('data/Liebestraum.csv', 'csv');
+    music = loadTable('data/BWV_1080_The_Art_of_Fugue_Contrapunctus_1.csv', 'csv');
     //myFont = loadFont('assets/Steelworks Vintage Demo.otf');
 }
 
 function setup() {
-    var canvas = createCanvas(800,800);
+    var canvas = createCanvas(800,1000);
     canvas.position(0,0);
     sortData();
     drawMusic();
+    //drawLabel();
+    saveCanvas('music.jpg');
 }
 
 function sortData(){
@@ -49,7 +51,7 @@ function sortData(){
 function drawMusic(){
     //textFont(myFont);
     clear();
-    fill(155,155,155,35);
+
     strokeCap(SQUARE);
 
     //strokeWeight(1);
@@ -68,7 +70,7 @@ function drawMusic(){
         if (channelEvent[j] == ' Note_on_c'&&velocity[j]!=0) {//find start of note
             noteCurrent=note[j];
             velocityCurrent=velocity[j];
-            for (i = 0; i <= music.getRowCount(); i++){//find end of note
+            for (i = 1; i <= music.getRowCount(); i++){//find end of note
                 if (velocity[i+j]==0&&noteCurrent===note[i+j]){
                     noteCurrentDuration = timeStamp[i + j] - timeStamp[j];
 
@@ -77,17 +79,36 @@ function drawMusic(){
                     offFromC=noteCurrent-60;
 
                     noteCurrentCenterX=width/2 + cos(s) * (trackRadius[tc]+offFromC*offFromCFactor);
-                    noteCurrentCenterY=height/2 + sin(s) * (trackRadius[tc]+offFromC*offFromCFactor);
+                    noteCurrentCenterY=width/2 + sin(s) * (trackRadius[tc]+offFromC*offFromCFactor);
 
-                    /*  push();//draw note as circle
-                      noStroke();
-                      ellipse(noteCurrentCenterX, noteCurrentCenterY, noteCurrentDuration/20);
-                      pop();*/
+                    push();//draw note as circle
+                    noStroke();
+                    fill(155,155,155,65);
+                    ellipse(noteCurrentCenterX, noteCurrentCenterY, noteCurrentDuration/noteDurationFactor);
+                    pop();
 
-                    stroke(75);//draw note as line
+                    /*stroke(75);//draw note as line
                     line(noteCurrentCenterX, noteCurrentCenterY,noteCurrentCenterX+noteCurrentDuration/40,noteCurrentCenterY);
+*/
 
-                    i = music.getRowCount() + 2;
+                /*    //find pauses in tracks
+                    var pauseCheck =[];
+                    for (var p=0;p<=endTime;p++){
+                        pauseCheck[p]=0; //no sound =0; has sound =1;
+                    }
+                    for (p=0;p<=noteCurrentDuration;p++){
+                        pauseCheck[timeStamp[j+p]]=1;
+                    }
+                    push();
+                    stroke(0,255,0);
+                    for (p=0;p<=endTime;p++){
+                        if (pauseCheck[p]===0) {
+
+                        }
+                    }
+                    pop();*/
+
+                    i = music.getRowCount() + 2;//escape from loop
                 }
             }
         }
@@ -103,22 +124,22 @@ function drawMusic(){
                     tc=trackStamp[j];
 
                     var sustainStartX=width/2 + cos(s) * (trackRadius[tc]);
-                    var sustainStartY=height/2 + sin(s) * (trackRadius[tc]);
+                    var sustainStartY=width/2 + sin(s) * (trackRadius[tc]);
                     var sustainEndX=width/2 + cos(sEnd) * (trackRadius[tc]);
-                    var sustainEndY=height/2 + sin(sEnd) * (trackRadius[tc]);
+                    var sustainEndY=width/2 + sin(sEnd) * (trackRadius[tc]);
 
-                    push();//draw sustain as circle
+                   /* push();//draw sustain as circle
                     noStroke();
                     fill(155,155,155,45);
                     ellipse(sustainStartX, sustainStartY, sustainDuration/20);
-                    pop();
+                    pop();*/
 
                     push();//draw sustain as line
                     noFill();
-                    stroke(255,0,0);
+                    strokeWeight(7);
+                    stroke(45, 89, 134);
                     line(sustainStartX,sustainStartY,sustainEndX,sustainEndY);
                     pop();
-                    //arc(width/2, height/2, sustainDuration/20,sustainDuration/20,)
 
                     i = music.getRowCount() + 2;
                 }
@@ -130,31 +151,34 @@ function drawMusic(){
            if (i + j <= track) {
                for (var k = trackStartLine[j]; k <= trackStartLine[j + i] - trackStartLine[j + i - 1]; k++) {
                    for (var m = trackStartLine[j + i]; m <= trackStartLine[j + i + 1] - trackStartLine[j + i]; m++) {
-                       if (timeStamp[k] === timeStamp[m]) {
+                       if (timeStamp[k] === timeStamp[m]&&channelEvent[k]==' Note_on_c'&&channelEvent[m]==' Note_on_c'&&velocity[k]!=0&&velocity[m]!=0) {
+
+                           console.log("hi=");
+
                            s = map(timeStamp[k], 0, endTime, 0, TWO_PI) - HALF_PI;
                            sEnd = map(timeStamp[k + m], 0, endTime, 0, TWO_PI) - HALF_PI;
 
-                           tc = timeStamp[k];
-                           var pressStartX = width/2 + cos(s) * (trackRadius[tc]);
-                           var pressStartY = height/2 + sin(s) * (trackRadius[tc]);
+                           var pressStartX = width/2 + cos(s) * (trackRadius[j]);
+                           var pressStartY = width /2 + sin(s) * (trackRadius[j]);
 
-                           tc = timeStamp[k+m];
-                           var pressEndX = width/2 + cos(s) * (trackRadius[tc]);
-                           var pressEndY = height/2 + sin(s) * (trackRadius[tc]);
+                           var pressEndX = width/2 + cos(sEnd) * (trackRadius[i+j]);
+                           var pressEndY = width/2 + sin(sEnd) * (trackRadius[i+j]);
 
+                           push();
                            stroke(0,0,255);
-                           strokeWeight(3);
-                           console.log("hi=");
+                           strokeWeight(1);
 
                            line(pressStartX,pressStartY,pressEndX,pressEndY);
+                           pop();
                        }
-
                    }
-
                }
-
            }
        }
     }
+}
+
+function drawLabel(){//display csv file name
+
 }
 
