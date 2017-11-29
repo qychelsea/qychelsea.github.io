@@ -9,12 +9,12 @@ var highestNote=0,lowestNote=108; //highest on track 1; lowest on track 3
 
 function preload(){
     //musicName="The Four Seasons_1";
-    //musicName="BWV_1080_The_Art_of_Fugue_Contrapunctus_13";
+    musicName="BWV_1080_The_Art_of_Fugue_Contrapunctus_8";
     //musicName="BWV_988_Goldberg_Variations_Variation_30";
     //musicName="Moonlight Sonata Movement 3";
     //musicName="Liebestraum_3";
     //musicName="La Campanella";
-    musicName="Secret";
+    //musicName="Secret";
 
     music = loadTable('data/'+musicName+'.csv', 'csv');
 
@@ -210,6 +210,28 @@ function drawMusic(){
             }
         }
     }
+    for (t=1;t<=track;t++){
+        mEnd = trackStartLine[t+1];
+        if (t+1 > track) {
+            mEnd = music.getRowCount();
+        }
+        for (j=trackStartLine[t];j<=mEnd;j++) {
+            if (channelEvent[j] == ' Note_on_c' && velocity[j] != 0) {
+                for (i = 1; i <= music.getRowCount(); i++) {
+                    if (note[j]===note[j+i]&&velocity[j+i]===0){
+                        
+                    }
+                    for (var p = timeStamp[j]; p <= timeStamp[j + i]; p++) {
+                        pauseCheck[timeStamp[p]] = 1;//has sound =1;
+                    }
+                }
+            }
+        }
+        push();
+        fill(255,0,0);
+        ellipse();
+        pop();
+    }
 }
 
 function drawLabel(){//display csv file name
@@ -219,4 +241,3 @@ function drawLabel(){//display csv file name
     textAlign(CENTER);
     text(musicName,width/2,height-150); //WHY WOULDN'T DISPLAY NAME WITH SPACES?
 }
-
