@@ -1,30 +1,41 @@
 var music,musicName;
 var track, beat, endTime;
-var trackStamp=[],note = [],channelEvent=[], timeStamp = [],velocity=[],musicDuration;
+var trackStamp=[],note = [],channelEvent=[], timeStamp = [],velocity=[],tempo=[],musicDuration;
 var i,j,t=0; //t track counter
 var trackStartLine=[];
 var offFromCFactor=7, noteDurationFactor=40,innerRadius=205;
 var r,g,b;
 var highestNote=0,lowestNote=108; //highest on track 1; lowest on track 3
+var tempoSorted =[];
 
 function preload(){
-    //musicName="The Four Seasons_1";
-    musicName="BWV_1080_The_Art_of_Fugue_Contrapunctus_8";
-    //musicName="BWV_988_Goldberg_Variations_Variation_30";
-    //musicName="Moonlight Sonata Movement 3";
+    //musicName="The_Four_Seasons_3";
+    //musicName="BWV_1080_The_Art_of_Fugue_Contrapunctus_1";
+    //musicName="BWV_988_Goldberg_Variations_Variation_17";
+    //musicName="Moonlight_Sonata_Movement_3";
     //musicName="Liebestraum_3";
-    //musicName="La Campanella";
+    musicName="La_Campanella";
     //musicName="Secret";
+    //musicName="Waltz_in_A_minor";
+    //musicName="Fur_Elise";
+    //musicName="Fantaisie_Impromptu";
+    //musicName="Flight_of_the_Bumblebee";
+    //musicName="Dance_of_the_Sugar_Plum_Fairy";
 
     music = loadTable('data/'+musicName+'.csv', 'csv');
-
     myFont = loadFont('assets/SpectralSC-Regular.ttf');
+
+    myMusic = loadSound('data/'+musicName+'.mp3');
 }
 
 function setup() {
     var canvas = createCanvas(800,1000);
     canvas.position(0,0);
     sortData();
+
+    myMusic.setVolume(1);
+    myMusic.play();
+
     drawMusic();
     drawLabel();
     //saveCanvas(musicName+'.jpg');
@@ -36,6 +47,7 @@ function sortData(){
     trackStamp=music.getColumn(0);
     timeStamp=music.getColumn(1);
     channelEvent=music.getColumn(2);
+    tempo=music.getColumn(3);
     note=music.getColumn(4);
     velocity=music.getColumn(5);
     endTime=timeStamp[music.getRowCount()-2];
@@ -72,20 +84,32 @@ function sortData(){
     //graph boundary adjustments
     if (highestNote>80){offFromCFactor=6;}
     if (highestNote>90){offFromCFactor=5;}
-    if (highestNote>98){offFromCFactor=4;}
+    if (highestNote>97){offFromCFactor=4;}
+    if (highestNote>105){offFromCFactor=3.5;}
 
     if (lowestNote<25){innerRadius=300;}
+
+    //sort tempo
+    for (var tp=0;tp<=endTime;tp++){
+        tempoSorted[tp]=0;
+    }
+    for (var i=0;i<=music.getRowCount();i++){
+        if(channelEvent[i]==' Tempo'){
+            tempoSorted[timeStamp[i]]=tempo[i];
+        }
+    }
 }
 
 function drawMusic(){
     //textFont(myFont);
     clear();
     strokeCap(SQUARE);
-    background(249, 242, 236);
+    background(249, 242, 236);//249, 242, 236
     var trackRadius = [];
     var noteCurrent, velocityCurrent, noteCurrentDuration, noteCurrentCenterX, noteCurrentCenterY;
     var offFromC, tc, s;//tc: track count; s: a clock's second hand
     var sustainDuration;
+    var pauseCheck=[];
 
     for (t = 1; t <= track; t++) {
         trackRadius[t] = innerRadius;//track by set radius
@@ -95,6 +119,59 @@ function drawMusic(){
         noFill();
         //ellipse(width/2,width/2,trackRadius[t]);
         pop();
+    }
+
+    for (j = 0; j <= music.getRowCount(); j++) {
+        if (channelEvent[j] == ' Note_on_c' && velocity[j] != 0) {//find start of note
+            noteCurrent = note[j];
+            velocityCurrent = velocity[j];
+            for (i = 1; i <= music.getRowCount(); i++) {//find end of note
+                if (velocity[i + j] == 0 && noteCurrent === note[i + j]) {
+                    noteCurrentDuration = timeStamp[i + j] - timeStamp[j];
+
+                    s = map(timeStamp[j], 0, endTime, 0, TWO_PI) - HALF_PI;
+                    tc = trackStamp[j];//tc: track count
+                    offFromC = noteCurrent - 60;
+
+                    noteCurrentCenterX = width / 2 + cos(s) * (innerRadius + offFromC * offFromCFactor);
+                    noteCurrentCenterY = width / 2 + sin(s) * (innerRadius + offFromC * offFromCFactor);
+
+                    push();//draw note as circle
+                    noStroke();
+                    fill(155, 155, 155, 75);
+                    ellipse(noteCurrentCenterX, noteCurrentCenterY, noteCurrentDuration / noteDurationFactor);
+                    pop();
+
+                    i = music.getRowCount() + 2;//escape from loop
+                }
+            }
+        }
+        if (channelEvent[j] == ' Control_c' && note[j] == 64 && velocity[j] != 0) {//find start of sustain/////channelEvent[j] == ' Control_c'&&
+            velocityCurrent = velocity[j];
+            for (i = 0; i <= music.getRowCount(); i++) {//find end of sustain
+                if (velocity[i + j] == 0) {
+                    //sustainDuration = timeStamp[i + j] - timeStamp[j]; unused
+
+                    s = map(timeStamp[j], 0, endTime, 0, TWO_PI) - HALF_PI;
+                    var sEnd = map(timeStamp[j + i], 0, endTime, 0, TWO_PI) - HALF_PI;
+                    tc = trackStamp[j];
+
+                    var sustainStartX = width / 2 + cos(s) * (innerRadius);
+                    var sustainStartY = width / 2 + sin(s) * (innerRadius);
+                    var sustainEndX = width / 2 + cos(sEnd) * (innerRadius);
+                    var sustainEndY = width / 2 + sin(sEnd) * (innerRadius);
+
+                    push();//draw sustain as line
+                    noFill();
+                    strokeWeight(12);
+                    stroke(45, 89, 134,50);
+                    line(sustainStartX, sustainStartY, sustainEndX, sustainEndY);
+                    pop();
+
+                    i = music.getRowCount() + 2;
+                }
+            }
+        }
     }
 
     for (var j = 1; j < track; j++) {//if notes from different tracks are pressed at the same time
@@ -115,11 +192,10 @@ function drawMusic(){
                             s = map(timeStamp[k], 0, endTime, 0, TWO_PI) - HALF_PI;
                             sEnd = map(timeStamp[m], 0, endTime, 0, TWO_PI) - HALF_PI;
 
-                            var pressStartX = width / 2 + cos(s) * (trackRadius[j] + offFromCk * offFromCFactor);
-                            var pressStartY = width / 2 + sin(s) * (trackRadius[j] + offFromCk * offFromCFactor);
-
-                            var pressEndX = width / 2 + cos(sEnd) * (trackRadius[i + j] + offFromCm * offFromCFactor);
-                            var pressEndY = width / 2 + sin(sEnd) * (trackRadius[i + j] + offFromCm * offFromCFactor);
+                            var pressStartX = width / 2 + cos(s) * (innerRadius + offFromCk * offFromCFactor);
+                            var pressStartY = width / 2 + sin(s) * (innerRadius + offFromCk * offFromCFactor);
+                            var pressEndX = width / 2 + cos(sEnd) * (innerRadius + offFromCm * offFromCFactor);
+                            var pressEndY = width / 2 + sin(sEnd) * (innerRadius + offFromCm * offFromCFactor);
 
                             push();
                             stroke(102, 102, 153);
@@ -134,104 +210,46 @@ function drawMusic(){
         }
     }
 
-    for (j = 0; j <= music.getRowCount(); j++) {
-        if (channelEvent[j] == ' Note_on_c' && velocity[j] != 0) {//find start of note
-            noteCurrent = note[j];
-            velocityCurrent = velocity[j];
-            for (i = 1; i <= music.getRowCount(); i++) {//find end of note
-                if (velocity[i + j] == 0 && noteCurrent === note[i + j]) {
-                    noteCurrentDuration = timeStamp[i + j] - timeStamp[j];
-
-                    s = map(timeStamp[j], 0, endTime, 0, TWO_PI) - HALF_PI;
-                    tc = trackStamp[j];//tc: track count
-                    offFromC = noteCurrent - 60;
-
-                    noteCurrentCenterX = width / 2 + cos(s) * (trackRadius[tc] + offFromC * offFromCFactor);
-                    noteCurrentCenterY = width / 2 + sin(s) * (trackRadius[tc] + offFromC * offFromCFactor);
-
-                    push();//draw note as circle
-                    noStroke();
-                    fill(155, 155, 155, 85);
-                    ellipse(noteCurrentCenterX, noteCurrentCenterY, noteCurrentDuration / noteDurationFactor);
-                    pop();
-
-/*
-                    //find pauses in tracks
-                    for (t = 1; t <= track; t++) {
-                        var pauseCheck =[];
-                        for (var p=timeStamp[j];p<=timeStamp[j+i];p++){
-                            pauseCheck[timeStamp[p]]=1;//has sound =1;
-                        }
-                    }
-
-                    push();
-                    stroke(255,0,0);
-                    for (p=0;p<=endTime;p++){
-                        if (pauseCheck[p]!=1) {
-                            var pauseX = width / 2 + cos(s) * (500);
-                            var pauseY = width / 2 + sin(s) * (500);
-                            push();
-                            fill(255,0,0);
-                            ellipse(pauseX,pauseY,3);
-                            pop();
-                        }
-                    }
-                    pop();
-*/
-
-                    i = music.getRowCount() + 2;//escape from loop
-                }
-            }
-        }
-        if (channelEvent[j] == ' Control_c' && note[j] == 64 && velocity[j] != 0) {//find start of sustain/////channelEvent[j] == ' Control_c'&&
-            velocityCurrent = velocity[j];
-            for (i = 0; i <= music.getRowCount(); i++) {//find end of sustain
-                if (velocity[i + j] == 0) {
-                    //sustainDuration = timeStamp[i + j] - timeStamp[j]; unused
-
-                    s = map(timeStamp[j], 0, endTime, 0, TWO_PI) - HALF_PI;
-                    var sEnd = map(timeStamp[j + i], 0, endTime, 0, TWO_PI) - HALF_PI;
-                    tc = trackStamp[j];
-
-                    var sustainStartX = width / 2 + cos(s) * (trackRadius[tc]);
-                    var sustainStartY = width / 2 + sin(s) * (trackRadius[tc]);
-                    var sustainEndX = width / 2 + cos(sEnd) * (trackRadius[tc]);
-                    var sustainEndY = width / 2 + sin(sEnd) * (trackRadius[tc]);
-
-                    push();//draw sustain as line
-                    noFill();
-                    strokeWeight(12);
-                    stroke(45, 89, 134,50);
-                    line(sustainStartX, sustainStartY, sustainEndX, sustainEndY);
-                    pop();
-
-                    i = music.getRowCount() + 2;
-                }
-            }
-        }
-    }
-    for (t=1;t<=track;t++){
+/*    for (t=1;t<=track;t++){//draw pauses
         mEnd = trackStartLine[t+1];
         if (t+1 > track) {
             mEnd = music.getRowCount();
         }
+        for (p=0;p<=endTime;p++){
+            pauseCheck[p]=0;
+        }
         for (j=trackStartLine[t];j<=mEnd;j++) {
             if (channelEvent[j] == ' Note_on_c' && velocity[j] != 0) {
-                for (i = 1; i <= music.getRowCount(); i++) {
-                    if (note[j]===note[j+i]&&velocity[j+i]===0){
-                        
-                    }
-                    for (var p = timeStamp[j]; p <= timeStamp[j + i]; p++) {
-                        pauseCheck[timeStamp[p]] = 1;//has sound =1;
+                for (i = 1; i<= mEnd - trackStartLine[i]; i++) {
+                    if (note[j] === note[j + i] && velocity[j + i] == 0&& trackStamp[i+j]==t) {//
+                        for (var p = timeStamp[j]; p <= timeStamp[j + i]; p++) {
+                            pauseCheck[p] = 1;//has sound =1;
+                        }
                     }
                 }
             }
         }
-        push();
-        fill(255,0,0);
-        ellipse();
-        pop();
-    }
+        for(i=0;i<=endTime;i=i+500) {
+            if (pauseCheck[i] === 0) {//start of pause
+                s = map(i, 0, endTime, 0, TWO_PI) - HALF_PI;
+                var pauseStartX = width / 2 + cos(s) * ((track-t+1) * 25+25);
+                var pauseStartY = width / 2 + sin(s) * ((track-t+1) * 25+25);
+                for (var l = 1; l <= endTime - i; l = l + 500) {
+                    if (pauseCheck[i + l] == 1) {
+                        sEnd = map(i + l, 0, endTime, 0, TWO_PI) - HALF_PI;
+                        var pauseEndX = width / 2 + cos(sEnd) * ((track-t+1) * 25);
+                        var pauseEndY = width / 2 + sin(sEnd) * ((track-t+1) * 25);
+                        l = endTime;
+                    }
+                }
+            }
+            push();
+            strokeWeight(.5);
+            stroke(51, 51, 77,35);
+            line(pauseStartX, pauseStartY, pauseEndX, pauseEndY);
+            pop();
+        }
+    }*/
 }
 
 function drawLabel(){//display csv file name
@@ -240,4 +258,18 @@ function drawLabel(){//display csv file name
     fill(125,125,125);
     textAlign(CENTER);
     text(musicName,width/2,height-150); //WHY WOULDN'T DISPLAY NAME WITH SPACES?
+}
+
+function draw(){
+/*    var timeTik,timeElapsed=millis();
+    timeTik = map(timeElapsed, 0, endTime, 0, TWO_PI) - HALF_PI;
+    var tikStartX = width / 2 + cos(timeTik) * (300);
+    var tikStartY = width / 2 + sin(timeTik) * (300);
+
+    push();
+    stroke(255,0,0);
+    ellipse(tikStartX,tikStartY,8);
+    pop();*/
+
+
 }
