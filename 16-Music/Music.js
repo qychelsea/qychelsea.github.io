@@ -35,6 +35,7 @@ function setup() {
 
     myMusic.setVolume(1);
     myMusic.play();
+    myMusic.loop();
 
     drawMusic();
     drawLabel();
@@ -271,5 +272,21 @@ function draw(){
     ellipse(tikStartX,tikStartY,8);
     pop();*/
 
+    //musicPlay();
+    //musicPause();
+    //text(myMusic.currentTime(),width/2,height-200);
 
+/*    keyTyped();
+    keyReleased();*/
 }
+/*function keyTyped() {
+    if (key == ' ') {
+        myMusic.pause();
+    }
+}
+
+function keyReleased(){
+    if (key == ' ') {
+        myMusic.play();
+    }
+}*/
