@@ -8,7 +8,6 @@ var r,g,b;
 var highestNote=0,lowestNote=108; //highest on track 1; lowest on track 3
 var tempoSorted =[];
 var musicImg;
-var canvasW;
 
 function preload(){
     //musicName="The_Four_Seasons_3";
@@ -31,12 +30,7 @@ function preload(){
 }
 
 function setup() {
-    var canvas = createCanvas(window.innerWidth, window.innerHeight);
-    canvasW=height*0.8;
-    innerRadius=canvasW/4;
-    noteDurationFactor=32000/canvasW;
-
-
+    var canvas = createCanvas(800,1000);
     canvas.position(0,0);
     sortData();
 
@@ -91,10 +85,12 @@ function sortData(){
     console.log("highest Note=",highestNote);
 
     //graph boundary adjustments
-    offFromCFactor=-0.1*highestNote+14;
+    if (highestNote>80){offFromCFactor=6;}
+    if (highestNote>90){offFromCFactor=5;}
+    if (highestNote>97){offFromCFactor=4;}
+    if (highestNote>105){offFromCFactor=3.5;}
 
     if (lowestNote<25){innerRadius=300;}
-
 
     //sort tempo
     for (var tp=0;tp<=endTime;tp++){
@@ -109,7 +105,6 @@ function sortData(){
 
 function drawMusic(){
     //textFont(myFont);
-    translate(width/2-canvasW/2,0);
     clear();
     strokeCap(SQUARE);
     background(249, 242, 236);//249, 242, 236
@@ -141,8 +136,8 @@ function drawMusic(){
                     tc = trackStamp[j];//tc: track count
                     offFromC = noteCurrent - 60;
 
-                    noteCurrentCenterX = canvasW / 2 + cos(s) * (innerRadius + offFromC * offFromCFactor);
-                    noteCurrentCenterY = canvasW / 2 + sin(s) * (innerRadius + offFromC * offFromCFactor);
+                    noteCurrentCenterX = width / 2 + cos(s) * (innerRadius + offFromC * offFromCFactor);
+                    noteCurrentCenterY = width / 2 + sin(s) * (innerRadius + offFromC * offFromCFactor);
 
                     push();//draw note as circle
                     noStroke();
@@ -164,10 +159,10 @@ function drawMusic(){
                     var sEnd = map(timeStamp[j + i], 0, endTime, 0, TWO_PI) - HALF_PI;
                     tc = trackStamp[j];
 
-                    var sustainStartX = canvasW / 2 + cos(s) * (innerRadius);
-                    var sustainStartY = canvasW / 2 + sin(s) * (innerRadius);
-                    var sustainEndX = canvasW / 2 + cos(sEnd) * (innerRadius);
-                    var sustainEndY = canvasW / 2 + sin(sEnd) * (innerRadius);
+                    var sustainStartX = width / 2 + cos(s) * (innerRadius);
+                    var sustainStartY = width / 2 + sin(s) * (innerRadius);
+                    var sustainEndX = width / 2 + cos(sEnd) * (innerRadius);
+                    var sustainEndY = width / 2 + sin(sEnd) * (innerRadius);
 
                     push();//draw sustain as line
                     noFill();
@@ -200,10 +195,10 @@ function drawMusic(){
                             s = map(timeStamp[k], 0, endTime, 0, TWO_PI) - HALF_PI;
                             sEnd = map(timeStamp[m], 0, endTime, 0, TWO_PI) - HALF_PI;
 
-                            var pressStartX = canvasW / 2 + cos(s) * (innerRadius + offFromCk * offFromCFactor);
-                            var pressStartY = canvasW / 2 + sin(s) * (innerRadius + offFromCk * offFromCFactor);
-                            var pressEndX = canvasW / 2 + cos(sEnd) * (innerRadius + offFromCm * offFromCFactor);
-                            var pressEndY = canvasW / 2 + sin(sEnd) * (innerRadius + offFromCm * offFromCFactor);
+                            var pressStartX = width / 2 + cos(s) * (innerRadius + offFromCk * offFromCFactor);
+                            var pressStartY = width / 2 + sin(s) * (innerRadius + offFromCk * offFromCFactor);
+                            var pressEndX = width / 2 + cos(sEnd) * (innerRadius + offFromCm * offFromCFactor);
+                            var pressEndY = width / 2 + sin(sEnd) * (innerRadius + offFromCm * offFromCFactor);
 
                             push();
                             stroke(102, 102, 153);
@@ -240,13 +235,13 @@ function drawMusic(){
         for(i=0;i<=endTime;i=i+500) {
             if (pauseCheck[i] === 0) {//start of pause
                 s = map(i, 0, endTime, 0, TWO_PI) - HALF_PI;
-                var pauseStartX = canvasW / 2 + cos(s) * ((track-t+1) * 25+25);
-                var pauseStartY = canvasW / 2 + sin(s) * ((track-t+1) * 25+25);
+                var pauseStartX = width / 2 + cos(s) * ((track-t+1) * 25+25);
+                var pauseStartY = width / 2 + sin(s) * ((track-t+1) * 25+25);
                 for (var l = 1; l <= endTime - i; l = l + 500) {
                     if (pauseCheck[i + l] == 1) {
                         sEnd = map(i + l, 0, endTime, 0, TWO_PI) - HALF_PI;
-                        var pauseEndX = canvasW / 2 + cos(sEnd) * ((track-t+1) * 25);
-                        var pauseEndY = canvasW / 2 + sin(sEnd) * ((track-t+1) * 25);
+                        var pauseEndX = width / 2 + cos(sEnd) * ((track-t+1) * 25);
+                        var pauseEndY = width / 2 + sin(sEnd) * ((track-t+1) * 25);
                         l = endTime;
                     }
                 }
@@ -265,16 +260,16 @@ function drawLabel(){//display csv file name
     noStroke();
     fill(125,125,125);
     textAlign(CENTER);
-    text(musicName,canvasW/2,height*.9); //WHY WOULDN'T DISPLAY NAME WITH SPACES?
+    text(musicName,width/2,height-150); //WHY WOULDN'T DISPLAY NAME WITH SPACES?
 }
 
 function getImgPxl(){
     var c=[];
-    musicImg=createImage(canvasW,height);
+    musicImg=createImage(width,height);
     musicImg.loadPixels();
 
     for (h=0;h<=height;h++) {
-        for (w = 0; w <= canvasW; w++) {
+        for (w = 0; w <= width; w++) {
             c = get(w, h);
             musicImg.set(w,h,c);
         }
@@ -291,8 +286,8 @@ function draw() {
 
 /*    var timeTik,timeElapsed=millis();
     timeTik = map(timeElapsed, 0, endTime, 0, TWO_PI) - HALF_PI;
-    var tikStartX = canvasW / 2 + cos(timeTik) * (300);
-    var tikStartY = canvasW / 2 + sin(timeTik) * (300);
+    var tikStartX = width / 2 + cos(timeTik) * (300);
+    var tikStartY = width / 2 + sin(timeTik) * (300);
 
     push();
     stroke(255,0,0);
@@ -301,4 +296,4 @@ function draw() {
 
     //musicPlay();
     //musicPause();
-    //text(myMusic.currentTime(),canvasW/2,height-200);
+    //text(myMusic.currentTime(),width/2,height-200);
