@@ -281,39 +281,23 @@ function saveGraphics(){
 }
 
 function mousePressed(){
-    rect(canvasW/2-imgPlay.width/2,titleYPos-imgPlay.height/2,25,25 );
-/*
-    if (myMusic.isPlaying()&&mouseX>(canvasW/2-imgPlay.width/2)&&mouseX<(canvasW/2+imgPlay.width/2)&&mouseY<(titleYPos+imgPlay.height/2)&&mouseY>(titleYPos-imgPlay.height/2)) { // .isPlaying() returns a boolean
-        myMusic.pause();
-    }
-    if (myMusic.isPaused()&&mouseX>canvasW/2-imgPlay.width/2&&mouseX<canvasW/2+imgPlay.width/2&&mouseY<titleYPos+imgPlay.height/2&&mouseY>titleYPos-imgPlay.height/2) {
-        myMusic.play();
-    }
-*/
+    if (myMusic.isPlaying()){
+        if(mouseX>(canvasW/2-imgPlay.width/2)&&mouseX<(canvasW/2+imgPlay.width/2)&&mouseY<(titleYPos+imgPlay.height/2)&&mouseY>(titleYPos-imgPlay.height/2)){
+            myMusic.pause();
+        }// .isPlaying() returns a boolean
 
-    if (myMusic.isPlaying()){ // .isPlaying() returns a boolean
-        myMusic.pause();
-        console.log("mouseX=",mouseX);
-        console.log("mouseY=",mouseY);
-        console.log("canvasW=",canvasW);
-        console.log("canvasY=",canvasH);
-        console.log("imgPlay.width=",imgPlay.width);
     } else {
-        myMusic.play();
-        console.log("mouseX=",mouseX);
-        console.log("mouseY=",mouseY);
-        console.log("canvasW=",canvasW);
-        console.log("canvasY=",canvasH);
-
+        if (myMusic.isPaused()&&mouseX>canvasW/2-imgPlay.width/2&&mouseX<canvasW/2+imgPlay.width/2&&mouseY<titleYPos+imgPlay.height/2&&mouseY>titleYPos-imgPlay.height/2){
+            myMusic.play();
+            console.log("mouseX=",mouseX);
+            console.log("mouseY=",mouseY);
+            console.log("canvasW=",canvasW);
+            console.log("canvasY=",canvasH);
+        }
     }
-    console.log("startX=",canvasW/2-imgPlay.width/2);
-    console.log("startY=",titleYPos-imgPlay.height/2);
-
 }
 function draw() {
-
     clear();
-
     translate(width/2-canvasW/2,0);
 
     if (windowHeight/windowWidth>=1.25){//scaling img before placing
@@ -347,21 +331,11 @@ function draw() {
     } else {
         image(imgPlay, canvasW/2-imgPlay.width/2, titleYPos-imgPlay.height/2 ,25,25);
     }
-    //image(img[dailyWeather[i].icon], width/2, yPos-10, 50,37);
-
-
-    //rect( canvasW/2-imgPlay.width/2, titleYPos-imgPlay.height/2 ,25,25);
 
     translate(-width/2+canvasW/2,0);
-    //ellipse(mouseX, mouseY, 60, 60);
 
 }
-
 
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
 }
-
-    //musicPlay();
-    //musicPause();
-    //text(myMusic.currentTime(),canvasW/2,canvasH-200);
