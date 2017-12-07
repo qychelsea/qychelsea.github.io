@@ -1,23 +1,30 @@
 <!DOCTYPE html>
 <html>
-<head>
+    <head>
 
-  <title>Visualizing Music</title>
+      <title>Visualizing Music</title>
 
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Rubik:400,500,700" rel="stylesheet">
-  <script language="javascript" type="text/javascript" src="Library/p5.js"></script>
-  <script language="javascript" type="text/javascript" src="Library/addons/p5.dom.js"></script>
-  <script language="javascript" type="text/javascript" src="Library/addons/p5.sound.js"></script>
-  <script src="./Library/p5.js"></script>
-  <script src="./Library/p5.svg.js"></script>
-</head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/style.css">
+      <script language="javascript" type="text/javascript" src="Library/p5.js"></script>
+      <script language="javascript" type="text/javascript" src="Library/addons/p5.dom.js"></script>
+      <script language="javascript" type="text/javascript" src="Library/addons/p5.sound.js"></script>
 
-<body>
+    </head>
+
+        <body>
+        <script type="text/javascript" src="Music.js"></script>
 
 
-<script type="text/javascript" src="Music.js"></script>
+        <!-- this div will contain the menu items in an overlay menu -->
+        <div id="menu"></div>
+        <!-- this is the main page: canvas and a button -->
+        <div id="main">
+            <div id="canvasContainer"></div>
+            <!-- this shows how to call a javascript function directly from html -->
+            <div id="menuBtn"><a href="javascript:showMenu()">select music</div>
+        </div>
 
-</body>
+    </body>
 </html>

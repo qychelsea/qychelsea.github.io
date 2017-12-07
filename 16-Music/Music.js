@@ -1,20 +1,67 @@
-var music,musicName;
+var music,musicName, myMusic;
 var track, beat, endTime;
 var trackStamp=[],note = [],channelEvent=[], timeStamp = [],velocity=[],tempo=[],musicDuration;
 var i,j,t=0; //t track counter
 var trackStartLine=[];
 var offFromCFactor=7, noteDurationFactor=40,innerRadius, outerRadius;
-var r,g,b;
 var highestNote=0,lowestNote=108; //highest on track 1; lowest on track 3
 var tempoSorted =[];
 var musicImg,imgPlay,imgPause,txtSize;
 var canvasW,canvasH;
 var titleYPos;
+var canvas;
+var menuBtn;
+var menuItems;
 
-function preload(){
+function setup() {
+    canvas = createCanvas(window.innerWidth, window.innerHeight);
+   //loadMusic(musicName);
+
+    menuItems = [{name:"Moonlight_Sonata_Movement_3", musicName:"Moonlight_Sonata_Movement_3"},
+        {name:"Liebestraum_3", musicName:"Liebestraum_3"},
+        {name:"La_Campanella", musicName:"La_Campanella"},
+        {name:"Fur_Elise", musicName:"Fur_Elise"},
+        {name:"Fantaisie_Impromptu", musicName:"Fantaisie_Impromptu"},
+        {name:"Flight_of_the_Bumblebee", musicName:"Flight_of_the_Bumblebee"},
+        {name:"Dance_of_the_Sugar_Plum_Fairy", musicName:"Dance_of_the_Sugar_Plum_Fairy"}
+        ];
+
+    for (var n=1;n<=31;n++){
+        menuItems.push( {name:"BWV_1080_The_Art_of_Fugue_Contrapunctus_"+n, musicName:"BWV_1080_The_Art_of_Fugue_Contrapunctus_"+n});
+    }
+    for  (n=1;n<=14;n++){
+        menuItems.push( {name:"BWV_988_Goldberg_Variations_Variation_"+n, musicName:"BWV_988_Goldberg_Variations_Variation_"+n});
+    }
+    for  (n=1;n<=5;n++){
+        menuItems.push( {name:"The_Four_Seasons_"+n, musicName:"The_Four_Seasons_"+n});
+    }
+
+    canvas.parent("#canvasContainer");
+        //drawMusic();
+        createMenu();
+
+    canvasW=1000;
+    canvasH=1250;
+
+    innerRadius=canvasW/4;
+    noteDurationFactor=32000/canvasW;
+
+    canvas.position(0,0);
+    //musicImg=createGraphics(canvasW, canvasH);
+
+    //sortData();
+
+    /*myMusic.setVolume(1);
+    myMusic.play();*/
+
+    drawMusic();
+    //drawLabel();
+}
+
+function loadMusic(musicName){
     //musicName="The_Four_Seasons_3";
     //musicName="BWV_1080_The_Art_of_Fugue_Contrapunctus_1";
-    musicName="BWV_988_Goldberg_Variations_Variation_17";
+    //musicName="BWV_988_Goldberg_Variations_Variation_17";
     //musicName="Moonlight_Sonata_Movement_3";
     //musicName="Liebestraum_3";
     //musicName="La_Campanella";
@@ -34,28 +81,8 @@ function preload(){
     imgPause= loadImage('assets/icons-02.png');
 }
 
-function setup() {
-    var canvas = createCanvas(window.innerWidth, window.innerHeight);
-    canvasW=1000;
-    canvasH=1250;
-
-    innerRadius=canvasW/4;
-    noteDurationFactor=32000/canvasW;
-
-    canvas.position(0,0);
-    musicImg=createGraphics(canvasW, canvasH);
-
-    sortData();
-
-    myMusic.setVolume(1);
-    myMusic.play();
-
-    drawMusic();
-    drawLabel();
-
-}
-
 function sortData(){
+
     track=music.get(0,4);
     beat=music.get(0,5);
     trackStamp=music.getColumn(0);
@@ -65,6 +92,7 @@ function sortData(){
     note=music.getColumn(4);
     velocity=music.getColumn(5);
     endTime=timeStamp[music.getRowCount()-2];
+
 
     console.log("music end time=",endTime);
     console.log("track=",track);
@@ -113,9 +141,14 @@ function sortData(){
     }
 }
 
-function drawMusic(){
+function drawMusic(musicName){
+
     //textFont(myFont);
-    clear();
+    loadMusic(musicName);
+    sortData();
+    console.log("music name=",musicName);
+
+    //clear();
     musicImg.strokeCap(SQUARE);
     musicImg.background(249, 242, 236);//249, 242, 236
     var trackRadius = [];
@@ -223,46 +256,7 @@ function drawMusic(){
         }
     }
 
-    /*    for (t=1;t<=track;t++){//draw pauses
-            mEnd = trackStartLine[t+1];
-            if (t+1 > track) {
-                mEnd = music.getRowCount();
-            }
-            for (p=0;p<=endTime;p++){
-                pauseCheck[p]=0;
-            }
-            for (j=trackStartLine[t];j<=mEnd;j++) {
-                if (channelEvent[j] == ' Note_on_c' && velocity[j] != 0) {
-                    for (i = 1; i<= mEnd - trackStartLine[i]; i++) {
-                        if (note[j] === note[j + i] && velocity[j + i] == 0&& trackStamp[i+j]==t) {//
-                            for (var p = timeStamp[j]; p <= timeStamp[j + i]; p++) {
-                                pauseCheck[p] = 1;//has sound =1;
-                            }
-                        }
-                    }
-                }
-            }
-            for(i=0;i<=endTime;i=i+500) {
-                if (pauseCheck[i] === 0) {//start of pause
-                    s = map(i, 0, endTime, 0, TWO_PI) - HALF_PI;
-                    var pauseStartX = canvasW / 2 + cos(s) * ((track-t+1) * 25+25);
-                    var pauseStartY = canvasW / 2 + sin(s) * ((track-t+1) * 25+25);
-                    for (var l = 1; l <= endTime - i; l = l + 500) {
-                        if (pauseCheck[i + l] == 1) {
-                            sEnd = map(i + l, 0, endTime, 0, TWO_PI) - HALF_PI;
-                            var pauseEndX = canvasW / 2 + cos(sEnd) * ((track-t+1) * 25);
-                            var pauseEndY = canvasW / 2 + sin(sEnd) * ((track-t+1) * 25);
-                            l = endTime;
-                        }
-                    }
-                }
-                push();
-                musicImg.strokeWeight(.5);
-                musicImg.stroke(51, 51, 77,35);
-                musicImg.line(pauseStartX, pauseStartY, pauseEndX, pauseEndY);
-                pop();
-            }
-        }*/
+    drawLabel();
 }
 
 function drawLabel(){//display csv file name
@@ -279,7 +273,7 @@ function saveGraphics(){
 
 }
 
-function mousePressed(){
+/*function mousePressed(){
     if (myMusic.isPlaying()){
         if(mouseX>(canvasW/2-imgPlay.width/2)&&mouseX<(canvasW/2+imgPlay.width/2)&&mouseY<(titleYPos+imgPlay.height/2)&&mouseY>(titleYPos-imgPlay.height/2)){
             myMusic.pause();
@@ -294,9 +288,12 @@ function mousePressed(){
             console.log("canvasY=",canvasH);
         }
     }
-}
+}*/
+
 function draw() {
     clear();
+    musicImg=createGraphics(canvasW, canvasH);
+
     translate(width/2-canvasW/2,0);
 
     if (windowHeight/windowWidth>=1.25){//scaling img before placing
@@ -337,4 +334,52 @@ function draw() {
 
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
+}
+
+function createMenu(){
+
+    // Create a button to close the menu
+    var closeBtn = createDiv("&#215;");
+    closeBtn.addClass("btn");
+    closeBtn.mouseClicked(
+        function(){
+            hideMenu();
+        })
+    closeBtn.parent("#menu");
+
+    // Go through the menu items and create one button per menu item
+
+    for(i=0; i<menuItems.length; i++){
+        console.log("menuItems["+i+"]",menuItems[i]);
+        // after this menuBtn is an object:
+        menuBtn = createDiv(menuItems[i].name);
+        menuBtn.addClass("btn");
+
+        // now I attach the name value to the object
+        menuBtn.value = menuItems[i].musicName;
+
+        // click event for this button
+        menuBtn.mouseClicked(
+            function(){
+
+                // call the function that will update the canvas
+                updateCanvasAndCloseMenu(this.value);
+            })
+        // attach the button to the menu
+        menuBtn.parent("#menu")
+    }
+
+}
+
+function updateCanvasAndCloseMenu(musicName){
+    hideMenu();
+    drawMusic(musicName);
+}
+
+function showMenu(){
+    select("#menu").show();
+}
+
+function hideMenu(){
+    select("#menu").hide();
 }
