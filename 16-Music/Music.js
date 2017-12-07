@@ -223,7 +223,6 @@ function drawMusic(){
         }
     }
 
-
     /*    for (t=1;t<=track;t++){//draw pauses
             mEnd = trackStartLine[t+1];
             if (t+1 > track) {
