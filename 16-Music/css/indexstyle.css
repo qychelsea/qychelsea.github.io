@@ -4,7 +4,7 @@
             font-weight: normal;            
             }
         #menu{
-            background-color: #060811;
+            background-color: #edd7c5;
             opacity: 0.9;
             /*this places the menu ABOVE the rest of the page*/
             z-index:1; 
@@ -21,7 +21,7 @@
             display:none;
         }
         .btn{
-            color:white;
+            color:102, 102, 153;
             text-decoration: none;
             cursor:hand;
         }
@@ -30,13 +30,13 @@
             cursor: pointer; 
         }
          #canvasContainer{
-            width: 1000px;
-            height: 1250px;
+            width: 800px;
+            height: 1000px;
         }
 
         #main{
-            width: 1000px;g
-            height: 1700px;
+            width: 100%;
+            height: 100%;
             position: relative;
             left: 50%;
             margin: 0;
@@ -47,7 +47,7 @@
         #menuBtn a{
             margin:auto;
             width:140px;
-            background-color: #AAA; 
+            background-color: darkslategrey;
             padding:10px;
             color:white;
             color:white;
@@ -55,7 +55,16 @@
             background-color: #AAA;
         }
         #menuBtn a:hover{
-            background-color: #999;
+            background-color: darkslategrey;
             color:white;
                text-decoration: none;
         }
+       a{
+           text-decoration: none;
+
+           color: darkslategrey;
+       }
+       a:hover {
+           background-color: darkslategrey;
+           color: white;
+       }
