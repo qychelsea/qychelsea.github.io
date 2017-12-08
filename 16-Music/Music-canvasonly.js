@@ -42,7 +42,6 @@ function setup() {
     innerRadius=canvasW/4;
     noteDurationFactor=32000/canvasW;
 
-    canvas.position(0,0);
     musicImg=createGraphics(canvasW, canvasH);
 
     sortData();
@@ -98,8 +97,6 @@ function sortData(){
     offFromCFactor=-0.1*highestNote+14;
     innerRadius=canvasW/4;
     outerRadius=canvasW/2-20;
-    //if (lowestNote<25){innerRadius=300;}
-
 
     //sort tempo
     for (var tp=0;tp<=endTime;tp++){
@@ -222,46 +219,7 @@ function drawMusic(){
         }
     }
 
-    /*    for (t=1;t<=track;t++){//draw pauses
-            mEnd = trackStartLine[t+1];
-            if (t+1 > track) {
-                mEnd = music.getRowCount();
-            }
-            for (p=0;p<=endTime;p++){
-                pauseCheck[p]=0;
-            }
-            for (j=trackStartLine[t];j<=mEnd;j++) {
-                if (channelEvent[j] == ' Note_on_c' && velocity[j] != 0) {
-                    for (i = 1; i<= mEnd - trackStartLine[i]; i++) {
-                        if (note[j] === note[j + i] && velocity[j + i] == 0&& trackStamp[i+j]==t) {//
-                            for (var p = timeStamp[j]; p <= timeStamp[j + i]; p++) {
-                                pauseCheck[p] = 1;//has sound =1;
-                            }
-                        }
-                    }
-                }
-            }
-            for(i=0;i<=endTime;i=i+500) {
-                if (pauseCheck[i] === 0) {//start of pause
-                    s = map(i, 0, endTime, 0, TWO_PI) - HALF_PI;
-                    var pauseStartX = canvasW / 2 + cos(s) * ((track-t+1) * 25+25);
-                    var pauseStartY = canvasW / 2 + sin(s) * ((track-t+1) * 25+25);
-                    for (var l = 1; l <= endTime - i; l = l + 500) {
-                        if (pauseCheck[i + l] == 1) {
-                            sEnd = map(i + l, 0, endTime, 0, TWO_PI) - HALF_PI;
-                            var pauseEndX = canvasW / 2 + cos(sEnd) * ((track-t+1) * 25);
-                            var pauseEndY = canvasW / 2 + sin(sEnd) * ((track-t+1) * 25);
-                            l = endTime;
-                        }
-                    }
-                }
-                push();
-                musicImg.strokeWeight(.5);
-                musicImg.stroke(51, 51, 77,35);
-                musicImg.line(pauseStartX, pauseStartY, pauseEndX, pauseEndY);
-                pop();
-            }
-        }*/
+
 }
 
 function drawLabel(){//display csv file name
@@ -315,7 +273,7 @@ function draw() {
     var tikStartY = canvasW / 2 + sin(timeTik) * (innerRadius);
 
     push();
-    stroke(255,0,0);
+    stroke(47,79,79);
     ellipse(tikStartX,tikStartY,8);
 
     stroke(190);
@@ -330,13 +288,8 @@ function draw() {
     } else {
         image(imgPlay, canvasW/2-imgPlay.width/2, titleYPos-imgPlay.height/2 ,25,25);
     }
-    //image(img[dailyWeather[i].icon], width/2, yPos-10, 50,37);
-
-
-    //rect( canvasW/2-imgPlay.width/2, titleYPos-imgPlay.height/2 ,25,25);
 
     translate(-width/2+canvasW/2,0);
-    //ellipse(mouseX, mouseY, 60, 60);
 }
 
 function windowResized() {
