@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+
+body{
+    padding:20px;
+    padding-left: 100px;
+}
+
+html {
+    background: #FFFFFF;
+    color: #111111;
+    font: 400 1.3em/1.5 "Rubik", sans-serif;
+}
+h1, h2, h3 {
+    font-weight: 500;
+    font: 500 1.3em/1.3 "Rubik", sans-serif;
+    font-size:1.3rem;
+}
+h1{
+    font-size:1.8rem;
+    line-height:1.8rem;
+    padding:0;
+}
+
+h2{
+    font-size:1.0rem;
+    line-height:1.0rem;
+    padding:0;
+}
+
+p{
+    margin:0rem;
+    padding-top:0rem;
+    font-size:16px;
+}
+.section{
+    padding-bottom:2.5rem;
+}
+#centered{
+    margin: auto;
+    padding: 0px;
+    text-align: center;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+
+}
+span{
+    font-style: italic;
+}
+
+a{
+    text-decoration: none;
+
+    color: black;
+}
+a:hover{
+    background-color:darkslategrey;
+    color: white;
+}

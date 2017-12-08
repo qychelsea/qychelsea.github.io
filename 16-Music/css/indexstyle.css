@@ -37,8 +37,7 @@
         #main{
             width: 1000px;g
             height: 1700px;
-            position: absolute;
-            top: 50%;
+            position: relative;
             left: 50%;
             margin: 0;
             text-align: center;
