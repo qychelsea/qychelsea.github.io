@@ -1,4 +1,4 @@
-var music,musicName;
+var music,musicName,myMusic;
 var track, beat, endTime;
 var trackStamp=[],note = [],channelEvent=[], timeStamp = [],velocity=[],tempo=[],musicDuration;
 var i,j,t=0; //t track counter
@@ -15,8 +15,8 @@ function preload(){
     //musicName="The_Four_Seasons_3";
     //musicName="BWV_1080_The_Art_of_Fugue_Contrapunctus_1";
     //musicName="BWV_988_Goldberg_Variations_Variation_17";
-    //musicName="Moonlight_Sonata_Movement_3";
-    musicName="Liebestraum_3";
+    musicName="Moonlight_Sonata_Movement_3";
+    //musicName="Liebestraum_3";
     //musicName="La_Campanella";
     //musicName="Secret";
     //musicName="Waltz_in_A_minor";
@@ -36,8 +36,8 @@ function preload(){
 
 function setup() {
     var canvas = createCanvas(window.innerWidth, window.innerHeight);
-    canvasW=800;
-    canvasH=1000;
+    canvasW=1000;
+    canvasH=1250;
 
     innerRadius=canvasW/4;
     noteDurationFactor=32000/canvasW;
@@ -51,6 +51,8 @@ function setup() {
 
     drawMusic();
     drawLabel();
+
+    saveGraphics();
 }
 
 function sortData(){
@@ -218,8 +220,6 @@ function drawMusic(){
             }
         }
     }
-
-
 }
 
 function drawLabel(){//display csv file name
@@ -232,6 +232,7 @@ function drawLabel(){//display csv file name
 }
 
 function saveGraphics(){
+    image(musicImg, 0, 0,canvasW, canvasH);
     saveCanvas(musicName+'.jpg');
 
 }
