@@ -3,30 +3,93 @@
     <script src="../01_Circle-angle/Library/p5.js"></script>
     <script src="../01_Circle-angle/Library/addons/p5.dom.js"></script>
     <script src="../01_Circle-angle/Library/addons/p5.sound.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <LINK REL=StyleSheet HREF="css/photoessaystyle.css" TYPE="text/css" MEDIA=screen>
+    <style>
+        html {
+            background: rgba(37, 33, 24, 0.97);
+            color: #d6d6d6;
+            font: 400 1em/1.5 "Rubik", sans-serif;
+            width: 70.0%;
+        }
+        a{
+            color: #d6d6d6;
+        }
+    </style>
+
 </head>
 <body>
-    <h1>PHOTO ESSAY</h1>
+    <h1>work in progress</h1>
     <br>
-    <div class="display">
-        <img src='images/detail/detail1.jpg'>
-        <img src='images/detail/detail1.jpg'>
+
+    <div class="essayitem">
+        <img src='images/essay/night1.png'><br>
     </div>
 
-    <p class="a">
-        One Way Street
-    </p>
-    <br>
-    <div class="gallery">
-        <a href='detail1.html'><img src='images/detail/detail1.jpg'></a>
-        <a href='detail2.html'><img src='images/detail/detail2.jpg'></a>
-        <a href='detail3.html'><img src='images/detail/detail3.jpg'></a>
-        <a href='detail4.html'><img src='images/detail/detail4.jpg'></a>
-        <a href='detail5.html'><img src='images/detail/detail5.jpg'></a>
+    <div class="essayitem">
+        <img src='images/essay/night2.png'><br>
     </div>
+
+    <div class="essayitem">
+        <img src='images/essay/night3.png'><br>
+    </div>
+
+    <div class="essayitem">
+        <img src='images/essay/night4.png'><br>
+    </div>
+
+    <div class="essayitem">
+        <img src='images/essay/night5.png'><br>
+    </div>
+
+    <div class="essayitem">
+        <img src='images/essay/night6.png'><br>
+    </div>
+
+    <div class="essayitem">
+        <img src='images/essay/night7.png'><br>
+    </div>
+    <!--smooth scroll to top-->
+    <a id="back2Top" title="Back to top" href="#">&#10148;</a>
+
+    <script language="javascript">
+        var item = $(".essayitem");
+        for(var i = 0; i < item.length; i++){
+            var target = Math.floor(Math.random() * item.length -1) + 1;
+            var target2 = Math.floor(Math.random() * item.length -1) +1;
+            item.eq(target).before(item.eq(target2));
+        }
+        <!--smooth scroll to top-->
+        $(window).scroll(function() {
+            var height = $(window).scrollTop();
+            if (height > 100) {
+                $('#back2Top').fadeIn();
+            } else {
+                $('#back2Top').fadeOut();
+            }
+        });
+        $(document).ready(function() {
+            $("#back2Top").click(function(event) {
+                event.preventDefault();
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+                return false;
+            });
+
+        });
+    </script>
+
+    <p class="a">
+
+    </p>
+
     <br>
+
     <p>
         <a href='index.html'>Home</a>
+    </p>
+
+    <p>
+        <a href='essay-day.html'>Time Travel</a>
     </p>
 
 

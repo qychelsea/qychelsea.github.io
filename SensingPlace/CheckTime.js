@@ -1,15 +1,20 @@
 var keyCode;
 var h = hour();
-var d = new Date();
-var n = d.getUTCDay();
-var weekday = new Array();
+
+
 
 function setup() {
-    //createCanvas(800,500);
+    //createCanvas(300,500);
     createCanvas(window.innerWidth, window.innerHeight);
 }
 function draw(){
     background(10);
+    fill(255);
+    textAlign(CENTER);
+    text("press up to exit station", width/2,height/2);
+    var weekday = new Array();
+    var d = new Date();
+    var n = d.getUTCDay();
     weekday[0] = "Sunday";
     weekday[1] = "Monday";
     weekday[2] = "Tuesday";
@@ -17,10 +22,10 @@ function draw(){
     weekday[4] = "Thursday";
     weekday[5] = "Friday";
     weekday[6] = "Saturday";
-    //text(weekday[n],10,10);
+    text("n="+n, width/2,height/2+20);
+    text(weekday[n], width/2,height/2+40);
     //text("hour="+h,10,30);
-    fill(255);
-    text("Please press up", width/2,height/2);
+
 }
 
 function keyPressed(){
