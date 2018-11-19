@@ -1,56 +1,49 @@
 <html>
 <head>
-    <script src="../01_Circle-angle/Library/p5.js"></script>
-    <script src="../01_Circle-angle/Library/addons/p5.dom.js"></script>
-    <script src="../01_Circle-angle/Library/addons/p5.sound.js"></script>
+    <script src="../SensingPlace/Library/p5.js"></script>
+    <script src="../SensingPlace/Library/addons/p5.dom.js"></script>
+    <script src="../SensingPlace/Library/addons/p5.sound.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="scripts/default.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="scripts/nivo-slider.css" type="text/css" media="screen" />
     <LINK REL=StyleSheet HREF="css/photoessaystyle.css" TYPE="text/css" MEDIA=screen>
-    <style>
-        html {
-            background: rgba(37, 33, 24, 0.97);
-            color: #d6d6d6;
-            font: 400 1em/1.5 "Rubik", sans-serif;
-            width: 70.0%;
-        }
-        a{
-            color: #d6d6d6;
-        }
-    </style>
+    <link rel="stylesheet" href="scripts/style.css" type="text/css" media="screen" />
 
 </head>
 <body>
-    <h1>work in progress</h1>
-    <br>
+<h1>Off-hours</h1>
+<br>
+<div class="slider-wrapper theme-default">
+    <div id="slider" class="nivoSlider">
+        <div class="essayitem">
+            <img src='images/essay/night1.png'><br>
+        </div>
 
-    <div class="essayitem">
-        <img src='images/essay/night1.png'><br>
-    </div>
+        <div class="essayitem">
+            <img src='images/essay/night2.png'><br>
+        </div>
 
-    <div class="essayitem">
-        <img src='images/essay/night2.png'><br>
-    </div>
+        <div class="essayitem">
+            <img src='images/essay/night3.png'><br>
+        </div>
 
-    <div class="essayitem">
-        <img src='images/essay/night3.png'><br>
-    </div>
+        <div class="essayitem">
+            <img src='images/essay/night4.png'><br>
+        </div>
 
-    <div class="essayitem">
-        <img src='images/essay/night4.png'><br>
-    </div>
+        <div class="essayitem">
+            <img src='images/essay/night5.png'><br>
+        </div>
 
-    <div class="essayitem">
-        <img src='images/essay/night5.png'><br>
-    </div>
+        <div class="essayitem">
+            <img src='images/essay/night6.png'><br>
+        </div>
 
-    <div class="essayitem">
-        <img src='images/essay/night6.png'><br>
-    </div>
+        <div class="essayitem">
+            <img src='images/essay/night7.png'><br>
+        </div>
 
-    <div class="essayitem">
-        <img src='images/essay/night7.png'><br>
     </div>
-    <!--smooth scroll to top-->
-    <a id="back2Top" title="Back to top" href="#">&#10148;</a>
 
     <script language="javascript">
         var item = $(".essayitem");
@@ -59,30 +52,41 @@
             var target2 = Math.floor(Math.random() * item.length -1) +1;
             item.eq(target).before(item.eq(target2));
         }
-        <!--smooth scroll to top-->
-        $(window).scroll(function() {
-            var height = $(window).scrollTop();
-            if (height > 100) {
-                $('#back2Top').fadeIn();
-            } else {
-                $('#back2Top').fadeOut();
-            }
-        });
-        $(document).ready(function() {
-            $("#back2Top").click(function(event) {
-                event.preventDefault();
-                $("html, body").animate({ scrollTop: 0 }, "slow");
-                return false;
-            });
-
-        });
     </script>
+</div>
 
-    <p class="a">
+<script type="text/javascript" src="scripts/jquery-1.8.2.js"></script>
+<script type="text/javascript" src="scripts/jquery.nivo.slider.js"></script>
+<script type="text/javascript">
+    $(window).load(function() {
+        $('#slider').nivoSlider({
+            effect: 'fade', // Specify sets like: 'fold,fade,sliceDown'
+            slices: 15, // For slice animations
+            boxCols: 8, // For box animations
+            boxRows: 4, // For box animations
+            animSpeed: 200, // Slide transition speed
+            pauseTime: 7500, // How long each slide will show
+            startSlide: 0, // Set starting Slide (0 index)
+            directionNav: true, // Next & Prev navigation
+            controlNav: false, // 1,2,3... navigation
+            controlNavThumbs: false, // Use thumbnails for Control Nav
+            pauseOnHover: true, // Stop animation while hovering
+            manualAdvance: true, // Force manual transitions
+            prevText: 'Prev', // Prev directionNav text
+            nextText: 'Next', // Next directionNav text
+            randomStart: false, // Start on a random slide
+            beforeChange: function(){}, // Triggers before a slide transition
+            afterChange: function(){}, // Triggers after a slide transition
+            slideshowEnd: function(){}, // Triggers after all slides have been shown
+            lastSlide: function(){}, // Triggers when last slide is shown
+            afterLoad: function(){} // Triggers when slider has loaded
+        });
+    });
 
-    </p>
-
-    <br>
+    $('.nivoSlider').live('click', function() {
+        $('.nivo-nextNav', this).trigger('click');
+    });
+</script>
 
     <p>
         <a href='index.html'>Home</a>
@@ -91,10 +95,6 @@
     <p>
         <a href='essay-day.html'>Time Travel</a>
     </p>
-
-
-
-
 
 </body>
 </html>

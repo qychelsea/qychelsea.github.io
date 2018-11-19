@@ -1,0 +1,74 @@
+html {
+	background: rgba(37, 33, 24, 0.97);
+	color: #d6d6d6;
+	font: 400 1em/1.5 "Rubik", sans-serif;
+	align: center;
+	width: 70%;
+}
+
+table {
+	border-collapse:separate;
+	border-spacing:0;
+}
+caption, th, td {
+	text-align:left;
+	font-weight:normal;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content:"";
+}
+blockquote, q {
+	quotes:"" "";
+}
+
+/*===================*/
+/*=== Main Styles ===*/
+/*===================*/
+body {
+	padding:20px;
+	margin:20px;
+	padding-left: 50px;
+}
+
+h1{
+	font-size:1.4rem;
+	line-height:1rem;
+	padding:0;
+}
+
+a{
+	text-decoration: none;
+	color: #d6d6d6;
+}
+a:hover {
+	background-color: orangered;
+	color: white
+}
+p.a{
+	font-style: italic;
+	line-height:1rem;
+	padding-bottom: 7px;
+}
+
+img{
+	image-orientation: from-image;
+	background-color: transparent;
+	border: none;
+}
+
+.slider-wrapper {
+	width: 80%;
+	margin: 30px auto;
+}
+
+.clear {
+	clear:both;
+}
+.essayitem img{
+	width:120%;
+}
+.essayitem {
+	float: left;
+
+}
