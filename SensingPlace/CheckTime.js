@@ -24,36 +24,6 @@ function draw(){
     textAlign(LEFT);
     textSize(55);
     textFont('Helvetica');
-    //text("Welcome to Kendall Square", width/2,height/2);
-    if (n===0||n===6){
-        text("Nocturnal actors", width/2,height/3);
-        text("Changing with time", width/2,height/3+65);
-        text("New Morning Awaits", width/2,height/3+130);
-        text("What's Next?", width/2,height/3+190);
-    }else if (h>=9&&h<18){
-        text("Beacon of its time", width/2,height/3);
-        text("I have plenty to offer", width/2,height/3+65);
-        text("Remember me", width/2,height/3+130);
-        text("More to come", width/2,height/3+190);
-    }
-    else {
-        text("Unrestful nights", width/2,height/3);
-        text("Empty shell", width/2,height/3+65);
-        text("Outbound", width/2,height/3+130);
-        text("Path unclear", width/2,height/3+190);
-    }
-
-
-    textSize(12);
-    text("scroll up to exit Kendall station", width/2,height/2+105);
-
-    push();
-    //filter(INVERT);
-    textAlign(CENTER);
-    tint(255,255,255,85);
-    imageMode(LEFT);
-    image(imgscrl,width/2+imgscrl.width/2,height/2+215);
-    pop();
 
     var weekday = new Array();
     d = new Date();
@@ -66,6 +36,40 @@ function draw(){
     weekday[4] = "Thursday";
     weekday[5] = "Friday";
     weekday[6] = "Saturday";
+
+    //text("Welcome to Kendall Square", width/2,height/2);
+    if (n===0||n===6){
+        text("Nocturnal actors", width/2,height/3);
+        text("Changing with time", width/2,height/3+65);
+        text("New Morning Awaits", width/2,height/3+130);
+        text("What's Next?", width/2,height/3+190);
+    }else if (h>=9&&h<18){
+        text("Beacon of its time", width/2,height/3);
+        text("I have plenty to offer", width/2,height/3+65);
+        text("Remember me", width/2,height/3+130);
+        text("More to come", width/2,height/3+190);
+        text(weekday[n], width/2,40);
+    }
+    else {
+        text("Unrestful nights", width/2,height/3);
+        text("Empty shell", width/2,height/3+65);
+        text("Outbound", width/2,height/3+130);
+        text("Path unclear", width/2,height/3+190);
+    }
+
+
+    textSize(12);
+    text(weekday[n], width/2,height/2+105);
+
+    push();
+    //filter(INVERT);
+    textAlign(CENTER);
+    tint(255,255,255,85);
+    imageMode(LEFT);
+    image(imgscrl,width/2+imgscrl.width/2,height/2+215);
+    pop();
+
+
     //text("n="+n, width/2,height/2+20);
     //text(weekday[n], width/2,height/2+40);
     //text("d="+d, width/2,height/2+60);

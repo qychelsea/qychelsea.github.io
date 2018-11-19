@@ -53,6 +53,7 @@ p.a{
 }
 img{
     image-orientation: from-image;
+    margin: auto;
 }
 
 .section{
@@ -86,6 +87,7 @@ a:hover {
 }
 .essayitem img{
     width:120%;
+    margin: auto;
 }
 .essayitem {
     float: left;
