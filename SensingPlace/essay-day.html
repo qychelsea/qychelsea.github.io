@@ -6,117 +6,18 @@
     <script src="../SensingPlace/Library/addons/p5.dom.js"></script>
     <script src="../SensingPlace/Library/addons/p5.sound.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="scripts/default.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="scripts/nivo-slider.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="scripts/style.css" type="text/css" media="screen" />
-    <LINK REL=StyleSheet HREF="css/photoessaystyle.css" TYPE="text/css" MEDIA=screen>
-
+    <LINK REL=StyleSheet HREF="css/photoessaystyle_REAL-JS.css" TYPE="text/css" MEDIA=screen>
 </head>
 <body>
+    <!--<script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/p5.js"></script>-->
+    <script src="essay-day.js"></script>
 
-<h1></h1>
-
-
-<br>
-<script type="text/javascript" src="scripts/jquery-1.8.2.js"></script>
-<script type="text/javascript" src="scripts/jquery.nivo.slider.js"></script>
-<script type="text/javascript">
-    $(window).load(function() {
-        $('#slider').nivoSlider({
-            effect: 'fade', // Specify sets like: 'fold,fade,sliceDown'
-            slices: 15, // For slice animations
-            boxCols: 8, // For box animations
-            boxRows: 4, // For box animations
-            animSpeed: 200, // Slide transition speed
-            pauseTime: 7500, // How long each slide will show
-            startSlide: 0, // Set starting Slide (0 index)
-            directionNav: true, // Next & Prev navigation
-            controlNav: false, // 1,2,3... navigation
-            controlNavThumbs: false, // Use thumbnails for Control Nav
-            pauseOnHover: true, // Stop animation while hovering
-            manualAdvance: true, // Force manual transitions
-            prevText: 'Prev', // Prev directionNav text
-            nextText: 'Next', // Next directionNav text
-            randomStart: false, // Start on a random slide
-            beforeChange: function(){}, // Triggers before a slide transition
-            afterChange: function(){}, // Triggers after a slide transition
-            slideshowEnd: function(){}, // Triggers after all slides have been shown
-            lastSlide: function(){}, // Triggers when last slide is shown
-            afterLoad: function(){} // Triggers when slider has loaded
-        });
-    });
-
-    $('.nivoSlider').live('click', function() {
-        $('.nivo-nextNav', this).trigger('click');
-    });
-</script>
-
-
-<div class="slider-wrapper theme-default">
-    <div id="slider" class="nivoSlider">
-        <div class="essayitem">
-            <img src='images/essay/day1.png'>
-        </div>
-
-        <div class="essayitem">
-            <img src='images/essay/day2.png'>
-        </div>
-
-        <div class="essayitem">
-            <img src='images/essay/day3.png'>
-        </div>
-
-        <div class="essayitem">
-            <img src='images/essay/day4.png'>
-        </div>
-
-        <div class="essayitem">
-            <img src='images/essay/day5.png'>
-        </div>
-
-        <div class="essayitem">
-            <img src='images/essay/day6.png'>
-        </div>
-
-        <div class="essayitem">
-            <img src='images/essay/day7.png'>
-        </div>
-
-        <div class="essayitem">
-            <img src='images/essay/day8.png'>
-        </div>
-
-        <div class="essayitem">
-            <img src='images/essay/day9.png'>
-        </div>
-
-        <div class="essayitem">
-            <img src='images/essay/day10.png'>
-        </div>
-
-        <div class="essayitem">
-            <img src='images/essay/day11.png'>
-        </div>
-
-    </div>
-<!--
-    <script language="javascript">
-        var item = $(".essayitem");
-        for(var i = 0; i < item.length; i++){
-            var target = Math.floor(Math.random() * item.length -1) + 1;
-            var target2 = Math.floor(Math.random() * item.length -1) +1;
-            item.eq(target).before(item.eq(target2));
-        }
-
-    </script>-->
-</div>
-
-    <p>
-        <a href='essay-night-cover.html'>Time</a>
+<!--    <p>
+        <a href='essay-night.html'>Time</a>
     </p>
     <p>
       <a href='index.html'>Home</a>
-    </p>
+    </p>-->
 
 </body>
 </html>

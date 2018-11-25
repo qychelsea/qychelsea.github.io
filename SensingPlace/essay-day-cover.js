@@ -5,7 +5,6 @@ var txtsize, gap;
 
 function preload(){
     img=loadImage('images/IMG_7007.jpg');
-    //img=loadImage('images/pythagoras.jpg');
     imgscrl=loadImage('images/scroll.png');
 }
 
@@ -53,21 +52,29 @@ function draw() {
     textSize(txtsize);
     gap=txtsize+7;
     //text("Welcome to Kendall Square", width/2,height/2);
-    if (s<30){
-        text("Clashing of eras", width/2,height/5+gap+50);
-        text("The heavy hand", width/2,height/5+2*gap+50);
-        text("Missing words", width/2,height/5+3*gap+50);
-        text("Weighing on", width/2,height/5+4*gap+50);
-    }else{
-        text("Beacon of its time", width/2,height/5+gap+50);
-        text("I have plenty to offer", width/2,height/5+2*gap+50);
-        text("Remember me", width/2,height/5+3*gap+50);
-        text("More to come", width/2,height/5+4*gap+50);
+    if (s<30) {
+        text("Building the most", width / 2, height / 5 + gap + 50);
+        text("innovative square mile", width / 2, height / 5 + 2 * gap + 50);
+        text("on Earth", width / 2, height / 5 + 3 * gap + 50);
+        push();
+        textSize(18);
+        text("-Bill Harris, Perkins+Will", width / 2, height / 5 + 4 * gap + 50);
+        pop();
+    }else {
+        text("A formidable challenge", width/2,height/5+gap+50);
+        text("for the whiz kids of Kendall,", width/2,height/5+2*gap+50);
+        text("who helped build the Internet", width/2,height/5+3*gap+50);
+        text("and sequence genomes:", width/2,height/5+4*gap+50);
+        text("how to get to work", width/2,height/5+5*gap+50);
+        push();
+        textSize(18);
+        text("-Robert Weisman on congestion at KSQ, Boston Globe", width / 2, height / 5 + 6 * gap + 50);
+        pop();
     }
 
 
     textSize(12);
-    text("scroll up to see Kendall", width/2,height/5+6*gap+45);
+    text("scroll to see Kendall", width/2,height/5+7*gap+45);
 
 
 
@@ -76,7 +83,7 @@ function draw() {
     textAlign(CENTER);
     tint(255,255,255,85);
     imageMode(LEFT);
-    image(imgscrl,width/2+imgscrl.width/2,height/2+215);
+    image(imgscrl,width/2+40,height/5+7*gap+105, 55,80);
     pop();
 
 
@@ -90,6 +97,9 @@ function mouseWheel(){
     window.open("essay-day.html","_self");
 }
 
+function mousePressed(){
+    window.open("essay-day.html","_self");
+}
 function keyPressed(){
     window.open("essay-day.html","_self");
 
