@@ -5,7 +5,7 @@ var txtsize,gap,gif;
 
 function preload(){
     img=loadImage('images/night-cover.jpg');
-    imgscrl=loadImage('images/scroll.png');
+    //imgscrl=loadImage('images/scroll.png');
 }
 
 function setup() {
@@ -77,7 +77,7 @@ function draw() {
 
 
     textSize(12);
-    text("scroll to see Kendall at night", width/2,height/5+7*gap+45);
+    text("click to see Kendall at night", width/2,height/5+7*gap+45);
 
 
 
@@ -86,7 +86,7 @@ function draw() {
     textAlign(CENTER);
     tint(255,255,255,85);
     imageMode(LEFT);
-    image(imgscrl,width/2+40,height/5+7*gap+105, 55,80);
+    //image(imgscrl,width/2+40,height/5+7*gap+105, 55,80);
     //image(gif,0,0);
     pop();
 
@@ -96,10 +96,10 @@ function draw() {
     //text("d="+d, width/2,height/2+60);
     //text("h="+h, width/2,height/2+80);
 }
-
+/*
 function mouseWheel(){
     window.open("essay-night.html","_self");
-}
+}*/
 
 function mousePressed(){
     window.open("essay-night.html","_self");

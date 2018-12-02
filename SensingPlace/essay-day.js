@@ -58,7 +58,7 @@ function draw(){
 
 
 //circle menu
-    var r=10;
+    var r=7;
     var circle=[];
     for (var i=1; i<=imgLength;i++){
         noStroke();
@@ -69,7 +69,7 @@ function draw(){
     }
 
 //hover scroll bar
-    if((mouseY>newHeight-25-r/2)&&(mouseY<newHeight+-25+r/2)){
+    if((mouseY>newHeight-25-7)&&(mouseY<newHeight-25+7)){
         var m;
         //text("in here", 50,120);
         if (mouseX>((newWidth-imgLength*25)/2-5)&&mouseX<(newWidth-(newWidth-imgLength*25)/2)){

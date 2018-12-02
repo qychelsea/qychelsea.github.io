@@ -5,7 +5,7 @@ var txtsize, gap;
 
 function preload(){
     img=loadImage('images/IMG_7007.jpg');
-    imgscrl=loadImage('images/scroll.png');
+    //imgscrl=loadImage('images/scroll.png');
 }
 
 function setup() {
@@ -74,7 +74,7 @@ function draw() {
 
 
     textSize(12);
-    text("scroll to see Kendall", width/2,height/5+7*gap+45);
+    text("click to see Kendall", width/2,height/5+7*gap+45);
 
 
 
@@ -83,7 +83,7 @@ function draw() {
     textAlign(CENTER);
     tint(255,255,255,85);
     imageMode(LEFT);
-    image(imgscrl,width/2+40,height/5+7*gap+105, 55,80);
+    //image(imgscrl,width/2+40,height/5+7*gap+105, 55,80);
     pop();
 
 
@@ -93,9 +93,9 @@ function draw() {
     //text("h="+h, width/2,height/2+80);
 }
 
-function mouseWheel(){
+/*function mouseWheel(){
     window.open("essay-day.html","_self");
-}
+}*/
 
 function mousePressed(){
     window.open("essay-day.html","_self");

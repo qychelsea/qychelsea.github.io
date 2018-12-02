@@ -56,18 +56,19 @@ function draw(){
 
 
 //circle menu
-    var r=10;
+    var r=7;
     var circle=[];
     for (var i=1; i<=imgLength;i++){
         noStroke();
-        fill(190);
+        fill(50);
         if (i===n){
-            fill(255,69,0);}
+           // fill(255,69,0);}
+            fill(198,62,15);}
         circle[i]=ellipse((newWidth-imgLength*25)/2+i*25,newHeight-25, r);
     }
 
 //hover scroll bar
-    if((mouseY>newHeight-25-r/2)&&(mouseY<newHeight+-25+r/2)){
+    if((mouseY>newHeight-25-7)&&(mouseY<newHeight-25+7)){
         var m;
         //text("in here", 50,120);
         if (mouseX>((newWidth-imgLength*25)/2-5)&&mouseX<(newWidth-(newWidth-imgLength*25)/2)){
@@ -78,7 +79,7 @@ function draw(){
             image(img[m], 0,0,newWidth,newHeight);
             for (i=1; i<=imgLength;i++){
                 //stroke(190);
-                fill(190);
+                fill(50);
                 //noFill();
                 if (i===m){
                     fill(120);}
